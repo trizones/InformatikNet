@@ -20,7 +20,7 @@ namespace InformatikNet.Controllers
         {
             var user = User.Identity.Name;
 
-            var apUser = db.Users.Single()
+            var apUser = db.Users.Single();
             return View();
         }
 
