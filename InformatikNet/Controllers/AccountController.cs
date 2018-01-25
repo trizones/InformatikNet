@@ -19,6 +19,7 @@ namespace InformatikNet.Controllers
         private ApplicationUserManager _userManager;
         private string hej1;
         public int ROM2 { get; set; }
+        public int bock { get; set; }
 
         public AccountController()
         {
