@@ -18,7 +18,7 @@ namespace InformatikNet.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private string hej;
-        public int ROM { get; set; }
+        public int ROM2 { get; set; }
 
         public AccountController()
         {
