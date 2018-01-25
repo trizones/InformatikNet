@@ -17,6 +17,7 @@ namespace InformatikNet.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private string hej;
 
         public AccountController()
         {
