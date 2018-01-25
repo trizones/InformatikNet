@@ -8,5 +8,6 @@ namespace InformatikNet.Models
     public class Test
     {
         public int ROMTEST2 { get; set; }
+        public int jocketest { get; set; }
     }
 }
