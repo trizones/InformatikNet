@@ -25,6 +25,12 @@ namespace InformatikNet.Models
         {
         }
 
+        public DbSet<Post> Post { get; set; }
+
+        public DbSet<Tag> Tag { get; set; }
+
+        public DbSet<Category> Category  { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
