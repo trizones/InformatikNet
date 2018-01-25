@@ -16,6 +16,13 @@ namespace InformatikNet.Controllers
             return View();
         }
 
+        public ActionResult Create(Post post)
+        {
+            var user = User.Identity.Name;
+
+            var apUser = db.Users.Single()
+            return View();
+        }
 
     }
 }
