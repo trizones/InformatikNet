@@ -7,6 +7,6 @@ namespace InformatikNet.Models
 {
     public class Test
     {
-        public int ROMTEST { get; set; }
+        public int ROMTEST2 { get; set; }
     }
 }
