@@ -9,5 +9,6 @@ namespace InformatikNet.Models
     {
         public int ROMTEST2 { get; set; }
         public int jocketest { get; set; }
+        // AAAAA
     }
 }
