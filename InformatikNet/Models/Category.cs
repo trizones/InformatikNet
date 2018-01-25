@@ -9,6 +9,6 @@ namespace InformatikNet.Models
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
-        //public ICollection<Tag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }
