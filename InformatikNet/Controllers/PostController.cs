@@ -15,13 +15,22 @@ namespace InformatikNet.Controllers
         {
             return View();
         }
-
-        public ActionResult Create(Post post)
+        [HttpPost]
+        public ActionResult Create(Post post, int catId)
         {
+            var category = db.Category.Single(x => x.Id == catId);
+
             var user = User.Identity.Name;
 
-            var apUser = db.Users.Single();
-            return View();
+            var apUser = db.Users.Single(x => x.UserName == user);
+
+            post.Author = apUser;
+            post.Categories = category;
+
+            db.Post.Add(post);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
     }
