@@ -1,4 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using InformatikNet.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(InformatikNet.Startup))]
@@ -10,5 +13,6 @@ namespace InformatikNet
         {
             ConfigureAuth(app);
         }
+       
     }
 }

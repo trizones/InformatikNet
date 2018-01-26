@@ -259,8 +259,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LoginPartialAdmin.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Post\Posts.cshtml" />
+=======
+    <Content Include="Views\User\Index.cshtml" />
+>>>>>>> f1964cf344c669fa4bff9ddfbe8d09617c95d107
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
