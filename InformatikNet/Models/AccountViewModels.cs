@@ -30,6 +30,10 @@ namespace InformatikNet.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Användarroll")]
+        public string UserRoles { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Epost")]
         public string Email { get; set; }
