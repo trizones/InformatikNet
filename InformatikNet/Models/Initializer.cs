@@ -8,7 +8,7 @@ using System.Web;
 
 namespace InformatikNet.Models
 {
-    public class Initializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class Initializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         public Initializer()
         {
