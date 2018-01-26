@@ -7,7 +7,7 @@
 <h2>@Html.DisplayFor(model => model.Category)</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nytt inlägg", "Create",routeValues: new {category = Model.Category  }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
 </p>
 
 <table class="table">
@@ -18,7 +18,7 @@
             <td>
                 @Html.DisplayFor(modelitem => item.Author.UserName)
                 @Html.DisplayFor(modelItem => item.Title)
-                @Html.DisplayFor(modelitem => item.Tags.Name)
+                @Html.DisplayFor(modelitem => item.Tag.Name)
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
         </tr>

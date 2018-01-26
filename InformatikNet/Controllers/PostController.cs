@@ -11,9 +11,14 @@ namespace InformatikNet.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index()
+        public ActionResult Create(string category)
         {
-            return View();
+            CreatePostModel createPostModel = new CreatePostModel();
+
+            var taglists = db.Tag.Where(x => x.Category.CategoryName == category).ToList();
+            var selectListItem = taglists.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString()});
+            createPostModel.Tag = selectListItem;
+            return View(createPostModel);
         }
 
         public ActionResult Posts(string SelectedCategory)
@@ -28,21 +33,25 @@ namespace InformatikNet.Controllers
         public string Title { get; set; }
 
         [HttpPost]
-        public ActionResult Create(Post post, int catId)
+        public ActionResult Create(CreatePostModel model)
         {
-            var category = db.Category.Single(x => x.Id == catId);
 
-            var user = User.Identity.Name;
+            Post post = new Post();
 
-            var apUser = db.Users.Single(x => x.UserName == user);
+            var author = db.Users.Single(u => u.UserName == User.Identity.Name);
+            post.Author = author;
+            post.Content = model.Content;
+            post.Title = model.Title;
+            
+            var tag = db.Tag.Single(t => t.Id == model.TagId);
+            post.Tag = tag;
 
-            post.Author = apUser;
-            post.Categories = category;
-
+            var aCategory = db.Category.Single(c => c.CategoryName == tag.Category.CategoryName);
+            post.Categories = aCategory;
             db.Post.Add(post);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Posts", new { SelectedCategory = post.Categories.CategoryName});
         }
     }
 }

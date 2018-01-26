@@ -18,6 +18,20 @@
                         <span class="icon-bar"></span>
                     </button>
                     @Html.ActionLink("Hem", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @if (Request.IsAuthenticated)
+                    {
+                    <ul class="nav navbar-nav navbar-inverse">
+                        <li>
+                            @Html.ActionLink("Forskning", "Posts", "Post", routeValues: new { SelectedCategory = "Forskning" }, htmlAttributes: null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { SelectedCategory = "Utbildning" }, htmlAttributes: null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { SelectedCategory = "Övrigt" }, htmlAttributes: null)
+                        </li>
+                    </ul>
+                    }
                 </div>
                 <div class="navbar-collapse collapse">
                 @if (User.IsInRole("Administratör"))
