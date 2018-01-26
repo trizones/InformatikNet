@@ -91,7 +91,7 @@ namespace InformatikNet.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Fel användarnamn eller lösenord, testa igen.");
                     return View(model);
             }
         }

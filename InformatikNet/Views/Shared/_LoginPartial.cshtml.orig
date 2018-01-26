@@ -22,6 +22,11 @@
 }
 else
 {
-    
+<<<<<<< HEAD
+    <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+=======
+    
+>>>>>>> ca7a3a6020c4b54757100f708622c30dd6eeb3c8
 }

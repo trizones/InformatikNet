@@ -48,6 +48,11 @@
             }
         </section>
     </div>
+<<<<<<< HEAD
+    <div class="col-md-4">
+    </div>
+=======
+>>>>>>> ca7a3a6020c4b54757100f708622c30dd6eeb3c8
 </div>
 
 @section Scripts {
