@@ -9,6 +9,7 @@ namespace InformatikNet.Models
     public class Post
     {
         public int Id { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
         public virtual ApplicationUser Author { get; set; }
         public virtual Category Categories { get; set; }

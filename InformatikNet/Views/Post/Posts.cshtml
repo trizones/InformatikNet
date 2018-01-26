@@ -1,0 +1,26 @@
+﻿@model InformatikNet.Models.PostViewModel
+
+@{
+    ViewBag.Title = "Posts";
+}
+
+<h2>@Html.DisplayFor(model => model.Category)</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+
+    @foreach (var item in Model.Posts)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelitem => item.Author.UserName)
+                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelitem => item.Tags.Name)
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+        </tr>
+    }
+
+</table>

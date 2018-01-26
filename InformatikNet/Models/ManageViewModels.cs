@@ -55,5 +55,11 @@ namespace InformatikNet.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    
+    public class PostViewModel
+    {
+        public ICollection<Post> Posts { get; set; }
+        public string Category { get; set; }
+    }
 
 }

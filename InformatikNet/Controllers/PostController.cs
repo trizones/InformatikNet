@@ -15,6 +15,18 @@ namespace InformatikNet.Controllers
         {
             return View();
         }
+
+        public ActionResult Posts(string SelectedCategory)
+        {
+            var posts = db.Post.Where(p => p.Categories.CategoryName == SelectedCategory).ToList();
+            var postModel = new PostViewModel();
+            postModel.Posts = posts;
+            postModel.Category = SelectedCategory;
+            return View(postModel);
+        }
+        
+        public string Title { get; set; }
+
         [HttpPost]
         public ActionResult Create(Post post, int catId)
         {
@@ -32,6 +44,5 @@ namespace InformatikNet.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }
