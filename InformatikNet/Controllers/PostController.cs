@@ -53,5 +53,9 @@ namespace InformatikNet.Controllers
 
             return RedirectToAction("Posts", new { SelectedCategory = post.Categories.CategoryName});
         }
+        public ActionResult Search(string searchvalue)
+        {
+            return View();
+        }
     }
 }
