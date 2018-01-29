@@ -60,6 +60,8 @@ namespace InformatikNet.Models
     {
         public ICollection<Post> Posts { get; set; }
         public string Category { get; set; }
+        [Display(Name ="Infoga bild")]
+        public byte[] Picture { get; set; }
     }
 
 }
