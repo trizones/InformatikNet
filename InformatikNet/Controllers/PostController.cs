@@ -10,6 +10,7 @@ namespace InformatikNet.Controllers
     public class PostController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        private static string tempCat = "";
 
         public ActionResult Create(string category)
         {
@@ -23,14 +24,29 @@ namespace InformatikNet.Controllers
 
             return View(createPostModel);
         }
-
-        public ActionResult Posts(string SelectedCategory)
+      
+        public ActionResult Posts(string input)
         {
-            var posts = db.Post.Where(p => p.Categories.CategoryName == SelectedCategory).ToList();
-            var postModel = new PostViewModel();
-            postModel.Posts = posts;
-            postModel.Category = SelectedCategory;
+            if (db.Category.Any(c => c.CategoryName == input))
+            {
+                tempCat = input;
+                var posts = db.Post.Where(p => p.Categories.CategoryName == tempCat).ToList();
+                var postModel = new PostViewModel();
+                postModel.Posts = posts;
+                postModel.Category = tempCat;
+            
             return View(postModel);
+            }
+
+            else
+            {
+                var posts = db.Post.Where(p => p.Categories.CategoryName == tempCat && p.Tag.Name.Contains(input)).ToList();
+                var postModel = new PostViewModel();
+                postModel.Posts = posts;
+                postModel.Category = tempCat;
+                return View(postModel);
+            }
+
         }
 
         public string Title { get; set; }
