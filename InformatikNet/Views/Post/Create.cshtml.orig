@@ -44,6 +44,7 @@
                 contentType: 'application/json',
                 datatype: 'json',
                 success: function () {
+                    alert(writtenContent);
                     location.reload();
                 },
             });
