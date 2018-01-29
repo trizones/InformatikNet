@@ -7,6 +7,16 @@
 }
 <head>
     <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('Content').value = localStorage.getItem("writtenContent");
+            document.getElementById('Title').value = localStorage.getItem("Title");
+        }, false);
+
+        function clearLocalStorage() {
+            window.localStorage.clear();
+        };
+
         function show() {
             document.getElementById('newTag').style.visibility = 'visible';
             document.getElementById('newTagButton').style.visibility = 'visible';
@@ -21,6 +31,11 @@
             var tagValue = document.getElementById('newTag').value;
             var category = '@cat';
             var newTag = { Name: tagValue, CategoryString: category };
+            var writtenContent = document.getElementById('Content').value;
+            var title = document.getElementById('Title').value;
+
+            localStorage.setItem("Title", title);
+            localStorage.setItem("writtenContent", writtenContent);
 
             $.ajax({
                 type: 'POST',
@@ -29,58 +44,61 @@
                 contentType: 'application/json',
                 datatype: 'json',
                 success: function () {
+                    alert(writtenContent);
                     location.reload();
                 },
             });
         }
+
     </script>
 </head>
+<body>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Content, 10, 40, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tag, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.TagId, Model.Tag, new { htmlAttributes = new { @class = "form-control", aria_describedby = "dropdownMenu1" } })
-                @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
-                <button id="addTagButton" onclick="show()" class= "btn btn-primary btn-xs">+</button>
-                <input id="newTag" type="text" style="visibility:hidden;"/>
-                <button class="btn btn-default" id="newTagButton" style="visibility:hidden;" onclick="showAddTag()">Lägg till</button>
-                
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Skapa" class="btn btn-default" />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new {id = "Title", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Content, 10, 40, new { htmlAttributes = new { id = "Content", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tag, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.TagId, Model.Tag, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
+                    <button type="button" id="addTagButton" onclick="show()" class="btn btn-primary btn-xs">+</button>
+                    <input id="newTag" type="text" style="visibility:hidden;" />
+                    <button type="button" class="btn btn-default" id="newTagButton" style="visibility:hidden;" onclick="showAddTag()">Lägg till</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input onclick="clearLocalStorage()" type="submit" value="Skapa" class="btn btn-default" />
+                </div>
             </div>
         </div>
+    }
+
+    <div>
+        @Html.ActionLink("Tillbaka", "Posts", "Post", routeValues: new { SelectedCategory = cat }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
     </div>
-}
-
-<div>
-   @Html.ActionLink("Tillbaka", "Posts", "Post", routeValues: new { SelectedCategory = cat }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
-</div>
-
+</body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
