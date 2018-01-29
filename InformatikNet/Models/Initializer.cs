@@ -10,11 +10,11 @@ namespace InformatikNet.Models
 {
     public class Initializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
-        public Initializer()
+       /* public Initializer()
         {
             ApplicationDbContext context = new ApplicationDbContext();
             Seed(context);
-        }
+        } */
         protected override void Seed(ApplicationDbContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -55,6 +55,45 @@ namespace InformatikNet.Models
                 roleManager.Create(role);
 
             }
+            var forskning = new Category { Id = 1, CategoryName = "Forskning", Tags = null };
+            context.Category.Add(forskning);
+
+            var utbildning = new Category { Id = 1, CategoryName = "Utbildning", Tags = null };
+            context.Category.Add(utbildning);
+
+            var övrigt = new Category { Id = 1, CategoryName = "Övrigt", Tags = null };
+            context.Category.Add(övrigt);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tag = new Tag();
+                tag.Id = i + 1;
+                tag.Name = "forskning" + i;
+                tag.Category = forskning;
+                context.Tag.Add(tag);
+                
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tag = new Tag();
+                tag.Id = i + 1;
+                tag.Name = "utbildning" + i;
+                tag.Category = utbildning;
+                context.Tag.Add(tag);
+
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tag = new Tag();
+                tag.Id = i + 1;
+                tag.Name = "övrigt" + i;
+                tag.Category = övrigt;
+                context.Tag.Add(tag);
+
+            }
+
             context.SaveChanges();
 
             base.Seed(context);

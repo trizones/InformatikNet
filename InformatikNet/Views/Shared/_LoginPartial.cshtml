@@ -12,9 +12,20 @@
             </button>
             @Html.ActionLink("Hem", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         </div>
+    <ul class="nav navbar-nav">
+        <li>
+            @Html.ActionLink("Forskning", "Posts", "Post", routeValues: new { Category = "Forskning" }, htmlAttributes: null)
+        </li>
+        <li>
+            @Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { Category = "Utildning" }, htmlAttributes: null)
+        </li>
+        <li>
+            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { Category = "Övrigt" }, htmlAttributes: null)
+        </li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hej " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a></li>
     </ul>
