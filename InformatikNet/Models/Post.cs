@@ -22,8 +22,10 @@ namespace InformatikNet.Models
     {
         public int TagId { get; set; }
         [Required]
+        [Display(Name ="Rubrik")]
         public string Title { get; set; }
         [Required]
+        [Display(Name = "Meddelande")]
         public string Content { get; set; }
         [Required]
         public virtual IEnumerable<SelectListItem> Tag { get; set; }

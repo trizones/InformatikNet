@@ -70,6 +70,7 @@ namespace InformatikNet.Models
                 tag.Id = i + 1;
                 tag.Name = "forskning" + i;
                 tag.Category = forskning;
+                tag.CategoryString = "forskning";
                 context.Tag.Add(tag);
                 
             }
@@ -80,6 +81,7 @@ namespace InformatikNet.Models
                 tag.Id = i + 1;
                 tag.Name = "utbildning" + i;
                 tag.Category = utbildning;
+                tag.CategoryString = "utbildning";
                 context.Tag.Add(tag);
 
             }
@@ -90,6 +92,7 @@ namespace InformatikNet.Models
                 tag.Id = i + 1;
                 tag.Name = "övrigt" + i;
                 tag.Category = övrigt;
+                tag.CategoryString = "övrigt";
                 context.Tag.Add(tag);
 
             }

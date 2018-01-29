@@ -16,8 +16,11 @@ namespace InformatikNet.Controllers
             CreatePostModel createPostModel = new CreatePostModel();
 
             var taglists = db.Tag.Where(x => x.Category.CategoryName == category).ToList();
-            var selectListItem = taglists.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString()});
+            var selectListItem = taglists.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() });
             createPostModel.Tag = selectListItem;
+
+            ViewBag.Category = category;
+
             return View(createPostModel);
         }
 
@@ -29,7 +32,7 @@ namespace InformatikNet.Controllers
             postModel.Category = SelectedCategory;
             return View(postModel);
         }
-        
+
         public string Title { get; set; }
 
         [HttpPost]
@@ -42,7 +45,7 @@ namespace InformatikNet.Controllers
             post.Author = author;
             post.Content = model.Content;
             post.Title = model.Title;
-            
+
             var tag = db.Tag.Single(t => t.Id == model.TagId);
             post.Tag = tag;
 
@@ -51,11 +54,23 @@ namespace InformatikNet.Controllers
             db.Post.Add(post);
             db.SaveChanges();
 
-            return RedirectToAction("Posts", new { SelectedCategory = post.Categories.CategoryName});
+            return RedirectToAction("Posts", new { SelectedCategory = post.Categories.CategoryName });
         }
         public ActionResult Search(string searchvalue)
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTag(string tagName, string category)
+        {
+            var categoryObj = db.Category.Single(c => c.CategoryName == category);
+
+            Tag tag = new Tag { Name = tagName, Category = categoryObj };
+
+            db.Tag.Add(tag);
+            db.SaveChanges();
+            return new EmptyResult();
         }
     }
 }
