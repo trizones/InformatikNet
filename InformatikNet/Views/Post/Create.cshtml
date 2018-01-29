@@ -81,9 +81,9 @@
                 <div class="col-md-10">
                     @Html.DropDownListFor(m => m.TagId, Model.Tag, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
-                    <button type="button" id="addTagButton" onclick="show()" class="btn btn-primary btn-xs">+</button>
+                <button id="addTagButton" type="button" onclick="show()" class= "btn btn-primary btn-xs">+</button>
                     <input id="newTag" type="text" style="visibility:hidden;" />
-                    <button type="button" class="btn btn-default" id="newTagButton" style="visibility:hidden;" onclick="showAddTag()">Lägg till</button>
+                <button class="btn btn-default" id="newTagButton" type="button" style="visibility:hidden;" onclick="showAddTag()">Lägg till</button>
                 </div>
             </div>
 
