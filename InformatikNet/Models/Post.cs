@@ -32,4 +32,12 @@ namespace InformatikNet.Models
         public virtual IEnumerable<SelectListItem> Tag { get; set; }
         public Category Category;
     }
+
+    public class PostViewModel
+    {
+        public ICollection<Post> Posts { get; set; }
+        public string Category { get; set; }
+        [Display(Name = "Infoga bild")]
+        public byte[] Picture { get; set; }
+    }
 }

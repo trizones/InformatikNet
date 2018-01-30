@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using static InformatikNet.Models.ConfirmedMeeting;
 
 namespace InformatikNet.Models
 {
@@ -30,6 +31,10 @@ namespace InformatikNet.Models
         public DbSet<Tag> Tag { get; set; }
 
         public DbSet<Category> Category  { get; set; }
+
+        public DbSet<ConfirmedMeeting> ConfirmedMeeting { get; set; }
+
+        public DbSet<PendingMeeting> PendingMeeting { get; set; }
 
         public static ApplicationDbContext Create()
         {
