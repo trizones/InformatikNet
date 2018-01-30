@@ -16,7 +16,7 @@
         @using (Html.BeginForm("Posts", "Post"))
         {
         <td>
-            @Html.TextBox("input", null, htmlAttributes: new { id = "tagsearch", style = "border-radius: 4px; height: 28px; margin-right: 8px;" })<input type="submit" value="Search" class="btn btn-primary btn-sm" />
+            @Html.TextBox("tag", null, htmlAttributes: new { id = "tagsearch", style = "border-radius: 4px; height: 28px; margin-right: 8px;" })<input type="submit" value="Search" class="btn btn-primary btn-sm" />
         </td>
 }
         <div class="navbar-right">

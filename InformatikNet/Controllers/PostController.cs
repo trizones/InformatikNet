@@ -25,11 +25,11 @@ namespace InformatikNet.Controllers
             return View(createPostModel);
         }
       
-        public ActionResult Posts(string input)
+        public ActionResult Posts(string tag, string category)
         {
-            if (db.Category.Any(c => c.CategoryName == input))
+            if (db.Category.Any(c => c.CategoryName == category))
             {
-                tempCat = input;
+                tempCat = category;
                 var posts = db.Post.Where(p => p.Categories.CategoryName == tempCat).ToList();
                 var postModel = new PostViewModel();
                 postModel.Posts = posts;
@@ -40,7 +40,7 @@ namespace InformatikNet.Controllers
 
             else
             {
-                var posts = db.Post.Where(p => p.Categories.CategoryName == tempCat && p.Tag.Name.Contains(input)).ToList();
+                var posts = db.Post.Where(p => p.Categories.CategoryName == tempCat && p.Tag.Name.Contains(tag)).ToList();
                 var postModel = new PostViewModel();
                 postModel.Posts = posts;
                 postModel.Category = tempCat;
@@ -70,7 +70,7 @@ namespace InformatikNet.Controllers
             db.Post.Add(post);
             db.SaveChanges();
 
-            return RedirectToAction("Posts", new { SelectedCategory = post.Categories.CategoryName });
+            return RedirectToAction("Posts", new { category = post.Categories.CategoryName });
         }
         public ActionResult Search(string searchvalue)
         {
