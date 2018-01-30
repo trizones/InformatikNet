@@ -17,9 +17,6 @@ namespace InformatikNet.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private string hej1;
-        public int ROM2 { get; set; }
-        public int bock { get; set; }
         ApplicationDbContext context;
 
         public AccountController()
