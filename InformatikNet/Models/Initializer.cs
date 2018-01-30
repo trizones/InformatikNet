@@ -33,6 +33,7 @@ namespace InformatikNet.Models
                 //Here we create a Admin super user who will maintain the website                  
 
                 var user = new ApplicationUser();
+                user.Name = "Admin Adminsson"
                 user.UserName = "admin@hotmail.com";
                 user.Email = "admin@hotmail.com";
 
