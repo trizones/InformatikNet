@@ -43,6 +43,52 @@ namespace InformatikNet.Models
 
                 }
             }
+            if  (!roleManager.RoleExists("Forskare"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Forskare";
+                roleManager.Create(role);
+
+                var user = new ApplicationUser();
+                user.Name = "Forskare Forsk";
+                user.UserName = "forskare@mail.com";
+                user.Email = "forskare@mail.com";
+
+                string userPWD = "password";
+
+                var forskUser = UserManager.Create(user, userPWD);
+
+                if(forskUser.Succeeded)
+                { var result1 = UserManager.AddToRole(user.Id, "Forskare");
+                }
+            }
+            if (!roleManager.RoleExists("Lärare"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Lärare";
+                roleManager.Create(role);
+
+                //Here we create a User                 
+
+                var user = new ApplicationUser();
+                user.Name = "Esmeralda Exempelsson";
+                user.UserName = "lärare@hotmail.com";
+                user.Email = "lärare@hotmail.com";
+
+                string userPWD = "lärare123!";
+
+                var userUser = UserManager.Create(user, userPWD);
+
+                //Add default User to Role Anställd   
+                if (userUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, "Anställd");
+
+                }
+
+            }
+
+
             // creating Creating Employee role    
             if (!roleManager.RoleExists("Anställd"))
             {
