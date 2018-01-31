@@ -8,13 +8,9 @@ using System.Web;
 
 namespace InformatikNet.Models
 {
-    public class Initializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class Initializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
-       /* public Initializer()
-        {
-            ApplicationDbContext context = new ApplicationDbContext();
-            Seed(context);
-        } */
+
         protected override void Seed(ApplicationDbContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
