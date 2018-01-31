@@ -4,25 +4,7 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Hem", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-    <ul class="nav navbar-nav">
-        <li>
-            @Html.ActionLink("Forskning", "Posts", "Post", routeValues: new { Category = "Forskning" }, htmlAttributes: null)
-        </li>
-        <li>
-            @Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { Category = "Utildning" }, htmlAttributes: null)
-        </li>
-        <li>
-            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { Category = "Övrigt" }, htmlAttributes: null)
-        </li>
-    </ul>
+        
     <ul class="nav navbar-nav navbar-right">
         <li>
             @Html.ActionLink("Hej " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
