@@ -209,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\Initializer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -274,6 +275,7 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Post\Posts.cshtml" />
+    <Content Include="Views\Home\Sent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
