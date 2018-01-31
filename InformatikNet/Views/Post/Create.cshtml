@@ -56,7 +56,8 @@
 <body>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Post", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+
 
     {
         @Html.AntiForgeryToken()

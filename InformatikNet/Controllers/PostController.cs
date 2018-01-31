@@ -53,7 +53,7 @@ namespace InformatikNet.Controllers
         public string Title { get; set; }
 
         [HttpPost]
-        public ActionResult Create(CreatePostModel model)
+        public ActionResult Create([Bind(Exclude = "Photo")]CreatePostModel model)
         {
 
             Post post = new Post();
@@ -68,18 +68,18 @@ namespace InformatikNet.Controllers
 
             var aCategory = db.Category.Single(c => c.CategoryName == tag.Category.CategoryName);
             post.Categories = aCategory;
-            //byte[] imageData = null;
-            //if (Request.Files.Count > 0)
-            //{
-            //    HttpPostedFileBase poImgFile = Request.Files["Photo"];
+            byte[] imageData = null;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase poImgFile = Request.Files["Photo"];
 
-            //    using (var binary = new BinaryReader(poImgFile.InputStream))
-            //    {
-            //        imageData = binary.ReadBytes(poImgFile.ContentLength);
-            //    }
+                using (var binary = new BinaryReader(poImgFile.InputStream))
+                {
+                    imageData = binary.ReadBytes(poImgFile.ContentLength);
+                }
 
-            //}
-            //post.Photo = imageData;
+            }
+            post.Photo = imageData;
             db.Post.Add(post);
 
             db.SaveChanges();
