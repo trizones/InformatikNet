@@ -3,72 +3,80 @@
 @{
     ViewBag.Title = "Posts";
 }
+<script>
+    function onload()
+    {
+        document.getElementById("tagsearch").value = "";
+    }
+</script>
+<body onload="onload()">
+    <h2>@Html.DisplayFor(model => model.Category)</h2>
 
-<h2>@Html.DisplayFor(model => model.Category)</h2>
-
-<div style="margin-bottom: 15%;">
-     <div class="navbar-brand nav-divider>
-         <form class="form-inline" action="/action_page.php">
-             <input class="form-control mr-sm-2 active" type="text" placeholder="Search">
-             <button class="btn btn-primary btn-large" type="submit">Search</button>
-         </form>
-     </div>
-    
-    <div class="navbar-right">
-        @Html.ActionLink("Nytt inlägg", "Create", routeValues: new { category = Model.Category }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
-    </div>
-</div>
-<div style="overflow: scroll; max-height: 500px; scrollbar-3dlight-color:ActiveBorder">
-    <table class="table">
-        @foreach (var item in Model.Posts)
+    <div style="margin-bottom: 15%;">
+        @using (Html.BeginForm("Posts", "Post"))
         {
-            <div class="container" style="text-align:center;">
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <div id="postlist>
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <div class="text-center">
-                                        <div class="row">
-                                            <div class="col-sm-9">
-                                                <h3 class="pull-left">@Html.DisplayFor(modelItem => item.Title)</h3>
+        <td>
+            @Html.TextBox("tag", null, htmlAttributes: new { id = "tagsearch", style = "border-radius: 4px; height: 28px; margin-right: 8px;" })<input type="submit" value="Search" class="btn btn-primary btn-sm" />
+        </td>
+}
+        <div class="navbar-right">
+            @Html.ActionLink("Nytt inlägg", "Create", routeValues: new { category = Model.Category }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+        </div>
+    </div>
+    <div style="overflow: scroll; max-height: 500px; scrollbar-3dlight-color:ActiveBorder">
+        <table class="table">
+            @for (int i = Model.Posts.Count - 1; i >= 0; i--)
+            {
+
+                    <div class="container" style="text-align:center;">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <div id="postlist>
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <div class="text-center">
+                                                <div class="row">
+                                                    <div class="col-sm-9">
+                                                        <h3 class="pull-left">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].Title)</h3>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <h4 class="pull-right">
+                                                            <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
+
+                                                        </h4>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <h4 class="pull-right">
-                                                    <span class="label label-default">@Html.DisplayFor(modelitem => item.Tag.Name)</span>
-                                                    
-                                                </h4>
+                                        </div>
+
+                                        <div class="panel-footer">
+                                            <img alt="Image" style="max-height:200px; max-width:200px;" src="http://i.imgur.com/tAHVmXi.jpg">
+                                            <br />
+                                            <br />
+                                            <div style="margin-left: 15%; margin-right: 15%;word-wrap: break-word;">
+                                                @Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].Content)
                                             </div>
+
+                                        </div>
+
+                                        <div class="panel-footer">
+                                            <span class="label label-default">Image</span> <span class="label label-default">Updates</span> <span class="label label-default">July</span>
+                                            <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="panel-footer">
-                                <img alt="Image" style="max-height:200px; max-width:200px;" src="http://i.imgur.com/tAHVmXi.jpg">
-                                    <br />
-                                    <br />
-                                    <div style="margin-left: 15%; margin-right: 15%;word-wrap: break-word;">
-                                        @Html.DisplayFor(modelItem => item.Content)
-                                    </div>
-                                    
-                                </div>
-
-                                <div class="panel-footer">
-                                    <span class="label label-default">Image</span> <span class="label label-default">Updates</span> <span class="label label-default">July</span>
-                                    <p class=""> Skriven av: @Html.DisplayFor(modelitem => item.Author.UserName)</p>
-                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-1">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-3">
-                    </div>
-                    <div class="col-md-1">
-                    </div>
-                </div>
-                <hr />
-        }
+                        <hr />
+                    
+                }
 
     </table>
 </div>
+    </body>

@@ -17,9 +17,6 @@ namespace InformatikNet.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private string hej1;
-        public int ROM2 { get; set; }
-        public int bock { get; set; }
         ApplicationDbContext context;
 
         public AccountController()
@@ -115,7 +112,7 @@ namespace InformatikNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

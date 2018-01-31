@@ -22,13 +22,13 @@
                     {
                     <ul class="nav navbar-nav navbar-inverse">
                         <li>
-                            @Html.ActionLink("Forskning", "Posts", "Post", routeValues: new { SelectedCategory = "Forskning" }, htmlAttributes: null)
+                            @Html.ActionLink("Forskning", "Posts", "Post", routeValues: new { category = "Forskning" }, htmlAttributes: null)
                         </li>
                         <li>
-                            @Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { SelectedCategory = "Utbildning" }, htmlAttributes: null)
+                            @Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { category = "Utbildning" }, htmlAttributes: null)
                         </li>
                         <li>
-                            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { SelectedCategory = "Övrigt" }, htmlAttributes: null)
+                            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { category = "Övrigt" }, htmlAttributes: null)
                         </li>
                     </ul>
                     }
