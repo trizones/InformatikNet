@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WebApiController.cs" />
@@ -209,6 +210,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\MeetingModel.cs" />
     <Compile Include="Models\Initializer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -274,6 +276,7 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Post\Posts.cshtml" />
+    <Content Include="Views\Meeting\CreateMeeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

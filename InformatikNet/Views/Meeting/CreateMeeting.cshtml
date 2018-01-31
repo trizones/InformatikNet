@@ -1,0 +1,27 @@
+﻿@model InformatikNet.Models.CreateMeetingModel
+@{
+    var list = Model.Recievers.ToString();
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Skapa nytt möte</h2>
+
+@*BEHÖVER SKAPA ACTION FÖR DENNA FUNCION*@
+
+    <form action="http://www.html.am/html-codes/forms/html-form-tag-action.cfm" target="result" method="get">
+        <p>What would you like for lunch?</p>
+        <select name="Users">
+            @foreach (var user in Model.Recievers)
+            {
+                <option value="@user.Email">@user.Email</option>
+            }
+            
+        </select>
+        <p><input type="submit" value="rom"></p>
+    </form>
+    <h3>Result:</h3>
+    <iframe name="result" style="height:100px;width:200px;"></iframe>
+    <input type="submit" value="Save" style="float: right; width: 70px; font-size: 12px" />
+
+
