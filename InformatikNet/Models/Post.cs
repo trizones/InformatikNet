@@ -16,6 +16,7 @@ namespace InformatikNet.Models
         public virtual ApplicationUser Author { get; set; }
         public virtual Category Categories { get; set; }
         public virtual Tag Tag { get; set; }
+        public byte[] Photo { get; set; }
     }
 
     public class CreatePostModel
@@ -31,5 +32,7 @@ namespace InformatikNet.Models
         [Required]
         public virtual IEnumerable<SelectListItem> Tag { get; set; }
         public Category Category;
+        [Display(Name = "Lägg upp bild")]
+        public byte[] Photo { get; set; }
     }
 }

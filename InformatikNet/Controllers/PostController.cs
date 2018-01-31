@@ -1,6 +1,7 @@
 ﻿using InformatikNet.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -51,7 +52,20 @@ namespace InformatikNet.Controllers
 
             var aCategory = db.Category.Single(c => c.CategoryName == tag.Category.CategoryName);
             post.Categories = aCategory;
+            //byte[] imageData = null;
+            //if (Request.Files.Count > 0)
+            //{
+            //    HttpPostedFileBase poImgFile = Request.Files["Photo"];
+
+            //    using (var binary = new BinaryReader(poImgFile.InputStream))
+            //    {
+            //        imageData = binary.ReadBytes(poImgFile.ContentLength);
+            //    }
+
+            //}
+            //post.Photo = imageData;
             db.Post.Add(post);
+
             db.SaveChanges();
 
             return RedirectToAction("Posts", new { SelectedCategory = post.Categories.CategoryName });
