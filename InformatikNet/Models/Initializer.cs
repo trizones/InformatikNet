@@ -24,7 +24,6 @@ namespace InformatikNet.Models
             // In Startup iam creating first Admin Role and creating a default Admin User    
             if (!roleManager.RoleExists("Administratör"))
             {
-
                 // first we create Admin role 
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Administratör";
@@ -54,6 +53,24 @@ namespace InformatikNet.Models
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Anställd";
                 roleManager.Create(role);
+
+                //Here we create a User                 
+
+                var user = new ApplicationUser();
+                user.Name = "User Usersson";
+                user.UserName = "user@hotmail.com";
+                user.Email = "user@hotmail.com";
+
+                string userPWD = "user123!";
+
+                var userUser = UserManager.Create(user, userPWD);
+
+                //Add default User to Role Anställd   
+                if (userUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, "Anställd");
+
+                }
 
             }
             var forskning = new Category { Id = 1, CategoryName = "Forskning", Tags = null };
