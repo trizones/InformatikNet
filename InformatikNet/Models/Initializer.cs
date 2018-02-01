@@ -21,16 +21,20 @@ namespace InformatikNet.Models
             if (!roleManager.RoleExists("Administratör"))
             {
                 // first we create Admin role 
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Administratör";
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+                {
+                    Name = "Administratör"
+                };
                 roleManager.Create(role);
 
                 //Here we create a Admin super user who will maintain the website                  
 
-                var user = new ApplicationUser();
-                user.Name = "Admin Adminsson";
-                user.UserName = "admin@hotmail.com";
-                user.Email = "admin@hotmail.com";
+                var user = new ApplicationUser
+                {
+                    Name = "Admin Adminsson",
+                    UserName = "admin@hotmail.com",
+                    Email = "admin@hotmail.com"
+                };
 
                 string userPWD = "admin123!";
 
@@ -62,6 +66,7 @@ namespace InformatikNet.Models
                 { var result1 = UserManager.AddToRole(user.Id, "Forskare");
                 }
             }
+
             if (!roleManager.RoleExists("Lärare"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
@@ -72,17 +77,17 @@ namespace InformatikNet.Models
 
                 var user = new ApplicationUser();
                 user.Name = "Esmeralda Exempelsson";
-                user.UserName = "lärare@hotmail.com";
-                user.Email = "lärare@hotmail.com";
+                user.UserName = "larare@hotmail.com";
+                user.Email = "larare@hotmail.com";
 
-                string userPWD = "lärare123!";
+                string userPWD = "larare123!";
 
                 var userUser = UserManager.Create(user, userPWD);
 
                 //Add default User to Role Anställd   
                 if (userUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Anställd");
+                    var result1 = UserManager.AddToRole(user.Id, "Lärare");
 
                 }
 
@@ -92,8 +97,10 @@ namespace InformatikNet.Models
             // creating Creating Employee role    
             if (!roleManager.RoleExists("Anställd"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Anställd";
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+                {
+                    Name = "Anställd"
+                };
                 roleManager.Create(role);
 
                 //Here we create a User                 
@@ -114,45 +121,85 @@ namespace InformatikNet.Models
 
                 }
 
+
+
             }
             var forskning = new Category { Id = 1, CategoryName = "Forskning", Tags = null };
             context.Category.Add(forskning);
 
-            var utbildning = new Category { Id = 1, CategoryName = "Utbildning", Tags = null };
+            var utbildning = new Category { Id = 2, CategoryName = "Utbildning", Tags = null };
             context.Category.Add(utbildning);
 
-            var övrigt = new Category { Id = 1, CategoryName = "Övrigt", Tags = null };
+            var övrigt = new Category { Id = 3, CategoryName = "Övrigt", Tags = null };
             context.Category.Add(övrigt);
+
+            var anslagForskning = new Category { Id = 4, CategoryName = "Anslag Forskning", Tags = null };
+            context.Category.Add(anslagForskning);
+
+            var anslagUtbildning = new Category { Id = 5, CategoryName = "Anslag Utbildning", Tags = null };
+            context.Category.Add(anslagUtbildning);
 
             for (int i = 0; i < 10; i++)
             {
-                var tag = new Tag();
-                tag.Id = i + 1;
-                tag.Name = "forskning" + i;
-                tag.Category = forskning;
-                tag.CategoryString = "forskning";
+                var tag = new Tag
+                {
+                    Id = i + 1,
+                    Name = "forskning" + i,
+                    Category = forskning,
+                    CategoryString = "forskning"
+                };
                 context.Tag.Add(tag);
                 
             }
 
             for (int i = 0; i < 10; i++)
             {
-                var tag = new Tag();
-                tag.Id = i + 1;
-                tag.Name = "utbildning" + i;
-                tag.Category = utbildning;
-                tag.CategoryString = "utbildning";
+                var tag = new Tag
+                {
+                    Id = i + 1,
+                    Name = "utbildning" + i,
+                    Category = utbildning,
+                    CategoryString = "utbildning"
+                };
                 context.Tag.Add(tag);
 
             }
 
             for (int i = 0; i < 10; i++)
             {
-                var tag = new Tag();
-                tag.Id = i + 1;
-                tag.Name = "övrigt" + i;
-                tag.Category = övrigt;
-                tag.CategoryString = "övrigt";
+                var tag = new Tag
+                {
+                    Id = i + 1,
+                    Name = "övrigt" + i,
+                    Category = övrigt,
+                    CategoryString = "övrigt"
+                };
+                context.Tag.Add(tag);
+
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tag = new Tag
+                {
+                    Id = i + 1,
+                    Name = "Anslag Forskning" + i,
+                    Category = anslagForskning,
+                    CategoryString = "Anslag Forskning"
+                };
+                context.Tag.Add(tag);
+
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tag = new Tag
+                {
+                    Id = i + 1,
+                    Name = "Anslag Utbildning" + i,
+                    Category = anslagUtbildning,
+                    CategoryString = "Anslag Utbildning"
+                };
                 context.Tag.Add(tag);
 
             }

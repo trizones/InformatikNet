@@ -4,6 +4,7 @@
     ViewBag.Title = "Posts";
 }
 <script>
+    
     function onload()
     {
         document.getElementById("tagsearch").value = "";
@@ -19,10 +20,38 @@
         <td>
             @Html.TextBox("tag", null, htmlAttributes: new { id = "tagsearch", style = "border-radius: 4px; height: 28px; margin-right: 8px;" })<input type="submit" value="Search" class="btn btn-primary btn-sm" />
         </td>
-}
-        <div class="navbar-right">
-            @Html.ActionLink("Nytt inlägg", "Create", routeValues: new { category = Model.Category }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
-        </div>
+        }
+
+        @{
+            if (Model.Category == "Anslag Forskning")
+            {
+                if (User.IsInRole("Forskare") || User.IsInRole("Administratör"))
+                {
+                    <div class="navbar-right">
+                        @Html.ActionLink("Nytt inlägg", "Create", routeValues: new { category = Model.Category }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+                    </div>
+                }
+            }
+            else if (Model.Category == "Anslag Utbildning")
+            {
+                if (User.IsInRole("Lärare") || User.IsInRole("Administratör"))
+                {
+                    <div class="navbar-right">
+                        @Html.ActionLink("Nytt inlägg", "Create", routeValues: new { category = Model.Category }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div class="navbar-right">
+                    @Html.ActionLink("Nytt inlägg", "Create", routeValues: new { category = Model.Category }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+                </div>
+            }
+
+        }
+       
+
     </div>
     <div style="overflow: scroll; max-height: 500px; scrollbar-3dlight-color:ActiveBorder">
         <table class="table">
