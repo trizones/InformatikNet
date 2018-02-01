@@ -58,10 +58,15 @@ namespace InformatikNet.Models
     
     public class PostViewModel
     {
+        public int Id { get; set; }
         public ICollection<Post> Posts { get; set; }
         public string Category { get; set; }
         [Display(Name ="Infoga bild")]
         public byte[] Picture { get; set; }
+        [Display(Name = "Infoga fil")]
+        public byte[] File { get; set; }
+        public string FileName { get; set; }
+
     }
 
 }

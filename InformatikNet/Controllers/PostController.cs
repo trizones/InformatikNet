@@ -35,6 +35,8 @@ namespace InformatikNet.Controllers
                 var postModel = new PostViewModel();
                 postModel.Posts = posts;
                 postModel.Category = tempCat;
+                
+
             
             return View(postModel);
             }
@@ -53,7 +55,7 @@ namespace InformatikNet.Controllers
         public string Title { get; set; }
 
         [HttpPost]
-        public ActionResult Create([Bind(Exclude = "Photo")]CreatePostModel model)
+        public ActionResult Create([Bind(Exclude = "Photo, FileContent")]CreatePostModel model)
         {
 
             Post post = new Post();
@@ -79,6 +81,22 @@ namespace InformatikNet.Controllers
                 }
 
             }
+            byte[] docData = null;
+            var fileName = "";
+            if (Request.Files.Count > 0)
+            {
+
+                HttpPostedFileBase docFile = Request.Files["FileContent"];
+
+                using (var binary = new BinaryReader(docFile.InputStream))
+                {
+                    docData = binary.ReadBytes(docFile.ContentLength);
+                    fileName = docFile.FileName;
+                }
+            }
+
+            post.FileName = fileName;
+            post.FileContent = docData;
             post.Photo = imageData;
             db.Post.Add(post);
 
@@ -101,6 +119,15 @@ namespace InformatikNet.Controllers
             db.Tag.Add(tag);
             db.SaveChanges();
             return new EmptyResult();
+        }
+
+        [HttpGet]
+        public FileResult Downloadfile (int id)
+        {
+            var postbyid = db.Post.Single(x => x.Id == id);
+            byte[] filecontent = postbyid.FileContent;
+
+            return File(filecontent, "application/pdf/docx/doc");
         }
     }
 }
