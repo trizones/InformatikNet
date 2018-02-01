@@ -1,27 +1,36 @@
 ﻿@model InformatikNet.Models.CreateMeetingModel
 @{
-    var list = Model.Recievers.ToString();
-    
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Skapa nytt möte</h2>
 
-@*BEHÖVER SKAPA ACTION FÖR DENNA FUNCION*@
-
-    <form action="http://www.html.am/html-codes/forms/html-form-tag-action.cfm" target="result" method="get">
-        <p>What would you like for lunch?</p>
-        <select name="Users">
-            @foreach (var user in Model.Recievers)
-            {
-                <option value="@user.Email">@user.Email</option>
-            }
-            
-        </select>
-        <p><input type="submit" value="rom"></p>
-    </form>
-    <h3>Result:</h3>
-    <iframe name="result" style="height:100px;width:200px;"></iframe>
-    <input type="submit" value="Save" style="float: right; width: 70px; font-size: 12px" />
+<div id="listboxOFhvn">
+    <div>
+        @Html.ListBoxFor(model => model.Users, new MultiSelectList(Model.Users, "Id", "Email"), new { size = "10" , width = "1000px" })
+    </div>
+    <div>
+        <input id="btnAdd" type="button" value=" > " onclick="addItem();" />
+        <input id="btnRemove" type="button" value=" < " onclick="removeItem();" />
+    </div>
+    <div>
+        @Html.ListBoxFor(model => model.Recievers, new MultiSelectList(Model.Recievers, "Id", "Email"), new { size = "10" })
+    </div>
+</div>
 
 
+
+
+
+<script type="text/javascript">
+    function addItem() {
+    $("#Users option:selected").appendTo("#Recievers");
+    $("#Recievers option").attr("selected", false);
+    }
+
+    function removeItem() {
+    $("#Recievers option:selected").appendTo("#Users");
+    $("#Users option").attr("selected", false);
+    }
+
+</script>

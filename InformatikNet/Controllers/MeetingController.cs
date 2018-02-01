@@ -16,7 +16,8 @@ namespace InformatikNet.Controllers
         {
             CreateMeetingModel model = new CreateMeetingModel();
             var users = db.Users.Where(u => u.Email != User.Identity.Name).ToList();
-            model.Recievers = users;
+            model.Users = users;
+            model.Recievers = db.Users.Where(u => u.Email == User.Identity.Name).ToList();
             return View(model);
         }
 
