@@ -66,6 +66,7 @@ namespace InformatikNet.Models
                 { var result1 = UserManager.AddToRole(user.Id, "Forskare");
                 }
             }
+
             if (!roleManager.RoleExists("Lärare"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
@@ -76,17 +77,17 @@ namespace InformatikNet.Models
 
                 var user = new ApplicationUser();
                 user.Name = "Esmeralda Exempelsson";
-                user.UserName = "lärare@hotmail.com";
-                user.Email = "lärare@hotmail.com";
+                user.UserName = "larare@hotmail.com";
+                user.Email = "larare@hotmail.com";
 
-                string userPWD = "lärare123!";
+                string userPWD = "larare123!";
 
                 var userUser = UserManager.Create(user, userPWD);
 
                 //Add default User to Role Anställd   
                 if (userUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Anställd");
+                    var result1 = UserManager.AddToRole(user.Id, "Lärare");
 
                 }
 
@@ -120,20 +121,22 @@ namespace InformatikNet.Models
 
                 }
 
+
+
             }
             var forskning = new Category { Id = 1, CategoryName = "Forskning", Tags = null };
             context.Category.Add(forskning);
 
-            var utbildning = new Category { Id = 1, CategoryName = "Utbildning", Tags = null };
+            var utbildning = new Category { Id = 2, CategoryName = "Utbildning", Tags = null };
             context.Category.Add(utbildning);
 
-            var övrigt = new Category { Id = 1, CategoryName = "Övrigt", Tags = null };
+            var övrigt = new Category { Id = 3, CategoryName = "Övrigt", Tags = null };
             context.Category.Add(övrigt);
 
-            var anslagForskning = new Category { Id = 1, CategoryName = "AnslagForskning", Tags = null };
+            var anslagForskning = new Category { Id = 4, CategoryName = "Anslag Forskning", Tags = null };
             context.Category.Add(anslagForskning);
 
-            var anslagUtbildning = new Category { Id = 1, CategoryName = "AnslagUtbildning", Tags = null };
+            var anslagUtbildning = new Category { Id = 5, CategoryName = "Anslag Utbildning", Tags = null };
             context.Category.Add(anslagUtbildning);
 
             for (int i = 0; i < 10; i++)
@@ -170,6 +173,32 @@ namespace InformatikNet.Models
                     Name = "övrigt" + i,
                     Category = övrigt,
                     CategoryString = "övrigt"
+                };
+                context.Tag.Add(tag);
+
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tag = new Tag
+                {
+                    Id = i + 1,
+                    Name = "Anslag Forskning" + i,
+                    Category = anslagForskning,
+                    CategoryString = "Anslag Forskning"
+                };
+                context.Tag.Add(tag);
+
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tag = new Tag
+                {
+                    Id = i + 1,
+                    Name = "Anslag Utbildning" + i,
+                    Category = anslagUtbildning,
+                    CategoryString = "Anslag Utbildning"
                 };
                 context.Tag.Add(tag);
 
