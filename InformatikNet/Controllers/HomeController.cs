@@ -17,7 +17,7 @@ namespace InformatikNet.Controllers
             return View();
         }
 
-        public FileContentResult Photos(int id)
+        public FileContentResult Photos(int? id)
         {
 
 
