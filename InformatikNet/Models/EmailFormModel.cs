@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace InformatikNet.Models
 {
@@ -10,5 +11,8 @@ namespace InformatikNet.Models
         public string FromEmail { get; set; }
         [Required]
         public string Message { get; set; }
+        [Required]
+        public string ToEmail { get; set; }
+        //public List<ApplicationUser> Recievers { get; set; }
     }
 }
