@@ -9,8 +9,8 @@ namespace InformatikNet.Models
     public class CreateMeetingModel
     {
         public virtual ICollection<ApplicationUser> Users { get; set; }
-        public virtual IEnumerable<SelectListItem> Recievers { get; set; }
-        public string[] ReciverIds { get; set; }
+        public virtual List<ApplicationUser> Recievers { get; set; }
+        public List<string> ReciverIds { get; set; }
         public string Title { get; set; }
         public DateTime SuggestedDate1 { get; set; }
         public DateTime SuggestedDate2 { get; set; }

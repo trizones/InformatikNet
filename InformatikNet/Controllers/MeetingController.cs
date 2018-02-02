@@ -18,8 +18,8 @@ namespace InformatikNet.Controllers
             var users = db.Users.Where(u => u.Email != User.Identity.Name).ToList();
             model.Users = users;
             var reciver = db.Users.Where(u => u.Email == User.Identity.Name).ToList();
-            var selectListItem = reciver.Select(user => new SelectListItem { Text = user.Email, Value = user.Id.ToString() });
-            model.Recievers = selectListItem;
+   
+            model.Recievers = reciver;
             return View(model);
         }
 
