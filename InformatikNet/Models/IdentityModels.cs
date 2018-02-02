@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using static InformatikNet.Models.ConfirmedMeeting;
+using System.Collections.Generic;
 
 namespace InformatikNet.Models
 {
@@ -17,6 +18,9 @@ namespace InformatikNet.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual ICollection<PendingMeeting> PendingMeeting { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -25,6 +29,8 @@ namespace InformatikNet.Models
                     : base("DefaultConnection", throwIfV1Schema: false)
         { 
         }
+
+       
 
         public DbSet<Post> Post { get; set; }
 
@@ -36,9 +42,12 @@ namespace InformatikNet.Models
 
         public DbSet<PendingMeeting> PendingMeeting { get; set; }
 
+       
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
     }
 }

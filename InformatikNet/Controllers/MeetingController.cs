@@ -18,8 +18,8 @@ namespace InformatikNet.Controllers
             var users = db.Users.Where(u => u.Email != User.Identity.Name).ToList();
             model.Users = users;
             var reciver = db.Users.Where(u => u.Email == User.Identity.Name).ToList();
-            var selectListItem = reciver.Select(user => new SelectListItem { Text = user.Email, Value = user.Id.ToString() });
-            model.Recievers = selectListItem;
+   
+            model.Recievers = reciver;
             return View(model);
         }
 
@@ -31,21 +31,24 @@ namespace InformatikNet.Controllers
             var user = db.Users.Single(u => u.Email == User.Identity.Name);
             pendingMeeting.Creator = user;
             pendingMeeting.Title = model.Title;
+            var list = new List<ApplicationUser>();
 
             foreach(var item in model.ReciverIds)
             {
                 var bock = db.Users.Where(u => u.Id == item).Single();
-                pendingMeeting.Recievers.Add(bock);
+                list.Add(bock);
+                
             }
+            pendingMeeting.Recievers = list;
+            pendingMeeting.SuggestedDate1 = DateTime.Today;
+            pendingMeeting.SuggestedDate2 = DateTime.Today;
+            pendingMeeting.SuggestedDate3 = DateTime.Today;
             
-            pendingMeeting.SuggestedDate1 = model.SuggestedDate1;
-            pendingMeeting.SuggestedDate2 = model.SuggestedDate2;
-            pendingMeeting.SuggestedDate3 = model.SuggestedDate3;
-
             db.PendingMeeting.Add(pendingMeeting);
             db.SaveChanges();
 
-            return View();
+
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public ActionResult YourPendingMeetings()
