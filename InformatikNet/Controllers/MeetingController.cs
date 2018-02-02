@@ -47,5 +47,40 @@ namespace InformatikNet.Controllers
 
             return View();
         }
+        [HttpGet]
+        public ActionResult YourPendingMeetings()
+        {
+            PendingMeetingViewModel model = new PendingMeetingViewModel();
+            var user = db.Users.Single(u => u.Id == User.Identity.Name);
+            var meetings = db.PendingMeeting.Where(x => x.Recievers == user).ToList();
+
+            return View(meetings);
+        }
+        [HttpPost]
+        public ActionResult VotePedningMeeting(PendingMeetingViewModel model)
+        {
+            var theMeeting = db.PendingMeeting.Single(x => x.Id == model.Id);
+            if (model.vote1 == true)
+            {
+                theMeeting.SuggestedDateVotes1++;
+                db.SaveChanges();
+            }
+            if (model.vote2 == true)
+            {
+                theMeeting.SuggestedDateVotes2++;
+                db.SaveChanges();
+            }
+            if (model.vote3 == true)
+            {
+                theMeeting.SuggestedDateVotes3++;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("YourPendingMeetings");
+        }
+
+
+
+
     }
 }
