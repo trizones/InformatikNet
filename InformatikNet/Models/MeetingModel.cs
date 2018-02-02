@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace InformatikNet.Models
 {
     public class CreateMeetingModel
     {
         public virtual ICollection<ApplicationUser> Users { get; set; }
-        public virtual ICollection<ApplicationUser> Recievers { get; set; }
+        public virtual IEnumerable<SelectListItem> Recievers { get; set; }
+        public string[] ReciverIds { get; set; }
         public string Title { get; set; }
         public DateTime SuggestedDate1 { get; set; }
         public DateTime SuggestedDate2 { get; set; }

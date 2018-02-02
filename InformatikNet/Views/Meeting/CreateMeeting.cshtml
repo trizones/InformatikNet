@@ -2,35 +2,91 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<head>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+</head>
 <h2>Skapa nytt möte</h2>
+@Html.BeginForm("CreateMeeting", "Meeting", FormMethod.Post, new { id = "myForm" })
+{
+<div class="listboxOFhvn">
+    <div>
+        @Html.ListBoxFor(model => model.Users, new MultiSelectList(Model.Users, "Id", "Email"), new { size = "10", width = "1000px", @class = "listboxMeeting" })
+    </div>
+    <div>
+        <input class="buttonUpDown btn-primary" id="btnAdd" type="button" value=" ↓ " onclick="addItem();" />
+        <input class="buttonUpDown btn-primary btn-group-sm" id="btnRemove" type="button" value=" ↑ " onclick="removeItem();" />
+    </div>
+    <div>
+        @Html.ListBoxFor(m => m.ReciverIds, Model.Recievers, new { size = "10", @class = "listboxMeeting", id = "myList" })
+    </div>
+</div>
 
-<div id="listboxOFhvn">
-    <div>
-        @Html.ListBoxFor(model => model.Users, new MultiSelectList(Model.Users, "Id", "Email"), new { size = "10" , width = "1000px" })
-    </div>
-    <div>
-        <input id="btnAdd" type="button" value=" > " onclick="addItem();" />
-        <input id="btnRemove" type="button" value=" < " onclick="removeItem();" />
-    </div>
-    <div>
-        @Html.ListBoxFor(model => model.Recievers, new MultiSelectList(Model.Recievers, "Id", "Email"), new { size = "10" })
+<div class="form-group">
+    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
     </div>
 </div>
 
 
+<div id="datetimepicker" class="input-append date">
+    <input type="text" id="tid"></input>
+    <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+    </span>
+
+</div>
+<input type="submit" value="bock" />
+}
+<script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+</script>
+<script type="text/javascript"
+        src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+</script>
+<script type="text/javascript"
+        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+</script>
+<script type="text/javascript"
+        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+</script>
+<script type="text/javascript">
+    $('#datetimepicker').datetimepicker({
+        format: 'dd/MM/yyyy hh:mm:ss',
+        language: 'se-SV'
+    });
+</script>
 
 
 
 <script type="text/javascript">
     function addItem() {
-    $("#Users option:selected").appendTo("#Recievers");
-    $("#Recievers option").attr("selected", false);
-    }
+        $("#Users option:selected").appendTo("#Recievers");
+        $("#Recievers option").attr("selected", false);
+    };
 
     function removeItem() {
-    $("#Recievers option:selected").appendTo("#Users");
-    $("#Users option").attr("selected", false);
-    }
+        $("#Recievers option:selected").appendTo("#Users");
+        $("#Users option").attr("selected", false);
+    };
+
+    function addTid() {
+        $("#tid").appendTo("#pID");
+
+    };
+
+    function date() {
+        $('#datetimepicker1').datetimepicker({
+            language: 'pt-BR'
+        });
+    };
+
+    $(document).ready(function () {
+        $("#myForm").submit(function (e) {
+            $("#myList option").prop("selected", "selected");
+        });
+    });
 
 </script>
