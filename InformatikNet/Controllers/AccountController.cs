@@ -116,10 +116,8 @@ namespace InformatikNet.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-    
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                    //Ends Here   
+
                     return RedirectToAction("Index", "Home");
                 }
                 ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
@@ -129,9 +127,7 @@ namespace InformatikNet.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
-        // GET: /Account/ConfirmEmail
+        
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
