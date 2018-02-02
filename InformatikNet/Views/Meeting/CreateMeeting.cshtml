@@ -4,10 +4,19 @@
 }
 
 <h2>Skapa nytt möte</h2>
-@using (Html.BeginForm("CreateMeeting", "Meeting", FormMethod.Post))
+<br />
+
+@using (Html.BeginForm("CreateMeeting", "Meeting", FormMethod.Post, htmlAttributes: new { onsubmit = "validateForm(event)" }))
 {
 
-}
+    <div class="form-group">
+       <h5>Namn på mötet:</h5>
+        <div>
+            @Html.TextBoxFor(m => m.Title, new {  })
+        </div>
+    </div>
+    <br />
+
 <div class="listboxOFhvn">
     <div>
         @Html.ListBoxFor(model => model.Users, new MultiSelectList(Model.Users, "Id", "Email"), new { size = "10", width = "1000px", @class = "listboxMeeting", id = "Users" })
@@ -21,32 +30,9 @@
     </div>
 </div>
 
-<div class="form-group">
-    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
-    <div class="col-md-10">
-        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-    </div>
-</div>
-<input id="subm" name="subm" type="button" value="bock"/>
+<br />
+<p>Bekräfta deltagarna:  <input type="checkbox" value="Bekräfta deltagare" id="CheckUsers" style="-webkit-transform: scale(1.5); margin-left: 1%;" /> </p> 
 
+<input id="subm" name="subm" type="submit" value="bock" style="display:none;"/>
+}
 
-<script>
-    function addItem() {
-        $("#Users option:selected").appendTo("#Recievers");
-        $("#Recievers option").attr("selected", false);
-    };
-
-    function removeItem() {
-        $("#Recievers option:selected").appendTo("#Users");
-        $("#Users option").attr("selected", false);
-    };
-
-</script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
-    
-    $('#btnAdd').click(function () {
-        $('#Recievers').prop('selected', true);
-    });
-
-  
-</script>
