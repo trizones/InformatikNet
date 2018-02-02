@@ -95,7 +95,7 @@
                                         </div>
 
                                         <div class="panel-footer">
-                                            <span class="label label-default">@Html.DisplayFor(modelItem => modelItem.FileName) @Html.ActionLink("Ladda ner", "Downloadfile", new { id = Model.Posts.ToArray()[i].Id })</span> 
+                                            <span class="label label-default">@Html.DisplayFor(modelItem => modelItem.FileName) @Html.ActionLink(Model.Posts.ToArray()[i].FileName, "Downloadfile", new { id = Model.Posts.ToArray()[i].Id })</span> 
                                             <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
                                         </div>
                                     </div>

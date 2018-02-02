@@ -92,6 +92,7 @@ namespace InformatikNet.Controllers
                 {
                     docData = binary.ReadBytes(docFile.ContentLength);
                     fileName = docFile.FileName;
+
                 }
             }
 
