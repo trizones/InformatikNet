@@ -38,5 +38,20 @@ namespace InformatikNet.Models
         public int SuggestedDateVotes2 { get; set; }
         public int SuggestedDateVotes3 { get; set; }
     }
+    public class PendingMeetingViewModel
+    {
+        public int Id { get; set; }
+        public ApplicationUser Creator { get; set; }
+        public DateTime SuggestedDate1 { get; set; }
+        public DateTime SuggestedDate2 { get; set; }
+        public DateTime SuggestedDate3 { get; set; }
+        public string Title { get; set; }
+        public Boolean vote1 { get; set; }
+        public Boolean vote2 { get; set; }
+        public Boolean vote3 { get; set; }
+
+
+    }
+
 
 }

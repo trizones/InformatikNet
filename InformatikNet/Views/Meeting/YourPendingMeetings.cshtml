@@ -1,0 +1,43 @@
+﻿@model InformatikNet.Models.PendingMeetingViewModel[]
+
+@{
+    ViewBag.Title = "YourPendingMeetings";
+}
+
+<h2>YourPendingMeetings</h2>
+        @for (int i = 0; i < Model.Length; i++)
+        {
+            using (Html.BeginForm("VotePedningMeeting", "Meeting", FormMethod.Post))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(x => x[i].Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => x[i].SuggestedDate1)
+                        @Html.CheckBoxFor(x => x[i].vote1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => x[i].SuggestedDate2)
+                        @Html.CheckBoxFor(x => x[i].vote2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => x[i].SuggestedDate3)
+                        @Html.CheckBoxFor(x => x[i].vote3)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x[i].Id)
+                    </td>
+                </tr>}
+            <input type="hidden" name="Index" value="@i" />
+            <input type="submit" />
+
+
+        }
+
+
+    }
+
+
+
+
