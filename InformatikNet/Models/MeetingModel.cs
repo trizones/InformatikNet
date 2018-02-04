@@ -19,7 +19,7 @@ namespace InformatikNet.Models
 
     public class ConfirmedMeeting
     {
-        public int Id { get; set; }
+        public int ConfirmedMeetingId { get; set; }
         public ApplicationUser Creator { get; set; }
         public string Title { get; set; }
         public ICollection<ApplicationUser> Recievers { get; set; }
@@ -27,7 +27,7 @@ namespace InformatikNet.Models
     }
     public class PendingMeeting
     {
-        public int Id { get; set; }
+        public int PendingMeetingId { get; set; }
         public ApplicationUser Creator { get; set; }
         public string Title { get; set; }
         public virtual ICollection<ApplicationUser> Recievers { get; set; }

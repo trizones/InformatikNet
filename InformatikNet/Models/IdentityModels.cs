@@ -42,7 +42,21 @@ namespace InformatikNet.Models
 
         public DbSet<PendingMeeting> PendingMeeting { get; set; }
 
-       
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(x => x.PendingMeeting)
+                .WithMany(x => x.Recievers)
+                .Map(m =>
+                {
+                    m.ToTable("UsersPendingMeeting");
+                    m.MapLeftKey("Id");
+                    m.MapRightKey("PendingMeetingId");
+                });
+
+            base.OnModelCreating(modelBuilder);
+        }
+
 
         public static ApplicationDbContext Create()
         {
