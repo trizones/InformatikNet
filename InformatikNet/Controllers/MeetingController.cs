@@ -62,7 +62,7 @@ namespace InformatikNet.Controllers
         [HttpPost]
         public ActionResult VotePedningMeeting(PendingMeetingViewModel model)
         {
-            var theMeeting = db.PendingMeeting.Single(x => x.Id == model.Id);
+            var theMeeting = db.PendingMeeting.Single(x => x.PendingMeetingId == model.Id);
             if (model.vote1 == true)
             {
                 theMeeting.SuggestedDateVotes1++;
