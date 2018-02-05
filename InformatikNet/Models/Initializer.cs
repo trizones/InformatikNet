@@ -65,6 +65,9 @@ namespace InformatikNet.Models
             var övrigt = new Category { Id = 1, CategoryName = "Övrigt", Tags = null };
             context.Category.Add(övrigt);
 
+            DateTime nu = DateTime.Today;
+            var nyttMöte = new ConfirmedMeeting { Title = "Fest", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1 };
+            context.ConfirmedMeeting.Add(nyttMöte);
             for (int i = 0; i < 10; i++)
             {
                 var tag = new Tag();

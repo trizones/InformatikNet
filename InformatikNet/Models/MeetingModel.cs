@@ -53,6 +53,14 @@ namespace InformatikNet.Models
 
 
     }
+    public class IndexMeetingModel
+    {
+        public int Id { get; set; }
+        public List<PendingMeeting> PendingsMeetings { get; set; }
+        public List<ConfirmedMeeting> ConfirmedMeetings { get; set; }
+        public string SelectedMeetingTitle { get; set; }
+
+    }
 
 
 }
