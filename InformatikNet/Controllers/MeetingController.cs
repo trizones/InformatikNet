@@ -69,6 +69,17 @@ namespace InformatikNet.Controllers
             var user = db.Users.Single(u => u.UserName == User.Identity.Name);
             var meetings = db.PendingMeeting.Where(x => x.Recievers.Any(u => u.Id == user.Id)).ToList();
 
+            foreach(var meet in meetings)
+            {
+                foreach(var id in meet.Responders)
+                {
+                    if (id == User.Identity.Name)
+                    {
+                        meetings.Remove(meet);
+                    }
+                }
+            }
+
              foreach(var meet in meetings)
             {
                 PendingMeetingViewModel meeting = new PendingMeetingViewModel();

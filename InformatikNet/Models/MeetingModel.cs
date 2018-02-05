@@ -37,6 +37,7 @@ namespace InformatikNet.Models
         public int SuggestedDateVotes1 { get; set; }
         public int SuggestedDateVotes2 { get; set; }
         public int SuggestedDateVotes3 { get; set; }
+        public List<string> Responders { get; set; }
     }
     public class PendingMeetingViewModel
     {
