@@ -23,18 +23,15 @@ namespace InformatikNet.Controllers
         }
         
         [ValidateAntiForgeryToken]
-        public void Contact(EmailFormModel model)
+        public static void Contact(EmailFormModel model)
         {
-            if(ModelState.IsValid)
-            {
-                var body = "<p>Hejsan här kommer ett mail</p>";
                 foreach (var reciever in model.Recievers)
                 {
                     var message = new MailMessage();
-                    message.To.Add(reciever);
+                    message.To.Add(reciever.Email);
                     message.From = new MailAddress(model.FromEmail);
                     message.Subject = model.Subject;
-                    message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
+                    message.Body = model.Message;
                     message.IsBodyHtml = true;
                 
                     using (var smtp = new SmtpClient())
@@ -42,7 +39,6 @@ namespace InformatikNet.Controllers
                         smtp.Send(message);
                     }
                 }
-            }
         }
     }
 }

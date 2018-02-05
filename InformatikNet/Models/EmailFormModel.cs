@@ -14,6 +14,6 @@ namespace InformatikNet.Models
         [Required]
         public string Subject { get; set; }
         [Required]
-        public List<string> Recievers { get; set; }
+        public ICollection<ApplicationUser> Recievers { get; set; }
     }
 }
