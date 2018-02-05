@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\MeetingModel.cs" />
+    <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\Initializer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -282,6 +283,7 @@
     <Content Include="Views\Meeting\CreateMeeting.cshtml" />
     <Content Include="Views\Meeting\YourPendingMeetings.cshtml" />
     <Content Include="Views\Meeting\Index.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,38 +1,39 @@
-﻿@model InformatikNet.Models.PendingMeetingViewModel[]
+﻿@model List<InformatikNet.Models.PendingMeetingViewModel>
 
 @{
     ViewBag.Title = "YourPendingMeetings";
 }
 
 <h2>YourPendingMeetings</h2>
-        @for (int i = 0; i < Model.Length; i++)
+        @foreach(var item in Model)
         {
             using (Html.BeginForm("VotePedningMeeting", "Meeting", FormMethod.Post))
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(x => x[i].Title)
+                        @Html.DisplayFor(x => item.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(x => x[i].SuggestedDate1)
-                        @Html.CheckBoxFor(x => x[i].vote1)
+                        @Html.DisplayFor(x => item.SuggestedDate1)
+                        @Html.CheckBoxFor(x => item.vote1)
                     </td>
                     <td>
-                        @Html.DisplayFor(x => x[i].SuggestedDate2)
-                        @Html.CheckBoxFor(x => x[i].vote2)
+                        @Html.DisplayFor(x => item.SuggestedDate2)
+                        @Html.CheckBoxFor(x => item.vote2)
                     </td>
                     <td>
-                        @Html.DisplayFor(x => x[i].SuggestedDate3)
-                        @Html.CheckBoxFor(x => x[i].vote3)
+                        @Html.DisplayFor(x => item.SuggestedDate3)
+                        @Html.CheckBoxFor(x => item.vote3)
                     </td>
                     <td>
-                        @Html.HiddenFor(x => x[i].Id)
+                        @Html.HiddenFor(x => item.Id)
                     </td>
-                </tr>}
-            <input type="hidden" name="Index" value="@i" />
-            <input type="submit" />
+                </tr>
+            <input type="hidden" name="Index" value="@item.Id" />
+            <input type="submit" value="BOCK" />
+           
 
-
+            }
         }
 
 
