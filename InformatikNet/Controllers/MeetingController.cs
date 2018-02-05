@@ -11,6 +11,14 @@ namespace InformatikNet.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+        //GET: Index
+        public ActionResult Index()
+        {
+
+            return ();
+        }
+
+
         // GET: Meeting
         public ActionResult CreateMeeting()
         {
