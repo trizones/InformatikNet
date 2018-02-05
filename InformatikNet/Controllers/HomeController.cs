@@ -21,29 +21,28 @@ namespace InformatikNet.Controllers
         {
             return View();
         }
-
-        [HttpPost]
+        
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Contact(EmailFormModel model)
+        public void Contact(EmailFormModel model)
         {
             if(ModelState.IsValid)
             {
-                var body = "<p>Hejsan här kommer ett mail</p><p>Message: </p>";
-                var message = new MailMessage();
-                message.To.Add(new MailAddress("martinsarling97@gmail.com"));
-                message.From = new MailAddress("informatiknet101@gmail.com");
-                message.Subject = ("TestMeddelande");
-                message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
-                message.IsBodyHtml = true;
-
-                using (var smtp = new SmtpClient())
+                var body = "<p>Hejsan här kommer ett mail</p>";
+                foreach (var reciever in model.Recievers)
                 {
-                    await smtp.SendMailAsync(message);
-                    return RedirectToAction("Sent");
+                    var message = new MailMessage();
+                    message.To.Add(reciever);
+                    message.From = new MailAddress(model.FromEmail);
+                    message.Subject = model.Subject;
+                    message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
+                    message.IsBodyHtml = true;
+                
+                    using (var smtp = new SmtpClient())
+                    {
+                        smtp.Send(message);
+                    }
                 }
             }
-            return View(model);
         }
-
     }
 }

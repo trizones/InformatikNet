@@ -12,7 +12,8 @@ namespace InformatikNet.Models
         [Required]
         public string Message { get; set; }
         [Required]
-        public string ToEmail { get; set; }
-        //public List<ApplicationUser> Recievers { get; set; }
+        public string Subject { get; set; }
+        [Required]
+        public List<string> Recievers { get; set; }
     }
 }
