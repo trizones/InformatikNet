@@ -30,7 +30,7 @@ namespace InformatikNet.Models
     public class RegisterViewModel
     {
         [Required]
-        [RegularExpression(@"^([a-öA-Ö]{1,20})+([\s\-]{1})+([a-öA-Ö]{1,30})+([\s\-]{0,1})+([a-öA-Ö]{0,30})$", ErrorMessage = "Vad god ange för och efternamn")]
+        [RegularExpression(@"^([a-öA-Ö]{1,20})+([\s\-]{1})+([a-öA-Ö]{1,30})+([\s\-]{0,1})+([a-öA-Ö]{0,30})$", ErrorMessage = "Vad god ange för- och efternamn")]
         [Display(Name = "För- och efternamn")]
         public string Name { get; set; }
         
