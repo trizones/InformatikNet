@@ -20,6 +20,7 @@ namespace InformatikNet.Models
         }
 
         public virtual ICollection<PendingMeeting> PendingMeeting { get; set; }
+        public virtual ICollection<ConfirmedMeeting> ConfirmedMeeting { get; set; }
 
     }
 
@@ -52,6 +53,16 @@ namespace InformatikNet.Models
                     m.ToTable("UsersPendingMeeting");
                     m.MapLeftKey("Id");
                     m.MapRightKey("PendingMeetingId");
+                });
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(x => x.ConfirmedMeeting)
+                .WithMany(x => x.Recievers)
+                .Map(m =>
+                {
+                    m.ToTable("UsersConfirmedMeeting");
+                    m.MapLeftKey("Id");
+                    m.MapRightKey("ConfirmedMeetingId");
                 });
 
             base.OnModelCreating(modelBuilder);
