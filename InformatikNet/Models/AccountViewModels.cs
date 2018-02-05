@@ -30,6 +30,10 @@ namespace InformatikNet.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "För- och efternamn")]
+        public string Name { get; set; }
+        
+        [Required]
         [Display(Name = "Användarroll")]
         public string UserRoles { get; set; }
 

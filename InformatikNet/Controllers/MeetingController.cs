@@ -48,6 +48,17 @@ namespace InformatikNet.Controllers
             db.PendingMeeting.Add(pendingMeeting);
             db.SaveChanges();
 
+            var mail = new EmailFormModel
+            {
+                FromEmail = user.Email,
+                FromName = user.Name,
+                Message = "Du har blivit kallad till ett nytt möte! :), logga in på intranätet för att bekräfta!",
+                Subject = model.Title,
+                Recievers = list
+            };
+
+            HomeController.Contact(mail);
+
 
             return RedirectToAction("Index", "Home");
         }
