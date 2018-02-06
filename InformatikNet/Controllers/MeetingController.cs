@@ -19,6 +19,7 @@ namespace InformatikNet.Controllers
             var confirmedMeetings = db.ConfirmedMeeting.ToList();
             var user = db.Users.Single(u => u.UserName == User.Identity.Name);
             var meetings = db.PendingMeeting.Where(x => x.Recievers.Any(u => u.Id == user.Id)).ToList();
+            var yourCreatedMeetings = db.PendingMeeting.Where(x => x.Creator.Id == user.Id).ToList();
 
             foreach (var meet in meetings)
             {
@@ -34,7 +35,7 @@ namespace InformatikNet.Controllers
                 }
                 
             }
-           
+            indexMeetingModel.CreatedPendingsMeetings = yourCreatedMeetings;
             indexMeetingModel.ConfirmedMeetings = confirmedMeetings;
             indexMeetingModel.PendingsMeetings = meetings;
 

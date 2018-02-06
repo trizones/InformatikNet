@@ -55,8 +55,10 @@ namespace InformatikNet.Models
     {
         public int Id { get; set; }
         public List<PendingMeeting> PendingsMeetings { get; set; }
+        public List<PendingMeeting> CreatedPendingsMeetings { get; set; }
         public List<ConfirmedMeeting> ConfirmedMeetings { get; set; }
         public string SelectedMeetingTitle { get; set; }
+        public int SelectedCreatedMeetingId { get; set; }
 
     }
 
