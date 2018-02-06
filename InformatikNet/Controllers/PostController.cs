@@ -128,9 +128,11 @@ namespace InformatikNet.Controllers
         public FileResult Downloadfile (int id)
         {
             var postbyid = db.Post.Single(x => x.Id == id);
+            var fileName = postbyid.FileName;
             byte[] filecontent = postbyid.FileContent;
 
-            return File(filecontent, "application/pdf/docx/doc");
+            return File(filecontent, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+
         }
     }
 }
