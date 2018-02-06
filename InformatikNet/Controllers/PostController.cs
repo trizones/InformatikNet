@@ -132,5 +132,13 @@ namespace InformatikNet.Controllers
             return File(filecontent, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
 
         }
+
+        public ActionResult HidePost (int id)
+        {
+            var postToHide = db.Post.Single(p => p.Id == id);
+            postToHide.isHidden = true;
+            db.SaveChanges();
+            return RedirectToAction("Posts", new { category = postToHide.Categories.CategoryName });
+        }
     }
 }
