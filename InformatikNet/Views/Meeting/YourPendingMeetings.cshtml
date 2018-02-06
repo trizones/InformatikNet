@@ -1,40 +1,45 @@
-﻿@model List<InformatikNet.Models.PendingMeetingViewModel>
+﻿@model InformatikNet.Models.PendingMeetingViewModel
 
 @{
     ViewBag.Title = "YourPendingMeetings";
 }
 
-<h2>YourPendingMeetings</h2>
-        @foreach(var item in Model)
-        {
-            using (Html.BeginForm("VotePedningMeeting", "Meeting", FormMethod.Post))
+<h2>Rösta på tider som passar</h2>
+ 
+            @using (Html.BeginForm("VotePedningMeeting", "Meeting", FormMethod.Post))
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(x => item.Title)
+                
+                        @Html.DisplayFor(x => Model.Title)
                     </td>
+                    <br />
+                    <br />
                     <td>
-                        @Html.DisplayFor(x => item.SuggestedDate1)
-                        @Html.CheckBoxFor(x => item.vote1)
+                        @Html.DisplayFor(x => Model.SuggestedDate1)
+                        @Html.CheckBoxFor(x => Model.vote1)
                     </td>
+                    <br />
                     <td>
-                        @Html.DisplayFor(x => item.SuggestedDate2)
-                        @Html.CheckBoxFor(x => item.vote2)
+                        @Html.DisplayFor(x => Model.SuggestedDate2)
+                        @Html.CheckBoxFor(x => Model.vote2)
                     </td>
+                    <br />
                     <td>
-                        @Html.DisplayFor(x => item.SuggestedDate3)
-                        @Html.CheckBoxFor(x => item.vote3)
+                        @Html.DisplayFor(x => Model.SuggestedDate3)
+                        @Html.CheckBoxFor(x => Model.vote3)
                     </td>
+                    <br />
+                    <br />
                     <td>
-                        @Html.HiddenFor(x => item.Id)
+                        @Html.HiddenFor(x => Model.Id)
                     </td>
                 </tr>
-            <input type="hidden" name="Index" value="@item.Id" />
-            <input type="submit" value="BOCK" />
-           
+            <input type="hidden" name="Index" value="@Model.Id" />
+            <input type="submit" value="Skicka" />
 
-            }
-        }
+            
+        
 
 
     }
