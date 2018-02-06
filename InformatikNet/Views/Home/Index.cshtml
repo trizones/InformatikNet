@@ -1,9 +1,10 @@
-﻿@{
+﻿@model InformatikNet.Models.PostViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 @if (Request.IsAuthenticated)
 {
-    <div id="calender" style="width:50%; margin-top: 5%; margin-bottom: 5%;"></div>
+    <div id="calender" style="width:100%; margin-top: 5%; margin-bottom: 5%; "></div>
 
     <div id="myModal" class="modal fade" role="dialog">
 
@@ -25,8 +26,79 @@
         </div>
     </div>
     <div>
-        <button id="prevMonth" class="btn btn-primary btn-large" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-large" style="margin-top:-7%; margin-left:24%;"> Nästa månad →</button>
+        <button id="prevMonth" class="btn btn-primary btn-large" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-large" style="margin-top:-11%; margin-left:89%;"> Nästa månad →</button>
     </div>
+    <hr />
+    <h3 style="text-align: center; margin-top: 10%;">Senaste inläggen</h3>
+    <div style=" overflow: scroll; max-height: 500px; scrollbar-3dlight-color:ActiveBorder">
+        <table class="table">
+            @for (int i = 0; i < Model.Posts.Count(); i++)
+            {
+
+                <div class="container" style="text-align:center;">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <div id="postlist>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <div class="text-center">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <h3 class="pull-left">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].Title)</h3>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <h4 class="pull-right">
+                                                        <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
+
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer">
+
+                                        <img src="@Url.Action("Photos", "Home", routeValues: new {id= Model.Posts.ToArray()[i].Id } )" style="width:300px;height:300px;  background: rgba(255, 255, 255, 0.00);
+                                            margin: auto;
+                                            -moz-border-radius: 60px;
+                                            border-radius: 30px;
+                                            padding: 6px;" />
+
+
+                                        <br />
+                                        <br />
+                                        <div style="margin-left: 15%; margin-right: 15%;word-wrap: break-word;">
+                                            @Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].Content)
+                                        </div>
+
+                                    </div>
+
+                                    <div class="panel-footer">
+                                        @if (Model.FileName != null)
+                                        {
+                                            <span class="label label-default">@Html.DisplayFor(modelItem => modelItem.FileName) @Html.ActionLink(Model.Posts.ToArray()[i].FileName, "Downloadfile", new { id = Model.Posts.ToArray()[i].Id })</span>
+
+                                        }
+                                        <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
+                                        <h4 class="pull-right" style="margin-top:2%;">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].PublishDate)</h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                        <hr />
+
+            }
+
+    </table>
+</div>
 
 }
 else
@@ -48,6 +120,15 @@ else
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 
 <script>
+
+    $('#prevMonth').click(function () {
+        $('#calender').fullCalendar('prev');
+    });
+
+    $('#nextMonth').click(function () {
+        $('#calender').fullCalendar('next');
+    });
+
         $(document).ready(function () {
             var events = [];
             $.ajax({
