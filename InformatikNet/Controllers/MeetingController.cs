@@ -118,6 +118,60 @@ namespace InformatikNet.Controllers
             return RedirectToAction("YourPendingMeetings");
         }
 
+        public ActionResult ConfirmedMeeting(int PId)
+        {
+            var model = new ConfirmedMeetingViewModel();
+            var thisMeeting = db.PendingMeeting.Where(m => m.PendingMeetingId == PId).Single();
+            model.Creator = thisMeeting.Creator;
+            model.PendingMeetingId = thisMeeting.PendingMeetingId;
+            model.Recievers = thisMeeting.Recievers;
+            model.SuggestedDate1 = thisMeeting.SuggestedDate1;
+            model.SuggestedDate2 = thisMeeting.SuggestedDate2;
+            model.SuggestedDate3 = thisMeeting.SuggestedDate3;
+            model.SuggestedDateVotes1 = thisMeeting.SuggestedDateVotes1;
+            model.SuggestedDateVotes2 = thisMeeting.SuggestedDateVotes2;
+            model.SuggestedDateVotes3 = thisMeeting.SuggestedDateVotes3;
+            model.Title = thisMeeting.Title;
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public ActionResult SelectMeetingDate(ConfirmedMeetingViewModel model)
+        {
+            var thePendingMeeting = db.PendingMeeting.Single(x => x.PendingMeetingId == model.PendingMeetingId);
+            var confirmedMeeting = new ConfirmedMeeting();
+            confirmedMeeting.Creator = db.Users.Single(x => x.UserName == User.Identity.Name);
+            confirmedMeeting.Recievers = thePendingMeeting.Recievers;
+            confirmedMeeting.Title = thePendingMeeting.Title;
+
+            var list = new List<string>();
+            foreach(var item in confirmedMeeting.Recievers)
+            {
+                list.Add(item.Name);
+            }
+
+
+            if (model.Select1 == true)
+            {
+                confirmedMeeting.ConfirmedDate = thePendingMeeting.SuggestedDate1;
+            }
+            if (model.Select2 == true)
+            {
+                confirmedMeeting.ConfirmedDate = thePendingMeeting.SuggestedDate2;
+            }
+            if (model.Select3 == true)
+            {
+                confirmedMeeting.ConfirmedDate = thePendingMeeting.SuggestedDate3;
+            }
+            
+
+            db.PendingMeeting.Remove(thePendingMeeting);
+            db.ConfirmedMeeting.Add(confirmedMeeting);
+            db.SaveChanges();
+
+            return RedirectToAction("Index","Home");
+        }
 
 
 

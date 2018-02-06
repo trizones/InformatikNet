@@ -1,0 +1,35 @@
+﻿@model InformatikNet.Models.ConfirmedMeetingViewModel
+
+<h2>Bekräfta mötestid</h2>
+
+@using (Html.BeginForm("SelectMeetingDate", "Meeting", FormMethod.Post))
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(x => Model.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(x => Model.SuggestedDate1)
+            @Html.DisplayFor(x => Model.SuggestedDateVotes1)
+            @Html.CheckBoxFor(x => Model.Select1)
+        </td>
+        <td>
+            @Html.DisplayFor(x => Model.SuggestedDate2)
+            @Html.DisplayFor(x => Model.SuggestedDateVotes2)
+            @Html.CheckBoxFor(x => Model.Select2)
+            
+        </td>
+        <td>
+            @Html.DisplayFor(x => Model.SuggestedDate3)
+            @Html.DisplayFor(x => Model.SuggestedDateVotes3)
+            @Html.CheckBoxFor(x => Model.Select3)
+        </td>
+        <td>
+            @Html.HiddenFor(x => Model.PendingMeetingId)
+        </td>
+    </tr>
+    <input type="hidden" name="Index" value="@Model.PendingMeetingId" />
+    <input type="submit" value="BOCK" />
+
+
+}
