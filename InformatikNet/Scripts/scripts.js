@@ -9,4 +9,3 @@ function removeItem() {
     $("#Recievers option").prop("selected", "selected");
 };
 
-

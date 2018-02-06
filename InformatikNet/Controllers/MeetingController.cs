@@ -12,6 +12,44 @@ namespace InformatikNet.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+        //GET: Index
+        public ActionResult Index()
+        {
+            IndexMeetingModel indexMeetingModel = new IndexMeetingModel();
+            var confirmedMeetings = db.ConfirmedMeeting.ToList();
+            var user = db.Users.Single(u => u.UserName == User.Identity.Name);
+            var meetings = db.PendingMeeting.Where(x => x.Recievers.Any(u => u.Id == user.Id)).ToList();
+
+            foreach (var meet in meetings)
+            {
+                if(meet.Responders != null)
+                {
+                    foreach (var id in meet.Responders)
+                    {
+                        if (id == User.Identity.Name)
+                        {
+                            meetings.Remove(meet);
+                        }
+                    }
+                }
+                
+            }
+           
+            indexMeetingModel.ConfirmedMeetings = confirmedMeetings;
+            indexMeetingModel.PendingsMeetings = meetings;
+
+            
+            return View(indexMeetingModel);
+        }
+
+        public JsonResult GetEvents()
+        {
+            
+            var confirmedMeetings = db.ConfirmedMeeting.ToList();
+            return new JsonResult { Data = confirmedMeetings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            
+        }
+
         // GET: Meeting
         public ActionResult CreateMeeting()
         {
@@ -63,59 +101,58 @@ namespace InformatikNet.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        public ActionResult YourPendingMeetings()
+        public ActionResult YourPendingMeetings(string title)
         {
             var model = new List<PendingMeetingViewModel>();
             var user = db.Users.Single(u => u.UserName == User.Identity.Name);
-            var meetings = db.PendingMeeting.Where(x => x.Recievers.Any(u => u.Id == user.Id)).ToList();
+            var meeting = db.PendingMeeting.Where(x => x.Title == title).Single();
 
-            foreach(var meet in meetings)
-            {
-                foreach(var id in meet.Responders)
-                {
-                    if (id == User.Identity.Name)
-                    {
-                        meetings.Remove(meet);
-                    }
-                }
-            }
 
-             foreach(var meet in meetings)
-            {
-                PendingMeetingViewModel meeting = new PendingMeetingViewModel();
-                meeting.Title = meet.Title;
-                meeting.SuggestedDate1 = meet.SuggestedDate1;
-                meeting.SuggestedDate2 = meet.SuggestedDate2;
-                meeting.SuggestedDate3 = meet.SuggestedDate3;
-                meeting.Id = meet.PendingMeetingId;
-                meeting.Creator = meet.Creator;
+            PendingMeetingViewModel pending = new PendingMeetingViewModel();
+            pending.Title = meeting.Title;
+            pending.SuggestedDate1 = meeting.SuggestedDate1;
+            pending.SuggestedDate2 = meeting.SuggestedDate2;
+            pending.SuggestedDate3 = meeting.SuggestedDate3;
+            pending.Id = meeting.PendingMeetingId;
+            pending.Creator = meeting.Creator;
 
-                model.Add(meeting);
-            }
-            
-            return View(model);
+           
+            return View(pending);
         }
         [HttpPost]
         public ActionResult VotePedningMeeting(PendingMeetingViewModel model)
         {
             var theMeeting = db.PendingMeeting.Single(x => x.PendingMeetingId == model.Id);
+            
             if (model.vote1 == true)
             {
                 theMeeting.SuggestedDateVotes1++;
-                db.SaveChanges();
+            
             }
             if (model.vote2 == true)
             {
                 theMeeting.SuggestedDateVotes2++;
-                db.SaveChanges();
+             
             }
             if (model.vote3 == true)
             {
                 theMeeting.SuggestedDateVotes3++;
-                db.SaveChanges();
+            
             }
+            var aList = new List<string>();
+            if(theMeeting.Responders != null)
+            {
+                foreach (var item in theMeeting.Responders)
+                {
+                    aList.Add(item);
+                }
+                aList.Add(User.Identity.Name);
+                theMeeting.Responders = aList;
+            }
+            
+            db.SaveChanges();
 
-            return RedirectToAction("YourPendingMeetings");
+            return RedirectToAction("Index");
         }
 
         public ActionResult ConfirmedMeeting(int PId)

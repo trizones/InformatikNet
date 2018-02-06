@@ -282,7 +282,7 @@
     <Content Include="Views\Post\Posts.cshtml" />
     <Content Include="Views\Meeting\CreateMeeting.cshtml" />
     <Content Include="Views\Meeting\YourPendingMeetings.cshtml" />
-    <Content Include="Views\Home\Sent.cshtml" />
+    <Content Include="Views\Meeting\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Meeting\ConfirmedMeeting.cshtml" />
   </ItemGroup>

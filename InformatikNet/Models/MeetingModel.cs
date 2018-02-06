@@ -51,6 +51,14 @@ namespace InformatikNet.Models
         public Boolean vote2 { get; set; }
         public Boolean vote3 { get; set; }
     }
+    public class IndexMeetingModel
+    {
+        public int Id { get; set; }
+        public List<PendingMeeting> PendingsMeetings { get; set; }
+        public List<ConfirmedMeeting> ConfirmedMeetings { get; set; }
+        public string SelectedMeetingTitle { get; set; }
+
+    }
 
     public class ConfirmedMeetingViewModel
     {
