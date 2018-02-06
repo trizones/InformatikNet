@@ -54,5 +54,8 @@ namespace InformatikNet.Models
         public string Category { get; set; }
         [Display(Name = "Infoga bild")]
         public byte[] Picture { get; set; }
+        [Display(Name = "Infoga fil")]
+        public String FileName { get; set; }
+        public byte[] FileContent { get; set; }
     }
 }
