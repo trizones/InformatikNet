@@ -4,6 +4,7 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
+<<<<<<< HEAD
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -12,21 +13,29 @@
             </button>
             @Html.ActionLink("Hem", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         </div>
+    <ul class="nav navbar-nav">
+        <li>
+            @Html.ActionLink("Forskning", "Posts", "Post", routeValues: new { Category = "Forskning" }, htmlAttributes: null)
+        </li>
+        <li>
+            @Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { Category = "Utildning" }, htmlAttributes: null)
+        </li>
+        <li>
+            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { Category = "Övrigt" }, htmlAttributes: null)
+        </li>
+        <li>
+            @Html.ActionLink("Möten", "CreateMeeting", "Meeting")
+        </li>
+    </ul>
+=======
+        
+>>>>>>> f814beb11dc24cfd894b02cca35b16caf2a16b4e
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hej " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a></li>
     </ul>
     }
 }
-else
-{
-<<<<<<< HEAD
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-=======
-    
->>>>>>> ca7a3a6020c4b54757100f708622c30dd6eeb3c8
-}
+
