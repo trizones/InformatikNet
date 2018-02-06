@@ -3,17 +3,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/sv.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
 <h2>Skapa nytt möte</h2>
 <br />
 
 @using (Html.BeginForm("CreateMeeting", "Meeting", FormMethod.Post, htmlAttributes: new { onsubmit = "validateForm(event)" }))
 {
-
     <div class="form-group">
        <h5>Namn på mötet:</h5>
         <div>
-            @Html.TextBoxFor(m => m.Title, new {  })
+            @Html.TextBoxFor(m => m.Title, htmlAttributes: new {@class= "form-control", style = "width: 250px" })
         </div>
+    </div>
+    <h5>Välj förslagstider:</h5>
+    <div class='input-group date' id='datetimepicker6' style="width: 250px">
+        @Html.TextBoxFor(m => m.SuggestedDate1, htmlAttributes: new { @class = "form-control", style = "width: 250px" })
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+    <br />
+    <div class='input-group date' id='datetimepicker7' style="width: 250px">
+        @Html.TextBoxFor(m => m.SuggestedDate2, htmlAttributes: new { @class = "form-control", style = "width: 250px", value = "2018-02-06 00:00" })
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+    <br />
+    <div class='input-group date' id='datetimepicker8' style="width: 250px">
+        @Html.TextBoxFor(m => m.SuggestedDate3, htmlAttributes: new { @class = "form-control", style = "width: 250px" })
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
     </div>
     <br />
 
@@ -36,3 +70,44 @@
 <input id="subm" name="subm" type="submit" value="Skapa" style="display:none;"/>
 }
 
+<script type="text/javascript">
+    $("#CheckUsers").change(function () {
+        if (this.checked) {
+            $("#subm").show();
+            $("#Recievers option").prop("selected", "selected");
+        }
+        else {
+            $("#subm").hide();
+
+        }
+
+    });
+
+    $("#Recievers").click(function () {
+        $('#CheckUsers').prop('checked', false);
+        $("#subm").hide();
+    })
+
+    $("#btnRemove").click(function () {
+        $('#CheckUsers').prop('checked', false);
+        $("#subm").hide();
+    });
+
+    $(document).ready(function () {
+        $(function () {
+            $('#datetimepicker6').datetimepicker();
+        });
+    });
+
+    $(document).ready(function () {
+        $(function () {
+            $('#datetimepicker7').datetimepicker();
+        });
+    });
+
+    $(document).ready(function () {
+        $(function () {
+            $('#datetimepicker8').datetimepicker();
+        });
+    });
+</script>

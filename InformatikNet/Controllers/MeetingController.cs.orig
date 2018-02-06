@@ -21,6 +21,9 @@ namespace InformatikNet.Controllers
             var meetings = db.PendingMeeting.Where(x => x.Recievers.Any(u => u.Id == user.Id)).ToList();
             var yourCreatedMeetings = db.PendingMeeting.Where(x => x.Creator.Id == user.Id).ToList();
 
+<<<<<<< HEAD
+            return View();
+=======
             foreach (var meet in meetings)
             {
                 if(meet.Responders != null)
@@ -41,6 +44,7 @@ namespace InformatikNet.Controllers
 
             
             return View(indexMeetingModel);
+>>>>>>> 13ac75114e65de5d85d97b7345e30a39c77cb5bd
         }
 
         public JsonResult GetEvents()
