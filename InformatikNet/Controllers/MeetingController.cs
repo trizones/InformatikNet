@@ -99,7 +99,7 @@ namespace InformatikNet.Controllers
             HomeController.Contact(mail);
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult YourPendingMeetings(string title)
@@ -147,6 +147,11 @@ namespace InformatikNet.Controllers
                 {
                     aList.Add(item);
                 }
+                aList.Add(User.Identity.Name);
+                theMeeting.Responders = aList;
+            }
+            if(theMeeting.Responders == null)
+            {
                 aList.Add(User.Identity.Name);
                 theMeeting.Responders = aList;
             }
@@ -208,7 +213,7 @@ namespace InformatikNet.Controllers
             db.ConfirmedMeeting.Add(confirmedMeeting);
             db.SaveChanges();
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index");
         }
 
 
