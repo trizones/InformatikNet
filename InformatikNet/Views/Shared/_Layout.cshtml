@@ -29,6 +29,16 @@
                         <li>
                             @Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { category = "Utbildning" }, htmlAttributes: null)
                         </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Anslag
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Forskning", "Posts", "Post", routeValues: new { category = "Anslag Forskning" }, htmlAttributes: null)</li>
+                                <li>@Html.ActionLink("Utbildning", "Posts", "Post", routeValues: new { category = "Anslag Utbildning" }, htmlAttributes: null)</li>
+                            </ul>
+                        </li>
                         <li>
                             @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { category = "Övrigt" }, htmlAttributes: null)
                         </li>

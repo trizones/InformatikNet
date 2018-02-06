@@ -44,13 +44,14 @@
                 contentType: 'application/json',
                 datatype: 'json',
                 success: function () {
-                    alert(writtenContent);
                     location.reload();
                 },
             });
+
         }
 
     </script>
+
 </head>
 <body>
 
@@ -59,6 +60,21 @@
     {
         @Html.AntiForgeryToken()
 
+<<<<<<< HEAD
+@using (Html.BeginForm())
+
+    {
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+=======
         <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -68,6 +84,7 @@
                     @Html.EditorFor(model => model.Title, new { htmlAttributes = new {id = "Title", @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                 </div>
+>>>>>>> 81f42ad429767535b081ad4bc6ddab2da6ffdf9c
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -86,6 +103,18 @@
                 <button class="btn btn-default" id="newTagButton" type="button" style="visibility:hidden;" onclick="showAddTag()">Lägg till</button>
                 </div>
             </div>
+<<<<<<< HEAD
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+
+                <input type="file" name="Photo" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+
+            </div>
+        </div>
+=======
+>>>>>>> 81f42ad429767535b081ad4bc6ddab2da6ffdf9c
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -96,7 +125,7 @@
     }
 
     <div>
-        @Html.ActionLink("Tillbaka", "Posts", "Post", routeValues: new { SelectedCategory = cat }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+        @Html.ActionLink("Tillbaka", "Posts", "Post", routeValues: new { category = cat }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
     </div>
 </body>
 @section Scripts {

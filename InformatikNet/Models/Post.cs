@@ -16,10 +16,16 @@ namespace InformatikNet.Models
         public virtual ApplicationUser Author { get; set; }
         public virtual Category Categories { get; set; }
         public virtual Tag Tag { get; set; }
+        public byte[] Photo { get; set; }
+        public byte[] FileContent { get; set; }
+        public String FileName { get; set; }
+
+
     }
 
     public class CreatePostModel
     {
+        public int Id { get; set; }
         public int TagId { get; set; }
         [Required(ErrorMessage ="Titelfältet får inte vara tomt")]
         [StringLength(50, ErrorMessage = "Titeln får inte vara längre än 50 tecken")]
@@ -31,6 +37,15 @@ namespace InformatikNet.Models
         [Required]
         public virtual IEnumerable<SelectListItem> Tag { get; set; }
         public Category Category;
+        [Display(Name = "Lägg upp bild")]
+        public byte[] Photo { get; set; }
+        [Required]
+        [DataType(DataType.Upload)]
+        [Display(Name = "Select File")]
+        public HttpPostedFileBase files { get; set; }
+        [Display(Name = "Uploaded File")]
+        public String FileName { get; set; }
+        public byte[] FileContent { get; set; }
     }
 
     public class PostViewModel

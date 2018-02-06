@@ -57,5 +57,10 @@ namespace InformatikNet.Models
     }
     
    
+        public int Id { get; set; }
+        [Display(Name = "Infoga fil")]
+        public byte[] File { get; set; }
+        public string FileName { get; set; }
+
 
 }
