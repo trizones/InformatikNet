@@ -9800,4 +9800,28 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 	}
 }
 
-})( window );
+
+
+})(window);
+
+$("#CheckUsers").change(function () {
+    if (this.checked) {
+        $("#subm").show();
+        $("#Recievers option").prop("selected", "selected");
+    }
+    else {
+        $("#subm").hide();
+        
+    }
+
+});
+
+$("#Recievers").click(function () {
+    $('#CheckUsers').prop('checked', false);
+    $("#subm").hide();
+})
+
+$("#btnRemove").click(function () {
+    $('#CheckUsers').prop('checked', false);
+    $("#subm").hide();
+})

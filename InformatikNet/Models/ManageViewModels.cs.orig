@@ -55,7 +55,22 @@ namespace InformatikNet.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    
+<<<<<<< HEAD
+   
+=======
+    public class PostViewModel
+    {
+        public int Id { get; set; }
+        public ICollection<Post> Posts { get; set; }
+        public string Category { get; set; }
+        [Display(Name ="Infoga bild")]
+        public byte[] Picture { get; set; }
+        [Display(Name = "Infoga fil")]
+        public byte[] File { get; set; }
+        public string FileName { get; set; }
 
- 
+    }
+>>>>>>> f814beb11dc24cfd894b02cca35b16caf2a16b4e
 
 }

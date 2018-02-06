@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using static InformatikNet.Models.ConfirmedMeeting;
+using System.Collections.Generic;
 
 namespace InformatikNet.Models
 {
@@ -19,6 +21,10 @@ namespace InformatikNet.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual ICollection<PendingMeeting> PendingMeeting { get; set; }
+        public virtual ICollection<ConfirmedMeeting> ConfirmedMeeting { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -28,15 +34,48 @@ namespace InformatikNet.Models
         { 
         }
 
+       
+
         public DbSet<Post> Post { get; set; }
 
         public DbSet<Tag> Tag { get; set; }
 
         public DbSet<Category> Category  { get; set; }
 
+        public DbSet<ConfirmedMeeting> ConfirmedMeeting { get; set; }
+
+        public DbSet<PendingMeeting> PendingMeeting { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(x => x.PendingMeeting)
+                .WithMany(x => x.Recievers)
+                .Map(m =>
+                {
+                    m.ToTable("UsersPendingMeeting");
+                    m.MapLeftKey("Id");
+                    m.MapRightKey("PendingMeetingId");
+                });
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(x => x.ConfirmedMeeting)
+                .WithMany(x => x.Recievers)
+                .Map(m =>
+                {
+                    m.ToTable("UsersConfirmedMeeting");
+                    m.MapLeftKey("Id");
+                    m.MapRightKey("ConfirmedMeetingId");
+                });
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
     }
 }
