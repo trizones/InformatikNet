@@ -20,29 +20,33 @@
 <h2>Skapa nytt möte</h2>
 <br />
 
-@using (Html.BeginForm("CreateMeeting", "Meeting", FormMethod.Post, htmlAttributes: new { onsubmit = "validateForm(event)" }))
+@using (Html.BeginForm("CreateMeeting", "Meeting", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    <div class="form-group">
-       <h5>Namn på mötet:</h5>
-        <div>
-            @Html.TextBoxFor(m => m.Title, htmlAttributes: new {@class= "form-control", style = "width: 250px" })
-        </div>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.LabelFor(m => m.Title, htmlAttributes: new { @class = "col-md-2 control-label" })
+    <div>
+        @Html.TextBoxFor(m => m.Title, htmlAttributes: new { @class = "form-control", style = "width: 250px " })
     </div>
-    <h5>Välj förslagstider:</h5>
+    <br />
+    @Html.LabelFor(m => m.SuggestedDate1, htmlAttributes: new { @class = "col-md-2 control-label" })
     <div class='input-group date' id='datetimepicker6' style="width: 250px">
-        @Html.TextBoxFor(m => m.SuggestedDate1, htmlAttributes: new { @class = "form-control", style = "width: 250px" })
+        @Html.TextBoxFor(m => m.SuggestedDate1, htmlAttributes: new { @class = "form-control", style = "width: 250px"})
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
     </div>
     <br />
+    @Html.LabelFor(m => m.SuggestedDate2, htmlAttributes: new { @class = "col-md-2 control-label" })
     <div class='input-group date' id='datetimepicker7' style="width: 250px">
-        @Html.TextBoxFor(m => m.SuggestedDate2, htmlAttributes: new { @class = "form-control", style = "width: 250px", value = "2018-02-06 00:00" })
+        @Html.TextBoxFor(m => m.SuggestedDate2, htmlAttributes: new { @class = "form-control", style = "width: 250px"})
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
     </div>
     <br />
+    @Html.LabelFor(m => m.SuggestedDate3, htmlAttributes: new { @class = "col-md-2 control-label" })
     <div class='input-group date' id='datetimepicker8' style="width: 250px">
         @Html.TextBoxFor(m => m.SuggestedDate3, htmlAttributes: new { @class = "form-control", style = "width: 250px" })
         <span class="input-group-addon">
@@ -50,24 +54,28 @@
         </span>
     </div>
     <br />
-
-<div class="listboxOFhvn">
-    <div>
-        @Html.ListBoxFor(model => model.Users, new MultiSelectList(Model.Users, "Id", "Email"), new { size = "10", width = "1000px", @class = "listboxMeeting", id = "Users" })
-    </div>
-    <div>
-        <input class="buttonUpDown btn-primary" id="btnAdd" type="button" value=" Lägg till deltagare ↓ " onclick="addItem()" style="width:auto; margin-left:auto" />
-        <input class="buttonUpDown btn-primary btn-group-sm" id="btnRemove" type="button" value=" Ta bort deltagare ↑ " onclick="removeItem()" style="width:auto; margin-left:auto"/>
-    </div>
-    <div>
-        @Html.ListBoxFor(m => m.ReciverIds, new MultiSelectList(Model.Recievers, "Id", "Email", Model.ReciverIds), new { size = "10", @class = "listboxMeeting", id = "Recievers" })
-    </div>
 </div>
+    <label for="listboxmeeting">Välj användare:</label>
+    <div class="listboxOFhvn">
+        <div>
+            @Html.ListBoxFor(m => m.Users, new MultiSelectList(Model.Users, "Id", "Email"), new { size = "10", width = "1000px", @class = "listboxMeeting", id = "Users" })
+        </div>
+        <div>
+            <input class="buttonUpDown btn-primary" id="btnAdd" type="button" value=" Lägg till deltagare ↓ " onclick="addItem()" style="width:auto; margin-left:auto" />
+            <input class="buttonUpDown btn-primary btn-group-sm" id="btnRemove" type="button" value=" Ta bort deltagare ↑ " onclick="removeItem()" style="width:auto; margin-left:auto" />
+        </div>
+    </div>
+        <div>
+            @Html.ListBoxFor(m => m.ReciverIds, new MultiSelectList(Model.Recievers, "Id", "Email", Model.ReciverIds), new { size = "10", @class = "listboxMeeting", id = "Recievers" })
+        </div>
+    
 
-<br />
-<p>Bekräfta deltagarna:  <input type="checkbox" value="Bekräfta deltagare" id="CheckUsers" style="-webkit-transform: scale(1.5); margin-left: 1%;" /> </p> 
+    <br />
 
-<input id="subm" name="subm" type="submit" value="Skapa" style="display:none;"/>
+    <p>Bekräfta deltagarna:  <input type="checkbox" value="Bekräfta deltagare" id="CheckUsers" style="-webkit-transform: scale(1.5); margin-left: 1%;" /> </p>
+    <div class="form-group">
+        <input id="subm" name="subm" type="submit" value="Skapa" style="display:none;" />
+    </div>
 }
 
 <script type="text/javascript">

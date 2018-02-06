@@ -55,12 +55,4 @@ namespace InformatikNet.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
-    
-   
-        public int Id { get; set; }
-        [Display(Name = "Infoga fil")]
-        public byte[] File { get; set; }
-        public string FileName { get; set; }
-
-
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,8 @@ namespace InformatikNet.Models
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual List<ApplicationUser> Recievers { get; set; }
         public List<string> ReciverIds { get; set; }
+        [Required]
+        [StringLength(32, ErrorMessage = "Titel måste vara mellan 3 och 32 tecken", MinimumLength = 3)]
         public string Title { get; set; }
         public DateTime SuggestedDate1 { get; set; }
         public DateTime SuggestedDate2 { get; set; }

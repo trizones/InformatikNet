@@ -65,41 +65,46 @@ namespace InformatikNet.Controllers
 
         //POST: Meeting
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateMeeting(CreateMeetingModel model)
         {
-            PendingMeeting pendingMeeting = new PendingMeeting();
-            var user = db.Users.Single(u => u.Email == User.Identity.Name);
-            pendingMeeting.Creator = user;
-            pendingMeeting.Title = model.Title;
-            var list = new List<ApplicationUser>();
-
-            foreach(var item in model.ReciverIds)
+            if (ModelState.IsValid)
             {
-                var bock = db.Users.Where(u => u.Id == item).Single();
-                list.Add(bock);
-                
-            }
-            pendingMeeting.Recievers = list;
-            pendingMeeting.SuggestedDate1 = model.SuggestedDate1;
-            pendingMeeting.SuggestedDate2 = model.SuggestedDate2;
-            pendingMeeting.SuggestedDate3 = model.SuggestedDate3;
+                PendingMeeting pendingMeeting = new PendingMeeting();
+                var user = db.Users.Single(u => u.Email == User.Identity.Name);
+                pendingMeeting.Creator = user;
+                pendingMeeting.Title = model.Title;
+                var list = new List<ApplicationUser>();
+
+                foreach (var item in model.ReciverIds)
+                {
+                    var bock = db.Users.Where(u => u.Id == item).Single();
+                    list.Add(bock);
+
+                }
+                pendingMeeting.Recievers = list;
+                pendingMeeting.SuggestedDate1 = model.SuggestedDate1;
+                pendingMeeting.SuggestedDate2 = model.SuggestedDate2;
+                pendingMeeting.SuggestedDate3 = model.SuggestedDate3;
+
+                db.PendingMeeting.Add(pendingMeeting);
+                db.SaveChanges();
+
+                var mail = new EmailFormModel
+                {
+                    FromEmail = user.Email,
+                    FromName = user.Name,
+                    Message = "Du har blivit kallad till ett nytt möte! :), logga in på intranätet för att bekräfta!",
+                    Subject = model.Title,
+                    Recievers = list
+                };
+
+                HomeController.Contact(mail);
+
             
-            db.PendingMeeting.Add(pendingMeeting);
-            db.SaveChanges();
-
-            var mail = new EmailFormModel
-            {
-                FromEmail = user.Email,
-                FromName = user.Name,
-                Message = "Du har blivit kallad till ett nytt möte! :), logga in på intranätet för att bekräfta!",
-                Subject = model.Title,
-                Recievers = list
-            };
-
-            HomeController.Contact(mail);
-
-
             return RedirectToAction("Index");
+            }
+            return View(model);
         }
         [HttpGet]
         public ActionResult YourPendingMeetings(string title)
