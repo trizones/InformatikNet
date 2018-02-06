@@ -124,11 +124,8 @@ namespace InformatikNet.Models
 
 
             }
-            var forskning = new Category { Id = 1, CategoryName = "Forskning", Tags = null };
-            context.Category.Add(forskning);
-
-            var utbildning = new Category { Id = 2, CategoryName = "Utbildning", Tags = null };
-            context.Category.Add(utbildning);
+            var Informatik = new Category { Id = 1, CategoryName = "Informatik", Tags = null };
+            context.Category.Add(Informatik);
 
             var övrigt = new Category { Id = 3, CategoryName = "Övrigt", Tags = null };
             context.Category.Add(övrigt);
@@ -147,26 +144,14 @@ namespace InformatikNet.Models
                 var tag = new Tag
                 {
                     Id = i + 1,
-                    Name = "forskning" + i,
-                    Category = forskning,
-                    CategoryString = "forskning"
+                    Name = "Informatik" + i,
+                    Category = Informatik,
+                    CategoryString = "Informatik"
                 };
                 context.Tag.Add(tag);
                 
             }
 
-            for (int i = 0; i < 10; i++)
-            {
-                var tag = new Tag
-                {
-                    Id = i + 1,
-                    Name = "utbildning" + i,
-                    Category = utbildning,
-                    CategoryString = "utbildning"
-                };
-                context.Tag.Add(tag);
-
-            }
 
             for (int i = 0; i < 10; i++)
             {
