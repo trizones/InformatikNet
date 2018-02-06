@@ -1,9 +1,106 @@
-﻿@{
+﻿@model InformatikNet.Models.PostViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 @if (Request.IsAuthenticated)
 {
-    
+    <div id="calender" style="width:100%; margin-top: 5%; margin-bottom: 5%; "></div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                </div>
+
+                <div class="modal-body">
+                    <p id="pDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button id="prevMonth" class="btn btn-primary btn-large" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-large" style="margin-top:-11%; margin-left:89%;"> Nästa månad →</button>
+    </div>
+    <hr />
+    <h3 style="text-align: center; margin-top: 10%;">Senaste inläggen</h3>
+    <div style=" overflow: scroll; max-height: 500px; scrollbar-3dlight-color:ActiveBorder">
+        <table class="table">
+            @for (int i = 0; i < Model.Posts.Count(); i++)
+            {
+
+                <div class="container" style="text-align:center;">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <div id="postlist>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <div class="text-center">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <h3 class="pull-left">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].Title)</h3>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <h4 class="pull-right">
+                                                        <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
+
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-footer">
+                                    @if (Model.Posts.ToArray()[i].Photo.Length > 0)
+                                    {
+                                        <img src="@Url.Action("Photos", "Home", routeValues: new { id = Model.Posts.ToArray()[i].Id })" style="width:300px;height:300px;  background: rgba(255, 255, 255, 0.00);
+                                            margin: auto;
+                                            -moz-border-radius: 60px;
+                                            border-radius: 30px;
+                                            padding: 6px;" />
+                                    }
+
+                                        <br />
+                                        <br />
+                                        <div style="margin-left: 15%; margin-right: 15%;word-wrap: break-word;">
+                                            @Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].Content)
+                                        </div>
+
+                                    </div>
+
+                                    <div class="panel-footer">
+                                        @if (Model.Posts.ToArray()[i].FileName != "")
+                                        {
+                                            <span class="label label-default">@Html.DisplayFor(modelItem => modelItem.FileName) @Html.ActionLink(Model.Posts.ToArray()[i].FileName, "Downloadfile", new { id = Model.Posts.ToArray()[i].Id })</span>
+
+                                        }
+                                        <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
+                                        <h4 class="pull-right" style="margin-top:2%;">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].PublishDate)</h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                        <hr />
+
+            }
+
+    </table>
+</div>
+
 }
 else
 {
@@ -14,4 +111,74 @@ else
         <br />
         @Html.ActionLink("Logga in", "Login", "Account", null, new { @class = "btn btn-primary btn-large" })
     </div>
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+
+<script>
+
+    $('#prevMonth').click(function () {
+        $('#calender').fullCalendar('prev');
+    });
+
+    $('#nextMonth').click(function () {
+        $('#calender').fullCalendar('next');
+    });
+
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Meeting/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Title,
+                            start: moment(v.ConfirmedDate)
+
+                        });
+                    })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div />');
+                        $description.append($('<p />').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p />').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p />').html('<b>Description:</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    }
+                })
+            }
+    })
+</script>
 }

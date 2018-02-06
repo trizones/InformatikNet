@@ -19,6 +19,7 @@ namespace InformatikNet.Models
         public byte[] Photo { get; set; }
         public byte[] FileContent { get; set; }
         public String FileName { get; set; }
+        public string PublishDate { get; set; }
 
 
     }
@@ -46,6 +47,7 @@ namespace InformatikNet.Models
         [Display(Name = "Uploaded File")]
         public String FileName { get; set; }
         public byte[] FileContent { get; set; }
+        public DateTime PublishDate { get; set; }
     }
 
     public class PostViewModel

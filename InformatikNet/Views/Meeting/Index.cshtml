@@ -6,21 +6,28 @@
 <div id="calender" style="width:50%; margin-top: 5%; margin-bottom: 5%;"></div>
 
 <div id="myModal" class="modal fade" role="dialog">
+
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"><span id="eventTitle"></span></h4>
             </div>
+
             <div class="modal-body">
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>
 </div>
+<div>
+<button id="prevMonth" class="btn btn-primary btn-large" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-large" style="margin-top:-7%; margin-left:24%;"> Nästa månad →</button>
+</div>
+
 @Html.ActionLink("Nytt möte", "CreateMeeting", "Meeting", htmlAttributes: new { @class = "btn btn-primary btn-large" })
 
 @{
@@ -60,6 +67,16 @@
 
 
     <script>
+
+        $('#prevMonth').click(function () {
+            $('#calender').fullCalendar('prev');
+        });
+
+        $('#nextMonth').click(function () {
+            $('#calender').fullCalendar('next');
+        });
+
+
         $(document).ready(function () {
             var events = [];
             $.ajax({

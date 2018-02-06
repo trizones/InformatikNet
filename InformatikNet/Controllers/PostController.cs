@@ -59,11 +59,13 @@ namespace InformatikNet.Controllers
         {
 
             Post post = new Post();
-
+            
+            
             var author = db.Users.Single(u => u.UserName == User.Identity.Name);
             post.Author = author;
             post.Content = model.Content;
             post.Title = model.Title;
+            post.PublishDate = System.DateTime.Now.ToString();
 
             var tag = db.Tag.Single(t => t.Id == model.TagId);
             post.Tag = tag;
@@ -126,9 +128,11 @@ namespace InformatikNet.Controllers
         public FileResult Downloadfile (int id)
         {
             var postbyid = db.Post.Single(x => x.Id == id);
+            var fileName = postbyid.FileName;
             byte[] filecontent = postbyid.FileContent;
 
-            return File(filecontent, "application/pdf/docx/doc");
+            return File(filecontent, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+
         }
     }
 }
