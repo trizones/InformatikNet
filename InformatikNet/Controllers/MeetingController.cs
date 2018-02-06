@@ -182,18 +182,21 @@ namespace InformatikNet.Controllers
         [HttpPost]
         public ActionResult SelectMeetingDate(ConfirmedMeetingViewModel model)
         {
-            var thePendingMeeting = db.PendingMeeting.Single(x => x.PendingMeetingId == model.PendingMeetingId);
+            var thePendingMeeting = db.PendingMeeting.Include(X => X.Recievers).Single(x => x.PendingMeetingId == model.PendingMeetingId);
             var confirmedMeeting = new ConfirmedMeeting();
             confirmedMeeting.Creator = db.Users.Single(x => x.UserName == User.Identity.Name);
-            confirmedMeeting.Recievers = thePendingMeeting.Recievers;
             confirmedMeeting.Title = thePendingMeeting.Title;
 
-            var list = new List<string>();
-            foreach(var item in confirmedMeeting.Recievers)
+            var list = new List<ApplicationUser>();
+
+            foreach (var item in thePendingMeeting.Recievers)
             {
-                list.Add(item.Name);
+                var bock = db.Users.Where(u => u.Id == item.Id).Single();
+                list.Add(bock);
+
             }
 
+            confirmedMeeting.Recievers = list;
 
             if (model.Select1 == true)
             {
@@ -207,10 +210,20 @@ namespace InformatikNet.Controllers
             {
                 confirmedMeeting.ConfirmedDate = thePendingMeeting.SuggestedDate3;
             }
-            
 
-            db.PendingMeeting.Remove(thePendingMeeting);
+            var mail = new EmailFormModel
+            {
+                FromEmail = confirmedMeeting.Creator.Email,
+                FromName = confirmedMeeting.Creator.Name,
+                Message = String.Format("Ett möte du är inbjuden till har blivit bekräftat, den bekräftade tiden är {0}", confirmedMeeting.ConfirmedDate),
+                Subject = String.Format("{0} har blivit bekräftad", confirmedMeeting.Title),
+                Recievers = list
+            };
+
+            HomeController.Contact(mail);
+
             db.ConfirmedMeeting.Add(confirmedMeeting);
+            db.PendingMeeting.Remove(thePendingMeeting);
             db.SaveChanges();
 
             return RedirectToAction("Index");

@@ -15,9 +15,15 @@ namespace InformatikNet.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-            return View();
+            var posts = db.Post.OrderByDescending(p => p.PublishDate).ThenBy(a => a.Id).Take(3).ToList();
+             
+            PostViewModel postViewModel = new PostViewModel();
+            postViewModel.Posts = posts;
+            return View(postViewModel);
         }
 
         public FileContentResult Photos(int? id)
@@ -25,7 +31,7 @@ namespace InformatikNet.Controllers
 
             if (id == null)
             {
-                /*
+
                 string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
 
                 byte[] imageData = null;
@@ -34,10 +40,8 @@ namespace InformatikNet.Controllers
                 FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
                 imageData = br.ReadBytes((int)imageFileLength);
-                */
-                byte[] imageData = null;
+
                 return File(imageData, "image/png");
-                
             }
             // to get the user details to load user Image
             var db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
