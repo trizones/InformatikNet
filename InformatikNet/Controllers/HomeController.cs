@@ -23,9 +23,9 @@ namespace InformatikNet.Controllers
         public FileContentResult Photos(int? id)
         {
 
-
             if (id == null)
             {
+                /*
                 string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
 
                 byte[] imageData = null;
@@ -34,8 +34,10 @@ namespace InformatikNet.Controllers
                 FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
                 imageData = br.ReadBytes((int)imageFileLength);
-
+                */
+                byte[] imageData = null;
                 return File(imageData, "image/png");
+                
             }
             // to get the user details to load user Image
             var db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
