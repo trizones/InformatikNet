@@ -112,7 +112,7 @@
 }
                                             <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
 
-                                            <p class="">  <a href="@Html.Raw(location)">Klicka för att se var inlägget är skrivet</a href> </p>
+                                            <p class="">  <a target="_blank" href="@Html.Raw(location)">Klicka för att se var inlägget är skrivet</a href> </p>
                                             <h4 class="pull-right" style="margin-top:2%;">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].PublishDate)</h4>
 
                                         </div>
