@@ -12,23 +12,31 @@ namespace InformatikNet.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
 
         
-        public ActionResult Files(DateTime startDate, DateTime endDate)
+        public ActionResult Files(FileViewModel aModel)
         {
-            var model = new FileViewModel();
-            var cats = db.Category.ToList();
-            var postsWithFiles = db.Post.Where(x => x.FileName != "").ToList();
-            model.Posts = postsWithFiles;
-            var types = new List<SelectListItem>();
-
-
-            foreach(var cat in cats)
+            if(aModel == null)
             {
-                types.Add(new SelectListItem() { Text = cat.CategoryName, Value = cat.CategoryName });
-            }
-            var d = db.Post.Where(x => x.PublishDate >= startDate && x.PublishDate <= endDate && x.FileName != "").ToList();
-            model.Categories = types;
+                var model = new FileViewModel();
+                var cats = db.Category.ToList();
 
-            return View(model);
+                var types = new List<SelectListItem>();
+
+
+                foreach (var cat in cats)
+                {
+                    types.Add(new SelectListItem() { Text = cat.CategoryName, Value = cat.CategoryName });
+                }
+                
+                model.Categories = types;
+
+                return View(model);
+            }
+            var postsWithFiles = db.Post.Where(x => x.PublishDate >= aModel.startDate && x.PublishDate <= aModel.endDate && x.FileName != "").ToList();
+            aModel.Posts = postsWithFiles;
+           
+
+            return View(aModel);
+            
         }
     }
 }
