@@ -10,5 +10,8 @@ namespace InformatikNet.Models
     {
         public ICollection<Post> Posts { get; set; }
         public List<SelectListItem> Categories { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+
     }
 }

@@ -25,26 +25,27 @@
     <div class="form-group">
        <h5>Namn på mötet:</h5>
         <div>
-            @Html.TextBoxFor(m => m.Title, htmlAttributes: new {@class= "form-control", style = "width: 250px" })
+            @Html.TextBoxFor(m => m.Title, htmlAttributes: new {@class= "form-control", style = "width: 250px", required="required"})
+            @Html.ValidationMessageFor(m => m.Title,"", new { @class = "text-danger" })        
         </div>
-    </div>
+    </div>  
     <h5>Välj förslagstider:</h5>
     <div class='input-group date' id='datetimepicker6' style="width: 250px">
-        @Html.TextBoxFor(m => m.SuggestedDate1, htmlAttributes: new { @class = "form-control", style = "width: 250px" })
+        @Html.TextBoxFor(m => m.SuggestedDate1, htmlAttributes: new { @class = "form-control", style = "width: 250px", Value = DateTime.Now.AddDays(1).ToString() })
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
     </div>
     <br />
     <div class='input-group date' id='datetimepicker7' style="width: 250px">
-        @Html.TextBoxFor(m => m.SuggestedDate2, htmlAttributes: new { @class = "form-control", style = "width: 250px", value = "2018-02-06 00:00" })
+        @Html.TextBoxFor(m => m.SuggestedDate2, htmlAttributes: new { @class = "form-control", style = "width: 250px", Value = DateTime.Now.AddDays(1).AddHours(1).ToString()})
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
     </div>
     <br />
     <div class='input-group date' id='datetimepicker8' style="width: 250px">
-        @Html.TextBoxFor(m => m.SuggestedDate3, htmlAttributes: new { @class = "form-control", style = "width: 250px" })
+        @Html.TextBoxFor(m => m.SuggestedDate3, htmlAttributes: new { @class = "form-control", style = "width: 250px", Value = DateTime.Now.AddDays(1).AddHours(2).ToString() })
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>

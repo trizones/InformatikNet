@@ -67,23 +67,29 @@ namespace InformatikNet.Controllers
         [HttpPost]
         public ActionResult CreateMeeting(CreateMeetingModel model)
         {
+                    
             PendingMeeting pendingMeeting = new PendingMeeting();
             var user = db.Users.Single(u => u.Email == User.Identity.Name);
             pendingMeeting.Creator = user;
             pendingMeeting.Title = model.Title;
+            
             var list = new List<ApplicationUser>();
 
-            foreach(var item in model.ReciverIds)
+            foreach (var item in model.ReciverIds)
             {
                 var bock = db.Users.Where(u => u.Id == item).Single();
                 list.Add(bock);
-                
+
             }
+
+
+
+
             pendingMeeting.Recievers = list;
             pendingMeeting.SuggestedDate1 = model.SuggestedDate1;
             pendingMeeting.SuggestedDate2 = model.SuggestedDate2;
             pendingMeeting.SuggestedDate3 = model.SuggestedDate3;
-            
+
             db.PendingMeeting.Add(pendingMeeting);
             db.SaveChanges();
 
@@ -100,6 +106,7 @@ namespace InformatikNet.Controllers
 
 
             return RedirectToAction("Index");
+
         }
         [HttpGet]
         public ActionResult YourPendingMeetings(string title)
