@@ -15,7 +15,16 @@
 
         function clearLocalStorage() {
             window.localStorage.clear();
-        };
+            getLocation();
+            };
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
 
         function show() {
             document.getElementById('newTag').style.visibility = 'visible';
@@ -107,6 +116,8 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
+                    @Html.HiddenFor(Model => Model.Longitude, htmlAttributes: new { id = "Longitude" })
+                    @Html.HiddenFor(Model => Model.Latitude, htmlAttributes: new { id = "Latitude" })
                     <input onclick="clearLocalStorage()" type="submit" value="Skapa" class="btn btn-default" />
                 </div>
             </div>

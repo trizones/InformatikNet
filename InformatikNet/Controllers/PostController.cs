@@ -59,8 +59,9 @@ namespace InformatikNet.Controllers
         {
 
             Post post = new Post();
-            
-            
+
+
+
             var author = db.Users.Single(u => u.UserName == User.Identity.Name);
             post.Author = author;
             post.Content = model.Content;

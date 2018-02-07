@@ -20,6 +20,9 @@ namespace InformatikNet.Models
         public byte[] FileContent { get; set; }
         public String FileName { get; set; }
         public string PublishDate { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+
 
 
     }
@@ -48,6 +51,8 @@ namespace InformatikNet.Models
         public String FileName { get; set; }
         public byte[] FileContent { get; set; }
         public DateTime PublishDate { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     }
 
     public class PostViewModel
