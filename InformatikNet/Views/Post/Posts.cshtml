@@ -56,10 +56,12 @@
     <div style="overflow: scroll; max-height: 500px; scrollbar-3dlight-color:ActiveBorder">
         <table class="table">
             @for (int i = Model.Posts.Count - 1; i >= 0; i--)
-                        {
-                            var location = "https://www.google.com/maps/?q=" + Model.Posts.ToArray()[i].Coords;
-                            if (Model.Posts.ToArray()[i].isHidden == false)
-                            {
+
+            {
+                var date = Model.Posts.ToArray()[i].PublishDate.ToString();
+                var location = "https://www.google.com/maps/?q=" + Model.Posts.ToArray()[i].Coords;
+                if (Model.Posts.ToArray()[i].isHidden == false)
+                {
                     <div class="container" style="text-align:center;">
                         <div class="row">
                             <div class="col-md-1"></div>
@@ -74,9 +76,9 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <h4 class="pull-right">
-                                                            @if (User.IsInRole("Administratör") || User.Identity.Name == Model.Posts.ToArray()[i].Author.Name)
+                                                            @if (User.IsInRole("Administratör") || User.Identity.Name == Model.Posts.ToArray()[i].Author.Email)
                                                             {
-                                                                @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id }, htmlAttributes: new { @class = "btn btn-primary btn-small" })              
+                                                                @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id, returnurl = "post" }, htmlAttributes: new { @class = "btn btn-primary btn-small" })              
                                                             }
                                                             <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
 
@@ -113,7 +115,7 @@
                                             <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
 
                                             <p class="">  <a target="_blank" href="@Html.Raw(location)">Klicka för att se var inlägget är skrivet</a href> </p>
-                                            <h4 class="pull-right" style="margin-top:2%;">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].PublishDate)</h4>
+                                            <h4 class="pull-right" style="margin-top:2%;">@date</h4>
 
                                         </div>
                                     </div>
@@ -125,6 +127,7 @@
                             <div class="col-md-1">
                             </div>
                         </div>
+                        
                         <hr />
                     }
                 }

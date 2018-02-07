@@ -1,0 +1,24 @@
+﻿@model InformatikNet.Models.FileViewModel
+
+@{
+    ViewBag.Title = "Files";
+}
+
+<h2>Sök filer</h2>
+
+<table>
+    @if (Model.Posts.Count > 0)
+    {
+        foreach (var post in Model.Posts)
+        {
+            <tr>
+                <td>
+                    <p>@Html.ActionLink(post.FileName, "Downloadfile", "Post", new { id = post.Id}, null)</p>
+
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+

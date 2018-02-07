@@ -4,9 +4,7 @@
 }
 @if (Request.IsAuthenticated)
 {
-    <a href="http://maps.google.com/maps?q=210+Louise+Ave,+Nashville,+TN+37203">
-        View map
-    </a>
+
     <div id="calender" style="width:100%; margin-top: 5%; margin-bottom: 5%; "></div>
 
     <div id="myModal" class="modal fade" role="dialog">
@@ -37,6 +35,9 @@
         <table class="table">
             @for (int i = 0; i < Model.Posts.Count(); i++)
             {
+                if (Model.Posts.ToArray()[i].isHidden == false)
+                {
+
 
                 <div class="container" style="text-align:center;">
                     <div class="row">
@@ -52,6 +53,10 @@
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <h4 class="pull-right">
+                                                        @if (User.IsInRole("Administratör") || User.Identity.Name == Model.Posts.ToArray()[i].Author.Email)
+                                                        {
+                                                             @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id, returnurl = "home" }, htmlAttributes: new { @class = "btn btn-primary btn-small" })
+                                                        }
                                                         <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
 
                                                     </h4>
@@ -99,6 +104,7 @@
                     </div>
                         <hr />
 
+                }
             }
 
     </table>

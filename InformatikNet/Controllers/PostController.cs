@@ -64,7 +64,7 @@ namespace InformatikNet.Controllers
             post.Author = author;
             post.Content = model.Content;
             post.Title = model.Title;
-            post.PublishDate = System.DateTime.Now.ToString();
+            post.PublishDate = System.DateTime.Now;
             post.Coords = model.Coords;
 
             var tag = db.Tag.Single(t => t.Id == model.TagId);
@@ -135,12 +135,20 @@ namespace InformatikNet.Controllers
 
         }
 
-        public ActionResult HidePost (int id)
+        public ActionResult HidePost (int id, string returnurl)
         {
             var postToHide = db.Post.Single(p => p.Id == id);
             postToHide.isHidden = true;
             db.SaveChanges();
-            return RedirectToAction("Posts", new { category = postToHide.Categories.CategoryName });
+            if(returnurl == "home")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Posts", new { category = postToHide.Categories.CategoryName });
+            }
+           
         }
     }
 }
