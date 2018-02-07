@@ -56,9 +56,10 @@
     <div style="overflow: scroll; max-height: 500px; scrollbar-3dlight-color:ActiveBorder">
         <table class="table">
             @for (int i = Model.Posts.Count - 1; i >= 0; i--)
-            {
-                if (Model.Posts.ToArray()[i].isHidden == false)
-                {
+                        {
+                            var location = "https://www.google.com/maps/?q=" + Model.Posts.ToArray()[i].Coords;
+                            if (Model.Posts.ToArray()[i].isHidden == false)
+                            {
                     <div class="container" style="text-align:center;">
                         <div class="row">
                             <div class="col-md-1"></div>
@@ -87,12 +88,12 @@
 
                                         <div class="panel-footer">
                                           @if (Model.Posts.ToArray()[i].Photo.Length > 0)
-                                          {
+            {
                                             <img src="@Url.Action("Photos", "Home", routeValues: new { id = Model.Posts.ToArray()[i].Id })" style="width:300px;height:300px;  background: rgba(255, 255, 255, 0.00);
                                             margin: auto;
-                                            -moz-border-radius: 60px;
-                                            border-radius: 30px;
-                                            padding: 6px;" />
+                -moz-border-radius: 60px;
+                border-radius: 30px;
+                padding: 6px;" />
 
                                           }
                                             <br />
@@ -105,11 +106,13 @@
 
                                         <div class="panel-footer">
                                             @if (Model.Posts.ToArray()[i].FileName != "")
-                                            {
-                                                <span class="label label-default">@Html.DisplayFor(modelItem => modelItem.FileName) @Html.ActionLink(Model.Posts.ToArray()[i].FileName, "Downloadfile", new { id = Model.Posts.ToArray()[i].Id })</span>
+            {
+                                        <span class="label label-default">@Html.DisplayFor(modelItem => modelItem.FileName) @Html.ActionLink(Model.Posts.ToArray()[i].FileName, "Downloadfile", new { id = Model.Posts.ToArray()[i].Id })</span>
 
-                                            }
-                                           <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
+}
+                                            <p class=""> Skriven av: @Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Author.Name)</p>
+
+                                            <p class="">  <a target="_blank" href="@Html.Raw(location)">Klicka för att se var inlägget är skrivet</a href> </p>
                                             <h4 class="pull-right" style="margin-top:2%;">@Html.DisplayFor(modelItem => modelItem.Posts.ToArray()[i].PublishDate)</h4>
 
                                         </div>

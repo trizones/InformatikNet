@@ -60,13 +60,12 @@ namespace InformatikNet.Controllers
 
             Post post = new Post();
 
-
-
             var author = db.Users.Single(u => u.UserName == User.Identity.Name);
             post.Author = author;
             post.Content = model.Content;
             post.Title = model.Title;
             post.PublishDate = System.DateTime.Now.ToString();
+            post.Coords = model.Coords;
 
             var tag = db.Tag.Single(t => t.Id == model.TagId);
             post.Tag = tag;
