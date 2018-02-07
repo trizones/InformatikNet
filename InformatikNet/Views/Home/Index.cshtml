@@ -4,6 +4,7 @@
 }
 @if (Request.IsAuthenticated)
 {
+
     <div id="calender" style="width:100%; margin-top: 5%; margin-bottom: 5%; "></div>
 
     <div id="myModal" class="modal fade" role="dialog">
@@ -34,6 +35,9 @@
         <table class="table">
             @for (int i = 0; i < Model.Posts.Count(); i++)
             {
+                if (Model.Posts.ToArray()[i].isHidden == false)
+                {
+
 
                 <div class="container" style="text-align:center;">
                     <div class="row">
@@ -49,6 +53,10 @@
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <h4 class="pull-right">
+                                                        @if (User.IsInRole("Administratör") || User.Identity.Name == Model.Posts.ToArray()[i].Author.Email)
+                                                        {
+                                                             @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id, returnurl = "home" }, htmlAttributes: new { @class = "btn btn-primary btn-small" })
+                                                        }
                                                         <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
 
                                                     </h4>
@@ -65,7 +73,7 @@
                                             -moz-border-radius: 60px;
                                             border-radius: 30px;
                                             padding: 6px;" />
-                                    }
+                                    }   
 
                                         <br />
                                         <br />
@@ -96,6 +104,7 @@
                     </div>
                         <hr />
 
+                }
             }
 
     </table>

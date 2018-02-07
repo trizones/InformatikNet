@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,9 +21,11 @@ namespace InformatikNet.Controllers
         public ActionResult Index()
         {
             var posts = db.Post.OrderByDescending(p => p.PublishDate).ThenBy(a => a.Id).Take(3).ToList();
-             
-            PostViewModel postViewModel = new PostViewModel();
-            postViewModel.Posts = posts;
+
+            PostViewModel postViewModel = new PostViewModel
+            {
+                Posts = posts
+            };
             return View(postViewModel);
         }
 
@@ -72,6 +75,54 @@ namespace InformatikNet.Controllers
                         smtp.Send(message);
                     }
                 }
+        }
+        
+        public ActionResult DailyMail()
+        {
+            var db = new ApplicationDbContext();
+
+            var AllUsers = db.Users.ToList();
+            
+            var Today = DateTime.Now;
+
+            var Yesterday = Today.AddDays(-1);
+
+            var Poster = db.Post.Where(i => i.PublishDate >= Yesterday && i.PublishDate <= Today).ToList();
+
+            var Meetings = db.ConfirmedMeeting.Where(i => i.ConfirmedDate >= Yesterday && i.ConfirmedDate <= Today).ToList();
+
+            var body = "Sammanfattning för " + DateTime.Today.ToString("yyyy-MM-dd");
+
+            if (Poster != null)
+            {
+                body += "<br /> Dagens poster: <br />";
+                foreach (var post in Poster)
+                {
+                    body += post.Title + "<br />";
+                }
+            }
+
+            if (Meetings != null)
+            {
+                body += "<br /> Dagens möten: <br />";
+                foreach (var meeting in Meetings)
+                {
+                    body += meeting.Title + "<br />";
+                }
+            }
+
+            var mail = new EmailFormModel()
+            {
+                FromName = "Admin",
+                FromEmail = "informatiknet101@gmail.com",
+                Subject = "Daglig sammanfattning från Informatiknet",
+                Message = body,
+                Recievers = AllUsers
+            };
+
+            Contact(mail);
+
+            return RedirectToAction("Register", "Account");
         }
     }
 }
