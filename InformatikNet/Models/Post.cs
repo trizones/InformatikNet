@@ -19,6 +19,7 @@ namespace InformatikNet.Models
         public byte[] Photo { get; set; }
         public byte[] FileContent { get; set; }
         public String FileName { get; set; }
+        public bool isHidden { get; set; }
         public string PublishDate { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }

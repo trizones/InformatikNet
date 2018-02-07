@@ -57,7 +57,8 @@
         <table class="table">
             @for (int i = Model.Posts.Count - 1; i >= 0; i--)
             {
-
+                if (Model.Posts.ToArray()[i].isHidden == false)
+                {
                     <div class="container" style="text-align:center;">
                         <div class="row">
                             <div class="col-md-1"></div>
@@ -72,6 +73,10 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <h4 class="pull-right">
+                                                            @if (User.IsInRole("Administratör") || User.Identity.Name == Model.Posts.ToArray()[i].Author.Name)
+                                                            {
+                                                                @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id }, htmlAttributes: new { @class = "btn btn-primary btn-small" })              
+                                                            }
                                                             <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
 
                                                         </h4>
@@ -118,7 +123,7 @@
                             </div>
                         </div>
                         <hr />
-                    
+                    }
                 }
 
     </table>
