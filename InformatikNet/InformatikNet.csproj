@@ -288,6 +288,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Meeting\ConfirmedMeeting.cshtml" />
     <Content Include="Views\File\Files.cshtml" />
+    <Content Include="Views\Manage\ManageTaggs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

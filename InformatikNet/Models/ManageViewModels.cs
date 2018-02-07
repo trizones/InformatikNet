@@ -56,6 +56,12 @@ namespace InformatikNet.Models
         public string ConfirmPassword { get; set; }
     }
 
- 
+    public class ManageTaggsViewModel
+    {
+        public ICollection<Tag> Taggs { get; set; }
+        public List<int> ChosenTags { get; set; }
+    }
+
+
 
 }
