@@ -20,7 +20,7 @@ namespace InformatikNet.Models
         public byte[] FileContent { get; set; }
         public String FileName { get; set; }
         public bool isHidden { get; set; }
-        public string PublishDate { get; set; }
+        public DateTime PublishDate { get; set; }
         public string Coords { get; set; }
      
 
