@@ -58,7 +58,7 @@
                 success: function (data) {
                     $.each(data, function (i, v) {
                         events.push({
-                            title: v.Title,
+                            title: v.Activity,
                             start: moment(v.datetime)
 
                         });
@@ -79,14 +79,14 @@
                     timeFormat: 'h(:mm)a',
                     header: {
                         left: 'prev,next today',
-                        center: 'title',
+                        center: 'Activity',
                         right: 'month,basicWeek,basicDay,agenda'
                     },
                     eventLimit: true,
                     eventColor: '#378006',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
-                        $('#myModal #eventTitle').text(calEvent.title);
+                        $('#myModal #eventTitle').text(calEvent.Activity);
                         var $description = $('<div/>');
                         $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
                         if (calEvent.end != null) {
