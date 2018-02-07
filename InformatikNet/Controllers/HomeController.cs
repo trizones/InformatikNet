@@ -21,9 +21,11 @@ namespace InformatikNet.Controllers
         public ActionResult Index()
         {
             var posts = db.Post.OrderByDescending(p => p.PublishDate).ThenBy(a => a.Id).Take(3).ToList();
-             
-            PostViewModel postViewModel = new PostViewModel();
-            postViewModel.Posts = posts;
+
+            PostViewModel postViewModel = new PostViewModel
+            {
+                Posts = posts
+            };
             return View(postViewModel);
         }
 
@@ -85,18 +87,20 @@ namespace InformatikNet.Controllers
 
             var Yesterday = Today.AddDays(-1);
 
+            var Poster = db.Post.Where(i => i.PublishDate >= Yesterday && i.PublishDate <= Today).ToList();
+
             var Meetings = db.ConfirmedMeeting.Where(i => i.ConfirmedDate >= Yesterday && i.ConfirmedDate <= Today).ToList();
 
             var body = "Sammanfattning för " + DateTime.Today.ToString("yyyy-MM-dd");
 
-            //if (Poster != null)
-            //{
-            //    body += "Dagens poster: <br />";
-            //    foreach (var post in Poster)
-            //    {
-            //        body += post + "<br />";
-            //    }
-            //}
+            if (Poster != null)
+            {
+                body += "<br /> Dagens poster: <br />";
+                foreach (var post in Poster)
+                {
+                    body += post.Title + "<br />";
+                }
+            }
 
             if (Meetings != null)
             {
