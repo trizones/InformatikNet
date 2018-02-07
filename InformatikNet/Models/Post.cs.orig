@@ -16,26 +16,52 @@ namespace InformatikNet.Models
         public virtual ApplicationUser Author { get; set; }
         public virtual Category Categories { get; set; }
         public virtual Tag Tag { get; set; }
+        public byte[] Photo { get; set; }
+        public byte[] FileContent { get; set; }
+        public String FileName { get; set; }
+<<<<<<< HEAD
+        public bool isHidden { get; set; }
+=======
+        public string PublishDate { get; set; }
+>>>>>>> 29995ca2cdd99e0f0436c2d45c46a516cb9ce412
+
+
     }
 
     public class CreatePostModel
     {
+        public int Id { get; set; }
         public int TagId { get; set; }
-<<<<<<< HEAD
-        [Required]
-        [Display(Name ="Rubrik")]
-        public string Title { get; set; }
-        [Required]
-        [Display(Name = "Meddelande")]
-=======
         [Required(ErrorMessage ="Titelfältet får inte vara tomt")]
         [StringLength(50, ErrorMessage = "Titeln får inte vara längre än 50 tecken")]
+        [Display(Name ="Rubrik")]
         public string Title { get; set; }
         [Required(ErrorMessage ="Innehållet får inte vara tomt")]
->>>>>>> 0cb57cce0b37854f14026ebf3ff51f2b1ef03c2d
+        [Display(Name = "Meddelande")]
         public string Content { get; set; }
         [Required]
         public virtual IEnumerable<SelectListItem> Tag { get; set; }
         public Category Category;
+        [Display(Name = "Lägg upp bild")]
+        public byte[] Photo { get; set; }
+        [Required]
+        [DataType(DataType.Upload)]
+        [Display(Name = "Select File")]
+        public HttpPostedFileBase files { get; set; }
+        [Display(Name = "Uploaded File")]
+        public String FileName { get; set; }
+        public byte[] FileContent { get; set; }
+        public DateTime PublishDate { get; set; }
+    }
+
+    public class PostViewModel
+    {
+        public ICollection<Post> Posts { get; set; }
+        public string Category { get; set; }
+        [Display(Name = "Infoga bild")]
+        public byte[] Picture { get; set; }
+        [Display(Name = "Infoga fil")]
+        public String FileName { get; set; }
+        public byte[] FileContent { get; set; }
     }
 }

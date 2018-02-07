@@ -1,4 +1,4 @@
-﻿@model InformatikNet.Models.IndexMeetingModel
+﻿@model InformatikNet.Models.Calendar
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,38 +25,11 @@
     </div>
 </div>
 <div>
-<button id="prevMonth" class="btn btn-primary btn-large" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-large" style="margin-top:-7%; margin-left:24%;"> Nästa månad →</button>
+    <button id="prevMonth" class="btn btn-primary btn-large" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-large" style="margin-top:-7%; margin-left:24%;"> Nästa månad →</button>
 </div>
 
-@Html.ActionLink("Nytt möte", "CreateMeeting", "Meeting", htmlAttributes: new { @class = "btn btn-primary btn-large" })
+@Html.ActionLink("Lägg till aktivitet", "CreateActivity", "Calendar", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-large" })
 
-@{
-    List<SelectListItem> listItems = new List<SelectListItem>();
-    foreach (var item in Model.PendingsMeetings)
-    {
-        listItems.Add(new SelectListItem
-        {
-            Text = item.Title,
-            Value = Url.Action("YourPendingMeetings", "Meeting", routeValues: new { title = item.Title })
-        });
-    }
-}
-
-@Html.DropDownListFor(model => model.SelectedMeetingTitle, listItems, "-- Dina inbjudna möten --", htmlAttributes: new { id = "YourMeetings" })
-
-@{
-    List<SelectListItem> listItems2 = new List<SelectListItem>();
-    foreach (var item in Model.CreatedPendingsMeetings)
-    {
-        listItems2.Add(new SelectListItem
-        {
-            Text = item.Title,
-            Value = Url.Action("ConfirmedMeeting", "Meeting", routeValues: new { PId = item.PendingMeetingId })
-        });
-    }
-}
-
-@Html.DropDownListFor(model => model.SelectedCreatedMeetingId, listItems2, "-- Dina skapade möten --", htmlAttributes: new { id = "YourCreatedMeetings" })
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" />
@@ -81,13 +54,13 @@
             var events = [];
             $.ajax({
                 type: "GET",
-                url: "/Meeting/GetEvents",
+                url: "/Calendar/GetEvents",
                 success: function (data) {
                     $.each(data, function (i, v) {
                         events.push({
                             title: v.Title,
-                            start: moment(v.ConfirmedDate)
-                            
+                            start: moment(v.datetime)
+
                         });
                     })
 
@@ -103,7 +76,7 @@
                 $('#calender').fullCalendar({
                     contentHeight: 400,
                     defaultDate: new Date(),
-                    timeFormat: 'hh:mm',
+                    timeFormat: 'h(:mm)a',
                     header: {
                         left: 'prev,next today',
                         center: 'title',
@@ -128,22 +101,7 @@
             }
         })
 
-        $(function () {
-            $('#YourMeetings').change(function () {
-                var url = $(this).val();
-                if (url != null && url != '' && url != "-- Dina inbjudna möten --") {
-                    window.location.href = url;
-                }
-            });
-        });
-        $(function () {
-            $('#YourCreatedMeetings').change(function () {
-                var url = $(this).val();
-                if (url != null && url != '' && url != "-- Dina skapade möten --") {
-                    window.location.href = url;
-                }
-            });
-        });
+
     </script>
 
 }

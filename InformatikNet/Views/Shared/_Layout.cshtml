@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+@using InformatikNet.Repository
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,8 +40,21 @@
                         <li>
                             @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { category = "Övrigt" }, htmlAttributes: null)
                         </li>
+                        @{PendingMeetingsRepository possibleMeetings = new PendingMeetingsRepository(User.Identity.Name);}
+                        @if (possibleMeetings.yourMeetings.Count() > 0)
+                        {
+                            <li>
+                                @Html.ActionLink("Möten (" + possibleMeetings.yourMeetings.Count() +")", "Index", "Meeting")
+                            </li>
+                        }
+                        else
+                        {
                         <li>
                             @Html.ActionLink("Möten", "Index", "Meeting")
+                        </li>
+                        }
+                        <li>
+                            @Html.ActionLink("Personlig Kalender", "Index", "Calendar")
                         </li>
                         <li>
                             @Html.ActionLink("Filsök", "Files", "File")
