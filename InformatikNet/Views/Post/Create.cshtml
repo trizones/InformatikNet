@@ -15,16 +15,9 @@
 
         function clearLocalStorage() {
             window.localStorage.clear();
-            getLocation();
+        
             };
 
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
 
         function show() {
             document.getElementById('newTag').style.visibility = 'visible';
@@ -62,10 +55,10 @@
     </script>
 
 </head>
-<body>
+<body onload="getLocation()">
 
 
-@using (Html.BeginForm("Create", "Post", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Create", "Post", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -75,7 +68,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new {id = "Title", @class = "form-control" } })
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { id = "Title", @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -91,16 +84,16 @@
                 <div class="col-md-10">
                     @Html.DropDownListFor(m => m.TagId, Model.Tag, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
-                <button id="addTagButton" type="button" onclick="show()" class= "btn btn-primary btn-xs">+</button>
+                    <button id="addTagButton" type="button" onclick="show()" class="btn btn-primary btn-xs">+</button>
                     <input id="newTag" type="text" style="visibility:hidden;" />
-                <button class="btn btn-default" id="newTagButton" type="button" style="visibility:hidden;" onclick="showAddTag()">Lägg till</button>
+                    <button class="btn btn-default" id="newTagButton" type="button" style="visibility:hidden;" onclick="showAddTag()">Lägg till</button>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
 
-                <input type="file" name="Photo" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                    <input type="file" name="Photo" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
 
                 </div>
 
@@ -112,23 +105,50 @@
                     <input type="file" name="FileContent" accept=".pdf, .docx, .doc, .xlsx" />
 
                 </div>
-            </div> 
+            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    @Html.HiddenFor(Model => Model.Longitude, htmlAttributes: new { id = "Longitude" })
-                    @Html.HiddenFor(Model => Model.Latitude, htmlAttributes: new { id = "Latitude" })
+                    @Html.HiddenFor(Model => Model.Coords, htmlAttributes: new { id = "Coords" })
+
                     <input onclick="clearLocalStorage()" type="submit" value="Skapa" class="btn btn-default" />
+
+
+
                 </div>
             </div>
         </div>
 
     }
+    <button onclick="getLocation()">Kör</button>
+    <p id="demo"></p>
 
     <div>
         @Html.ActionLink("Tillbaka", "Posts", "Post", routeValues: new { category = cat }, htmlAttributes: new { @class = "btn btn-primary btn-large" })
     </div>
 </body>
+<script>
+    var x = document.getElementById("Coords");
+    
+    function getLocation() {
+       
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.value = "Geolocation is not supported by this browser.";
+        }
+        
+        
+    }
+
+    function showPosition(position) {
+        x.value = position.coords.latitude + "," + position.coords.longitude;
+    }
+   
+
+</script>
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
