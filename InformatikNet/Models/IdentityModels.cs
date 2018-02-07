@@ -46,6 +46,8 @@ namespace InformatikNet.Models
 
         public DbSet<PendingMeeting> PendingMeeting { get; set; }
 
+        public DbSet<Calendar> Calendar { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ApplicationUser>()
