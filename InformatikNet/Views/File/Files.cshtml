@@ -19,20 +19,20 @@
 
 <h2>Sök filer</h2>
 
-<table>
-
+<div class="col-md-12">
+    <div class="col-md-6">
     @using (Html.BeginForm("Files", "File"))
     {
     <h5>Välj förslagstider:</h5>
     <div class='input-group date' id='datetimepicker6' style="width: 250px">
-        @Html.TextBoxFor(m => m.startDate, htmlAttributes: new { @class = "form-control", style = "width: 250px", value = DateTime.Now.ToString() })
+        @Html.TextBoxFor(m => m.startDate, htmlAttributes: new { @class = "form-control", style = "width: 250px", Value = DateTime.Now.ToString() })
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
     </div>
     <br />
     <div class='input-group date' id='datetimepicker7' style="width: 250px">
-        @Html.TextBoxFor(m => m.endDate, htmlAttributes: new { @class = "form-control", style = "width: 250px", value = DateTime.Now.ToString() })
+        @Html.TextBoxFor(m => m.endDate, htmlAttributes: new { @class = "form-control", style = "width: 250px", Value = DateTime.Now.ToString() })
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
@@ -40,21 +40,24 @@
     <br />
     <input type="submit" value="Hämta" class="btn btn-primary btn-large"/>
     }
+    </div>
 
     @if (Model.Posts.Count > 0)
     {
-        foreach (var post in Model.Posts)
+    <div class="col-md-6" style="border:groove 2px; border-radius: 4px;  padding: 2%; margin-bottom: 5%;">
+        @foreach (var post in Model.Posts)
         {
-            <tr>
-                <td>
-                    <p>@Html.ActionLink(post.FileName, "Downloadfile", "Post", new { id = post.Id }, null)</p>
+        <tr>
+            <td>
+                <p>@Html.ActionLink(post.FileName, "Downloadfile", "Post", new { id = post.Id }, new { @class = "btn btn-primary btn-xs" })</p>
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
-    }
+    </div>
+        }
 
-</table>
+</div>
 
 <script type="text/javascript">
 
