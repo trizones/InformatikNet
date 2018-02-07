@@ -57,7 +57,7 @@
         <table class="table">
             @for (int i = Model.Posts.Count - 1; i >= 0; i--)
                         {
-                            var location = "https://www.google.com/maps/?q=-" + Model.Posts.ToArray()[i].Coords;
+                            var location = "https://www.google.com/maps/?q=" + Model.Posts.ToArray()[i].Coords;
                             if (Model.Posts.ToArray()[i].isHidden == false)
                             {
                     <div class="container" style="text-align:center;">
