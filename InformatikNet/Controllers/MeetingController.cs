@@ -47,6 +47,18 @@ namespace InformatikNet.Controllers
         {
             //Behöver få med deltagare på möten här någonstans.
             var confirmedMeetings = db.ConfirmedMeeting.ToList();
+            var ListOfRecievers = "";
+
+            foreach(var item in confirmedMeetings)
+            {
+                var recievers = item.Recievers;
+
+                foreach(var user in recievers)
+                {
+                    ListOfRecievers += user.Name + " ";
+                }
+            }
+
             return new JsonResult { Data = confirmedMeetings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             
         }
