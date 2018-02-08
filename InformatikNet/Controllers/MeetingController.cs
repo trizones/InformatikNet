@@ -205,25 +205,18 @@ namespace InformatikNet.Controllers
             var confirmedMeeting = new ConfirmedMeeting();
             confirmedMeeting.Creator = db.Users.Single(x => x.UserName == User.Identity.Name);
             confirmedMeeting.Title = thePendingMeeting.Title;
-            
 
+            string list2 = "";
             var list = new List<ApplicationUser>();
 
             foreach (var item in thePendingMeeting.Recievers)
             {
                 var bock = db.Users.Where(u => u.Id == item.Id).Single();
+                list2 = list2 + " " + bock.Name;
                 list.Add(bock);
-
             }
 
             confirmedMeeting.Recievers = list;
-
-            var list2 = new List<string>();
-            foreach (var user in confirmedMeeting.Recievers)
-            {
-                list2.Add(user.Name);
-            }
-
             confirmedMeeting.UserNames = list2;
 
                 if (model.Select1 == true)
