@@ -193,6 +193,7 @@ namespace InformatikNet.Controllers
             var confirmedMeeting = new ConfirmedMeeting();
             confirmedMeeting.Creator = db.Users.Single(x => x.UserName == User.Identity.Name);
             confirmedMeeting.Title = thePendingMeeting.Title;
+            
 
             var list = new List<ApplicationUser>();
 
@@ -205,7 +206,15 @@ namespace InformatikNet.Controllers
 
             confirmedMeeting.Recievers = list;
 
-            if (model.Select1 == true)
+            var list2 = new List<string>();
+            foreach (var user in confirmedMeeting.Recievers)
+            {
+                list2.Add(user.Name);
+            }
+
+            confirmedMeeting.UserNames = list2;
+
+                if (model.Select1 == true)
             {
                 confirmedMeeting.ConfirmedDate = thePendingMeeting.SuggestedDate1;
             }
