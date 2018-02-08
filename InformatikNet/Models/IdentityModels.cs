@@ -31,16 +31,16 @@ namespace InformatikNet.Models
     {
         public ApplicationDbContext()
                     : base("DefaultConnection", throwIfV1Schema: false)
-        { 
+        {
         }
 
-       
+
 
         public DbSet<Post> Post { get; set; }
 
         public DbSet<Tag> Tag { get; set; }
 
-        public DbSet<Category> Category  { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         public DbSet<ConfirmedMeeting> ConfirmedMeeting { get; set; }
 

@@ -292,6 +292,7 @@
     <Content Include="Views\Meeting\ConfirmedMeeting.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\File\Files.cshtml" />
+    <Content Include="Views\Manage\ManageTaggs.cshtml" />
     <Content Include="Views\Calendar\CreateActivity.cshtml" />
   </ItemGroup>
   <ItemGroup>

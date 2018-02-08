@@ -129,6 +129,50 @@ namespace InformatikNet.Controllers
         }
 
         //
+        // GET: /Manage/ChangePassword
+        public ActionResult ManageTaggs()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var model = new ManageTaggsViewModel();
+            model.Taggs = db.Tag.ToList();
+            
+
+            return View(model);
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ManageTaggs(ManageTaggsViewModel model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            if(model.ChosenTags != null && model.ChosenTags.Count > 0)
+            {
+                foreach (var tag in model.ChosenTags)
+                {
+                    var posts = db.Post.Where(x => x.Tag.Id == tag).ToList();
+                    if (posts.Count > 0)
+                    {
+                        foreach (var post in posts)
+                        {
+                            db.Post.Remove(post);
+                        }
+                    }
+                    var theTag = db.Tag.Single(x => x.Id == tag);
+                    db.Tag.Remove(theTag);
+                }
+
+                db.SaveChanges();
+            }
+            
+            model.Taggs = db.Tag.ToList();
+
+            return View(model);
+        }
+
+        //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {

@@ -200,6 +200,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
@@ -210,11 +212,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-<<<<<<< HEAD
+    <Compile Include="Models\Calendar.cs" />
+    <Compile Include="Models\FileViewModel.cs" />
     <Compile Include="Models\MeetingModel.cs" />
-=======
     <Compile Include="Models\EmailFormModel.cs" />
->>>>>>> origin/MailService
     <Compile Include="Models\Initializer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\PendingMeetingsRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -283,13 +285,18 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Post\Posts.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Meeting\CreateMeeting.cshtml" />
     <Content Include="Views\Meeting\YourPendingMeetings.cshtml" />
-=======
-    <Content Include="Views\Home\Sent.cshtml" />
+    <Content Include="Views\Meeting\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
->>>>>>> origin/MailService
+    <Content Include="Views\Meeting\ConfirmedMeeting.cshtml" />
+    <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\File\Files.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Manage\ManageTaggs.cshtml" />
+=======
+    <Content Include="Views\Calendar\CreateActivity.cshtml" />
+>>>>>>> 9595de830c13d86e8c19786fb454745bdb8ccf76
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
