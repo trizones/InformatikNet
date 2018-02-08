@@ -45,7 +45,7 @@ namespace InformatikNet.Controllers
 
         public JsonResult GetEvents()
         {
-            
+            //Behöver få med deltagare på möten här någonstans.
             var confirmedMeetings = db.ConfirmedMeeting.ToList();
             return new JsonResult { Data = confirmedMeetings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             

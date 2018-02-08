@@ -12,12 +12,24 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" style="margin-bottom: 2px;">&times;</button>
                     <h4 class="modal-title"><span id="eventTitle"></span></h4>
                 </div>
 
                 <div class="modal-body">
-                    <p id="pDetails"></p>
+                   <div class="container">
+                       <div class="row">
+                           <div class="col-md-6">
+                               <p id="pDetails"></p>
+                           </div>
+                           @* Border för att kunna se hur stor diven är, glöm inte att ta bort. *@
+                           <div class="col-md-6" style="border:solid 2px;">
+                               @*Automagisk scroll om deltagarna blir för många*@
+                               <ul id="pParticipants" style="height:95%; width:95%; overflow:hidden; overflow-y:scroll; display:none"></ul>
+                               <button type="button" id="expBtn" class="btn btn-sm">Visa Deltagare</button>
+                           </div>
+                       </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -43,7 +55,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <div id="postlist>
+                            <div id="postlist">
                                 <div class="panel">
                                     <div class="panel-heading">
                                         <div class="text-center">
@@ -103,12 +115,13 @@
                         </div>
                     </div>
                         <hr />
-
+</div>
                 }
             }
 
     </table>
 </div>
+                  
 
 }
 else
@@ -145,10 +158,12 @@ else
                 type: "GET",
                 url: "/Meeting/GetEvents",
                 success: function (data) {
+
                     $.each(data, function (i, v) {
                         events.push({
                             title: v.Title,
-                            start: moment(v.ConfirmedDate)
+                            start: moment(v.ConfirmedDate),
+                            participants: v.Recievers
 
                         });
                     })
@@ -181,6 +196,7 @@ else
                         if (calEvent.end != null) {
                             $description.append($('<p />').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
                         }
+                        $('#pParticipants').append('<li />').html('<p>' + calEvent.participants)
                         $description.append($('<p />').html('<b>Description:</b>' + calEvent.description));
                         $('#myModal #pDetails').empty().html($description);
 
@@ -189,5 +205,9 @@ else
                 })
             }
     })
+    //Funktion för att dölja eller visa deltagare
+        $('#expBtn').click(function () {
+            $('#pParticipants').slideToggle();
+        })
 </script>
 }
