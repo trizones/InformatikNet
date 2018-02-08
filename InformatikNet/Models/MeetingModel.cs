@@ -26,7 +26,7 @@ namespace InformatikNet.Models
         public string Title { get; set; }
         public ICollection<ApplicationUser> Recievers { get; set; }
         public DateTime ConfirmedDate { get; set; }
-        public List<string> UserNames { get; set; }
+        public string UserNames { get; set; }
     }
     public class PendingMeeting
     {
