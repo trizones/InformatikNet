@@ -102,95 +102,217 @@ namespace InformatikNet.Models
                     Name = "Anställd"
                 };
                 roleManager.Create(role);
+                
+                //Here we create a User      
+                var user = new ApplicationUser
+                {
+                    Name = "Hampus Nordström",
+                    UserName = "hampus@hotmail.com",
+                    Email = "hampus@hotmail.com"
+                };
 
-                //Here we create a User                 
+                var user2 = new ApplicationUser
+                {
+                    Name = "Caroline Ellwyn",
+                    UserName = "caroline@hotmail.com",
+                    Email = "caroline@hotmail.com"
+                };
 
-                var user = new ApplicationUser();
-                user.Name = "User Usersson";
-                user.UserName = "user@hotmail.com";
-                user.Email = "user@hotmail.com";
+                var user3 = new ApplicationUser
+                {
+                    Name = "Elliot Högberg",
+                    UserName = "elliot@hotmail.com",
+                    Email = "elliot@hotmail.com"
+                };
+
+                var user4 = new ApplicationUser
+                {
+                    Name = "Viktor Linq",
+                    UserName = "viktor@hotmail.com",
+                    Email = "viktor@hotmail.com"
+                };
+
+                var user5 = new ApplicationUser
+                {
+                    Name = "Adrian Karlekvist",
+                    UserName = "martin@hotmail.com",
+                    Email = "martin@hotmail.com"
+                };
+
+                var user6 = new ApplicationUser
+                {
+                    Name = "Johan Fransson",
+                    UserName = "johan@hotmail.com",
+                    Email = "johan@hotmail.com"
+                };
+
+                var user7 = new ApplicationUser
+                {
+                    Name = "Joakim Holm",
+                    UserName = "joakim@hotmail.com",
+                    Email = "joakim@hotmail.com"
+                };
 
                 string userPWD = "user123!";
-
                 var userUser = UserManager.Create(user, userPWD);
+                var userUser2 = UserManager.Create(user2, userPWD);
+                var userUser3 = UserManager.Create(user3, userPWD);
+                var userUser4 = UserManager.Create(user4, userPWD);
+                var userUser5 = UserManager.Create(user5, userPWD);
+                var userUser6 = UserManager.Create(user6, userPWD);
+                var userUser7 = UserManager.Create(user7, userPWD);
 
                 //Add default User to Role Anställd   
-                if (userUser.Succeeded)
+                if (userUser.Succeeded && userUser2.Succeeded && userUser3.Succeeded && userUser4.Succeeded && userUser5.Succeeded && userUser6.Succeeded && userUser7.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Anställd");
-
+                    UserManager.AddToRole(user.Id, "Anställd");
+                    UserManager.AddToRole(user2.Id, "Anställd");
+                    UserManager.AddToRole(user3.Id, "Anställd");
+                    UserManager.AddToRole(user4.Id, "Anställd");
+                    UserManager.AddToRole(user5.Id, "Anställd");
+                    UserManager.AddToRole(user6.Id, "Anställd");
+                    UserManager.AddToRole(user7.Id, "Anställd");
                 }
-
-
-
             }
+
+
             var Informatik = new Category { Id = 1, CategoryName = "Informatik", Tags = null };
             context.Category.Add(Informatik);
 
-            var övrigt = new Category { Id = 3, CategoryName = "Övrigt", Tags = null };
-            context.Category.Add(övrigt);
+            var Others = new Category { Id = 3, CategoryName = "Others", Tags = null };
+            context.Category.Add(Others);
 
-            DateTime nu = DateTime.Today;
-            var nyttMöte = new ConfirmedMeeting { Title = "Fest", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1, UserNames = "Esmeralda Exempelsson" };
-            context.ConfirmedMeeting.Add(nyttMöte);
             var anslagForskning = new Category { Id = 4, CategoryName = "Anslag Forskning", Tags = null };
             context.Category.Add(anslagForskning);
 
             var anslagUtbildning = new Category { Id = 5, CategoryName = "Anslag Utbildning", Tags = null };
             context.Category.Add(anslagUtbildning);
 
-            for (int i = 0; i < 10; i++)
+            DateTime nu = DateTime.Now;
+            var nyttMöte = new ConfirmedMeeting { Title = "Seminarium", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1 };
+            context.ConfirmedMeeting.Add(nyttMöte);
+
+            var nyttMöte2 = new ConfirmedMeeting { Title = "Presentation", Creator = null, ConfirmedDate = Convert.ToDateTime("2018-02-16 13:00"), ConfirmedMeetingId = 1, UserNames = "Johan Fransson, Caroline Ellwyn" };
+            context.ConfirmedMeeting.Add(nyttMöte2);
+
+            var nyttMöte3 = new ConfirmedMeeting { Title = "Scrumbeer", Creator = null, ConfirmedDate = Convert.ToDateTime("2018-02-17 19:00"), ConfirmedMeetingId = 1, UserNames = "Martin Sarling, Elliot Högberg" };
+            context.ConfirmedMeeting.Add(nyttMöte3);
+
+            var Post = new Post
             {
-                var tag = new Tag
-                {
-                    Id = i + 1,
-                    Name = "Informatik" + i,
-                    Category = Informatik,
-                    CategoryString = "Informatik"
-                };
-                context.Tag.Add(tag);
+                Title = "Dokument från mötet 2018-02-16",
+                Content = "Dokumenten",
+                PublishDate = Convert.ToDateTime("2018-02-16 13:00"),
+                Categories = Informatik
                 
-            }
-
-
-            for (int i = 0; i < 10; i++)
+            };
+             
+            var tag = new Tag
             {
-                var tag = new Tag
-                {
-                    Id = i + 1,
-                    Name = "övrigt" + i,
-                    Category = övrigt,
-                    CategoryString = "övrigt"
-                };
-                context.Tag.Add(tag);
+                Name = "Planering",
+                Category = Informatik,
+                CategoryString = "Informatik"
+            };
+            context.Tag.Add(tag);
 
-            }
-
-            for (int i = 0; i < 10; i++)
+            var tag2 = new Tag
             {
-                var tag = new Tag
-                {
-                    Id = i + 1,
-                    Name = "Anslag Forskning" + i,
-                    Category = anslagForskning,
-                    CategoryString = "Anslag Forskning"
-                };
-                context.Tag.Add(tag);
+                Name = "Seminarium",
+                Category = Informatik,
+                CategoryString = "Informatik"
+            };
+            context.Tag.Add(tag2);
 
-            }
-
-            for (int i = 0; i < 10; i++)
+            var tag3 = new Tag
             {
-                var tag = new Tag
-                {
-                    Id = i + 1,
-                    Name = "Anslag Utbildning" + i,
-                    Category = anslagUtbildning,
-                    CategoryString = "Anslag Utbildning"
-                };
-                context.Tag.Add(tag);
+                Name = "Frukostmöte",
+                Category = Informatik,
+                CategoryString = "Informatik"
+            };
+            context.Tag.Add(tag3);
 
-            }
+            var tag4 = new Tag
+            {
+                Name = "Kurs",
+                Category = Informatik,
+                CategoryString = "Informatik"
+            };
+            context.Tag.Add(tag4);
+
+            var tag5 = new Tag
+            {
+                Name = "Föreläsning",
+                Category = Informatik,
+                CategoryString = "Informatik"
+            };
+            context.Tag.Add(tag5);
+
+            var tag6 = new Tag
+            {
+                Name = "Semester",
+                Category = Others,
+                CategoryString = "Others"
+            };
+            context.Tag.Add(tag6);
+
+            var tag7 = new Tag
+            {
+                Name = "Fritidsaktivitet",
+                Category = Others,
+                CategoryString = "Others"
+            };
+            context.Tag.Add(tag7);
+
+            var tag8 = new Tag
+            {
+                Name = "After Work",
+                Category = Others,
+                CategoryString = "Others"
+            };
+            context.Tag.Add(tag8);
+
+            var tag9 = new Tag
+            {
+                Name = "System",
+                Category = anslagForskning,
+                CategoryString = "anslag forskning"
+            };
+            context.Tag.Add(tag9);
+
+            var tag10 = new Tag
+            {
+                Name = "IT trend",
+                Category = anslagForskning,
+                CategoryString = "anslag forskning"
+            };
+            context.Tag.Add(tag10);
+
+            var tag11 = new Tag
+            {
+                Name = "Lillsupen",
+                Category = anslagUtbildning,
+                CategoryString = "anslag utbildning"
+            };
+            context.Tag.Add(tag11);
+
+            var tag12 = new Tag
+            {
+                Name = "SQL",
+                Category = anslagUtbildning,
+                CategoryString = "anslag utbildning"
+            };
+            context.Tag.Add(tag12);
+
+            var tag13 = new Tag
+            {
+                Name = "Java",
+                Category = anslagUtbildning,
+                CategoryString = "anslag utbildning"
+            };
+            context.Tag.Add(tag13);
+
+
+            
 
             context.SaveChanges();
 

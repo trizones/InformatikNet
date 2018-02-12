@@ -19,7 +19,7 @@ namespace InformatikNet.Controllers
         public JsonResult GetEvents()
         {
             
-            var yourActivities = db.Calendar.ToList();
+            var yourActivities = db.Calendar.Where(x => x.aUser.Email == User.Identity.Name).ToList();
             return new JsonResult { Data = yourActivities, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }

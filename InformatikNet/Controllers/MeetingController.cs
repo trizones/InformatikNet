@@ -16,8 +16,8 @@ namespace InformatikNet.Controllers
         public ActionResult Index()
         {
             IndexMeetingModel indexMeetingModel = new IndexMeetingModel();
-            var confirmedMeetings = db.ConfirmedMeeting.ToList();
             var user = db.Users.Single(u => u.UserName == User.Identity.Name);
+            var confirmedMeetings = db.ConfirmedMeeting.Include(X => X.Recievers).Where(x => x.Recievers.Any(u => u.Id == user.Id)).ToList();
             var meetings = db.PendingMeeting.Where(x => x.Recievers.Any(u => u.Id == user.Id)).ToList();
             var yourCreatedMeetings = db.PendingMeeting.Where(x => x.Creator.Id == user.Id).ToList();
 
@@ -43,13 +43,22 @@ namespace InformatikNet.Controllers
             return View(indexMeetingModel);
         }
 
-        public JsonResult GetEvents()
+        public JsonResult GetMyEvents()
         {
-            //Behöver få med deltagare på möten här någonstans.
-            var confirmedMeetings = db.ConfirmedMeeting.ToList();
+            
+            var confirmedMeetings = db.ConfirmedMeeting.Where(x => x.Recievers.Any(u => u.Email == User.Identity.Name)).ToList();
 
             return new JsonResult { Data = confirmedMeetings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             
+        }
+
+        public JsonResult GetEvents()
+        {
+            
+            var confirmedMeetings = db.ConfirmedMeeting.ToList();
+
+            return new JsonResult { Data = confirmedMeetings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
         }
 
         // GET: Meeting
