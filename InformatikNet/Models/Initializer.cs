@@ -10,7 +10,6 @@ namespace InformatikNet.Models
 {
     public class Initializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
-
         protected override void Seed(ApplicationDbContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -299,13 +298,68 @@ namespace InformatikNet.Models
                 CategoryString = "anslag utbildning"
             };
             context.Tag.Add(tag13);
-
-
             
-
             context.SaveChanges();
 
+            var AllUsers = context.Users.ToList();
+
+            var today = DateTime.Now.AddHours(1);
+            var möte1 = new ConfirmedMeeting
+            {
+                Title = "Informatikmöte",
+                ConfirmedDate = today,
+                Creator = AllUsers.First(),
+                Recievers = AllUsers,
+                UserNames = GetUserNames(AllUsers)
+            };
+            context.ConfirmedMeeting.Add(möte1);
+
+            var möte2 = new ConfirmedMeeting
+            {
+                Title = "Seminarium",
+                ConfirmedDate = Convert.ToDateTime("2018-02-12 13:00"),
+                Creator = AllUsers.First(),
+                Recievers = AllUsers,
+                UserNames = GetUserNames(AllUsers)
+            };
+            context.ConfirmedMeeting.Add(möte2);
+
+            var möte3 = new ConfirmedMeeting
+            {
+                Title = "Möte",
+                ConfirmedDate = Convert.ToDateTime("2018-02-14 11:00"),
+                Creator = AllUsers.First(),
+                Recievers = AllUsers,
+                UserNames = GetUserNames(AllUsers)
+            };
+            context.ConfirmedMeeting.Add(möte3);
+
+            var post = new Post
+            {
+
+            };
+                
+            context.SaveChanges();
             base.Seed(context);
         }
+
+        public string GetUserNames(List<ApplicationUser> users)
+        {
+            var db = new ApplicationDbContext();
+            var list2 = new List<string>();
+            var longFellow = "";
+            
+
+            foreach (var item in users)
+            {
+                var user = db.Users.Where(u => u.Id == item.Id).Single();
+                list2.Add(user.Name);
+               
+            }
+            longFellow = string.Join(", ", list2);
+
+            return (longFellow);
+        }
     }
+       
 }
