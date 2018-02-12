@@ -29,19 +29,12 @@ namespace InformatikNet.Models
 
                 //Here we create a Admin super user who will maintain the website                  
 
-<<<<<<< HEAD
-                var user = new ApplicationUser();
-                user.Name = "Admin Adminsson";
-                user.UserName = "admin@hotmail.com";
-                user.Email = "admin@hotmail.com";
-=======
                 var user = new ApplicationUser
                 {
                     Name = "Admin Adminsson",
                     UserName = "admin@hotmail.com",
                     Email = "admin@hotmail.com"
                 };
->>>>>>> f814beb11dc24cfd894b02cca35b16caf2a16b4e
 
                 string userPWD = "admin123!";
 
@@ -131,52 +124,39 @@ namespace InformatikNet.Models
 
 
             }
-            var forskning = new Category { Id = 1, CategoryName = "Forskning", Tags = null };
-            context.Category.Add(forskning);
-
-            var utbildning = new Category { Id = 2, CategoryName = "Utbildning", Tags = null };
-            context.Category.Add(utbildning);
+            var Informatik = new Category { Id = 1, CategoryName = "Informatik", Tags = null };
+            context.Category.Add(Informatik);
 
             var övrigt = new Category { Id = 3, CategoryName = "Övrigt", Tags = null };
             context.Category.Add(övrigt);
 
-<<<<<<< HEAD
             DateTime nu = DateTime.Today;
+<<<<<<< HEAD
+          
             var nyttMöte = new ConfirmedMeeting { Title = "Fest", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1 };
-            context.ConfirmedMeeting.Add(nyttMöte);
 =======
+            var nyttMöte = new ConfirmedMeeting { Title = "Fest", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1, UserNames = "Esmeralda Exempelsson" };
+>>>>>>> cf50b299883d5ed10c0630acce54aaacb0af6350
+            context.ConfirmedMeeting.Add(nyttMöte);
             var anslagForskning = new Category { Id = 4, CategoryName = "Anslag Forskning", Tags = null };
             context.Category.Add(anslagForskning);
 
             var anslagUtbildning = new Category { Id = 5, CategoryName = "Anslag Utbildning", Tags = null };
             context.Category.Add(anslagUtbildning);
 
->>>>>>> f814beb11dc24cfd894b02cca35b16caf2a16b4e
             for (int i = 0; i < 10; i++)
             {
                 var tag = new Tag
                 {
                     Id = i + 1,
-                    Name = "forskning" + i,
-                    Category = forskning,
-                    CategoryString = "forskning"
+                    Name = "Informatik" + i,
+                    Category = Informatik,
+                    CategoryString = "Informatik"
                 };
                 context.Tag.Add(tag);
                 
             }
 
-            for (int i = 0; i < 10; i++)
-            {
-                var tag = new Tag
-                {
-                    Id = i + 1,
-                    Name = "utbildning" + i,
-                    Category = utbildning,
-                    CategoryString = "utbildning"
-                };
-                context.Tag.Add(tag);
-
-            }
 
             for (int i = 0; i < 10; i++)
             {
