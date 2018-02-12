@@ -87,15 +87,23 @@ namespace InformatikNet.Controllers
             var fileName = "";
             if (Request.Files.Count > 0)
             {
-
-                HttpPostedFileBase docFile = Request.Files["FileContent"];
-
-                using (var binary = new BinaryReader(docFile.InputStream))
+                try
                 {
-                    docData = binary.ReadBytes(docFile.ContentLength);
-                    fileName = docFile.FileName;
+                    HttpPostedFileBase docFile = Request.Files["FileContent"];
 
+                    using (var binary = new BinaryReader(docFile.InputStream))
+                    {
+                        docData = binary.ReadBytes(docFile.ContentLength);
+                        fileName = docFile.FileName;
+
+                    }
                 }
+                catch
+                {
+                    ViewBag.Error = "Filen är för stor.";
+                    return RedirectToAction("Create", new {category = tempCat });
+                }
+                
             }
 
             post.FileName = fileName;

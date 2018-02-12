@@ -12,7 +12,15 @@
 
 </script>
 <body onload="onload()">
-    <h2>@Html.DisplayFor(model => model.Category)</h2>
+    @if (Model.Category == "Others")
+    {
+        <h2>Övrigt</h2>
+    }
+    else
+    {
+        <h2>@Html.DisplayFor(model => model.Category)</h2>
+    }
+
 
     <div style="margin-bottom: 15%;">
         @using (Html.BeginForm("Posts", "Post"))
