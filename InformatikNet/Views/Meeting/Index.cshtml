@@ -86,7 +86,9 @@
                     $.each(data, function (i, v) {
                         events.push({
                             title: v.Title,
-                            start: moment(v.ConfirmedDate)
+                            start: moment(v.ConfirmedDate),
+                            attenders: v.Recievers
+                            
                             
                         });
                     })
@@ -103,7 +105,7 @@
                 $('#calender').fullCalendar({
                     contentHeight: 400,
                     defaultDate: new Date(),
-                    timeFormat: 'hh:mm',
+                    timeFormat: 'HH:mm',
                     header: {
                         left: 'prev,next today',
                         center: 'title',
@@ -115,12 +117,13 @@
                     eventClick: function (calEvent, jsEvent, view) {
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("YYYY-MMM-DD HH:mm")));
                         if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("YYYY-MMM-DD HH:mm")));
                         }
-                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.attenders));
                         $('#myModal #pDetails').empty().html($description);
+
 
                         $('#myModal').modal();
                     }
