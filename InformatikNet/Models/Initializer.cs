@@ -10,12 +10,10 @@ namespace InformatikNet.Models
 {
     public class Initializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
-
         protected override void Seed(ApplicationDbContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
 
             // In Startup iam creating first Admin Role and creating a default Admin User    
             if (!roleManager.RoleExists("Administratör"))
@@ -49,14 +47,18 @@ namespace InformatikNet.Models
             }
             if  (!roleManager.RoleExists("Forskare"))
             {
-                var role = new IdentityRole();
-                role.Name = "Forskare";
+                var role = new IdentityRole
+                {
+                    Name = "Forskare"
+                };
                 roleManager.Create(role);
 
-                var user = new ApplicationUser();
-                user.Name = "Forskare Forsk";
-                user.UserName = "forskare@mail.com";
-                user.Email = "forskare@mail.com";
+                var user = new ApplicationUser
+                {
+                    Name = "Forskare Forsk",
+                    UserName = "forskare@mail.com",
+                    Email = "forskare@mail.com"
+                };
 
                 string userPWD = "password";
 
@@ -69,16 +71,20 @@ namespace InformatikNet.Models
 
             if (!roleManager.RoleExists("Lärare"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Lärare";
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+                {
+                    Name = "Lärare"
+                };
                 roleManager.Create(role);
 
                 //Here we create a User                 
 
-                var user = new ApplicationUser();
-                user.Name = "Esmeralda Exempelsson";
-                user.UserName = "larare@hotmail.com";
-                user.Email = "larare@hotmail.com";
+                var user = new ApplicationUser
+                {
+                    Name = "Esmeralda Exempelsson",
+                    UserName = "larare@hotmail.com",
+                    Email = "larare@hotmail.com"
+                };
 
                 string userPWD = "larare123!";
 
@@ -187,25 +193,7 @@ namespace InformatikNet.Models
 
             var anslagUtbildning = new Category { Id = 5, CategoryName = "Anslag Utbildning", Tags = null };
             context.Category.Add(anslagUtbildning);
-
-            DateTime nu = DateTime.Now;
-            var nyttMöte = new ConfirmedMeeting { Title = "Seminarium", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1 };
-            context.ConfirmedMeeting.Add(nyttMöte);
-
-            var nyttMöte2 = new ConfirmedMeeting { Title = "Presentation", Creator = null, ConfirmedDate = Convert.ToDateTime("2018-02-16 13:00"), ConfirmedMeetingId = 1, UserNames = "Johan Fransson, Caroline Ellwyn" };
-            context.ConfirmedMeeting.Add(nyttMöte2);
-
-            var nyttMöte3 = new ConfirmedMeeting { Title = "Scrumbeer", Creator = null, ConfirmedDate = Convert.ToDateTime("2018-02-17 19:00"), ConfirmedMeetingId = 1, UserNames = "Martin Sarling, Elliot Högberg" };
-            context.ConfirmedMeeting.Add(nyttMöte3);
-
-            var Post = new Post
-            {
-                Title = "Dokument från mötet 2018-02-16",
-                Content = "Dokumenten",
-                PublishDate = Convert.ToDateTime("2018-02-16 13:00"),
-                Categories = Informatik
-                
-            };
+            
              
             var tag = new Tag
             {
@@ -310,13 +298,68 @@ namespace InformatikNet.Models
                 CategoryString = "anslag utbildning"
             };
             context.Tag.Add(tag13);
-
-
             
-
             context.SaveChanges();
 
+            var AllUsers = context.Users.ToList();
+
+            var today = DateTime.Now.AddHours(1);
+            var möte1 = new ConfirmedMeeting
+            {
+                Title = "Informatikmöte",
+                ConfirmedDate = today,
+                Creator = AllUsers.First(),
+                Recievers = AllUsers,
+                UserNames = GetUserNames(AllUsers)
+            };
+            context.ConfirmedMeeting.Add(möte1);
+
+            var möte2 = new ConfirmedMeeting
+            {
+                Title = "Seminarium",
+                ConfirmedDate = Convert.ToDateTime("2018-02-12 13:00"),
+                Creator = AllUsers.First(),
+                Recievers = AllUsers,
+                UserNames = GetUserNames(AllUsers)
+            };
+            context.ConfirmedMeeting.Add(möte2);
+
+            var möte3 = new ConfirmedMeeting
+            {
+                Title = "Möte",
+                ConfirmedDate = Convert.ToDateTime("2018-02-14 11:00"),
+                Creator = AllUsers.First(),
+                Recievers = AllUsers,
+                UserNames = GetUserNames(AllUsers)
+            };
+            context.ConfirmedMeeting.Add(möte3);
+
+            var post = new Post
+            {
+
+            };
+                
+            context.SaveChanges();
             base.Seed(context);
         }
+
+        public string GetUserNames(List<ApplicationUser> users)
+        {
+            var db = new ApplicationDbContext();
+            var list2 = new List<string>();
+            var longFellow = "";
+            
+
+            foreach (var item in users)
+            {
+                var user = db.Users.Where(u => u.Id == item.Id).Single();
+                list2.Add(user.Name);
+               
+            }
+            longFellow = string.Join(", ", list2);
+
+            return (longFellow);
+        }
     }
+       
 }

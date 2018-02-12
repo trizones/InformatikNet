@@ -87,15 +87,23 @@ namespace InformatikNet.Controllers
             var fileName = "";
             if (Request.Files.Count > 0)
             {
-
-                HttpPostedFileBase docFile = Request.Files["FileContent"];
-
-                using (var binary = new BinaryReader(docFile.InputStream))
+                try
                 {
-                    docData = binary.ReadBytes(docFile.ContentLength);
-                    fileName = docFile.FileName;
+                    HttpPostedFileBase docFile = Request.Files["FileContent"];
 
+                    using (var binary = new BinaryReader(docFile.InputStream))
+                    {
+                        docData = binary.ReadBytes(docFile.ContentLength);
+                        fileName = docFile.FileName;
+
+                    }
                 }
+                catch
+                {
+                    ViewBag.Error = "Filen är för stor.";
+                    return RedirectToAction("Create", new {category = tempCat });
+                }
+                
             }
 
             post.FileName = fileName;
@@ -118,10 +126,19 @@ namespace InformatikNet.Controllers
             var categoryObj = db.Category.Single(c => c.CategoryName == category);
 
             Tag tag = new Tag { Name = tagName, Category = categoryObj };
-
-            db.Tag.Add(tag);
-            db.SaveChanges();
-            return new EmptyResult();
+            var testValue = tagName.Trim();
+            if(testValue != "")
+            {
+                db.Tag.Add(tag);
+                db.SaveChanges();
+                return new EmptyResult();
+            }
+            else
+            {
+               
+                return new EmptyResult();
+            }
+            
         }
 
         [HttpGet]

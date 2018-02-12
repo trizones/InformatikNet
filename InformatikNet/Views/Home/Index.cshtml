@@ -1,6 +1,6 @@
 ﻿@model InformatikNet.Models.PostViewModel
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Startsida";
 }
 @if (Request.IsAuthenticated)
 {
@@ -59,7 +59,7 @@
                                                     <h4 class="pull-right">
                                                         @if (User.IsInRole("Administratör") || User.Identity.Name == Model.Posts.ToArray()[i].Author.Email)
                                                         {
-                                                             @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id, returnurl = "home" }, htmlAttributes: new { @class = "btn btn-primary btn-small" })
+                                                             @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id, returnurl = "home" }, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
                                                         }
                                                         <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
 

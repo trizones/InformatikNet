@@ -17,7 +17,8 @@ namespace InformatikNet.Controllers
         [HttpPost, ActionName("CreateTag")]
         public void NewTag(Tag tag)
         {
-            if (tag.Name != "")
+            var testValue = tag.Name.Trim();
+            if (tag.Name != "" && testValue != "")
             {
                 var category = db.Category.Single(c => c.CategoryName == tag.CategoryString);
                 tag.Category = category;

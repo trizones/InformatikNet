@@ -12,7 +12,15 @@
 
 </script>
 <body onload="onload()">
-    <h2>@Html.DisplayFor(model => model.Category)</h2>
+    @if (Model.Category == "Others")
+    {
+        <h2>Övrigt</h2>
+    }
+    else
+    {
+        <h2>@Html.DisplayFor(model => model.Category)</h2>
+    }
+
 
     <div style="margin-bottom: 15%;">
         @using (Html.BeginForm("Posts", "Post"))
@@ -78,7 +86,7 @@
                                                         <h4 class="pull-right">
                                                             @if (User.IsInRole("Administratör") || User.Identity.Name == Model.Posts.ToArray()[i].Author.Email)
                                                             {
-                                                                @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id, returnurl = "post" }, htmlAttributes: new { @class = "btn btn-primary btn-small" })              
+                                                                @Html.ActionLink("Göm inlägg", "HidePost", "Post", new { id = Model.Posts.ToArray()[i].Id, returnurl = "post" }, htmlAttributes: new { @class = "btn btn-primary btn-xs" })              
                                                             }
                                                             <span class="label label-default">@Html.DisplayFor(modelitem => modelitem.Posts.ToArray()[i].Tag.Name)</span>
 
