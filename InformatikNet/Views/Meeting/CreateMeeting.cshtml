@@ -61,7 +61,9 @@
         <input class="buttonUpDown btn-primary btn-group-sm" id="btnRemove" type="button" value=" Ta bort deltagare ↑ " onclick="removeItem()" style="width:auto; margin-left:auto"/>
     </div>
     <div>
-        @Html.ListBoxFor(m => m.ReciverIds, new MultiSelectList(Model.Recievers, "Id", "Email", Model.ReciverIds), new { size = "10", @class = "listboxMeeting", id = "Recievers" })
+        @Html.ListBoxFor(m => m.ReciverIds, new MultiSelectList(Model.Recievers, "Id", "Email", Model.ReciverIds), new { size = "10", @class = "listboxMeeting", id = "Recievers", required = "required" })
+        @Html.ValidationMessageFor(model => model.Recievers)
+        
     </div>
 </div>
 
