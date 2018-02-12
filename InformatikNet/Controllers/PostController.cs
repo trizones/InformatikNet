@@ -118,10 +118,19 @@ namespace InformatikNet.Controllers
             var categoryObj = db.Category.Single(c => c.CategoryName == category);
 
             Tag tag = new Tag { Name = tagName, Category = categoryObj };
-
-            db.Tag.Add(tag);
-            db.SaveChanges();
-            return new EmptyResult();
+            var testValue = tagName.Trim();
+            if(testValue != "")
+            {
+                db.Tag.Add(tag);
+                db.SaveChanges();
+                return new EmptyResult();
+            }
+            else
+            {
+               
+                return new EmptyResult();
+            }
+            
         }
 
         [HttpGet]

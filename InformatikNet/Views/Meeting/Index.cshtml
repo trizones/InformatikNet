@@ -25,10 +25,10 @@
     </div>
 </div>
 <div>
-<button id="prevMonth" class="btn btn-primary btn-large" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-large" style="margin-top:-7%; margin-left:24%;"> Nästa månad →</button>
+<button id="prevMonth" class="btn btn-primary btn-xs" style="margin-top:-7%; ">← Föregående månad</button>    <button id="nextMonth" class="btn btn-primary btn-xs" style="margin-top:-7%; margin-left:29.4%;"> Nästa månad →</button>
 </div>
 
-@Html.ActionLink("Nytt möte", "CreateMeeting", "Meeting", htmlAttributes: new { @class = "btn btn-primary btn-large" })
+@Html.ActionLink("Nytt möte", "CreateMeeting", "Meeting", htmlAttributes: new { @class = "btn btn-primary btn-small" })
 
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
@@ -57,7 +57,14 @@
 }
 
 @Html.DropDownListFor(model => model.SelectedCreatedMeetingId, listItems2, "-- Dina skapade möten --", htmlAttributes: new { id = "YourCreatedMeetings", @style = "margin-left:10px;margin-top:-5px;" })
+<div>
+    <br />
+@if (User.IsInRole("Administratör"))
+{
+    @Html.ActionLink("Skicka ut dagligt mailutskick", "DailyMail", "Home", null, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
 
+}
+</div>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" />
 
