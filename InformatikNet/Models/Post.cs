@@ -48,7 +48,7 @@ namespace InformatikNet.Models
         [DataType(DataType.Upload)]
         [Display(Name = "Select File")]
         public HttpPostedFileBase files { get; set; }
-        [Display(Name = "Uploaded File")]
+        [Display(Name = "Välj fil")]
         public String FileName { get; set; }
         [Display(Name = "Lägg till en fil")]
         public byte[] FileContent { get; set; }
