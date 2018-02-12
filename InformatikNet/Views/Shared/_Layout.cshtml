@@ -38,7 +38,7 @@
                             </ul>
                         </li>
                         <li>
-                            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { category = "Övrigt" }, htmlAttributes: null)
+                            @Html.ActionLink("Övrigt", "Posts", "Post", routeValues: new { category = "Others" }, htmlAttributes: null)
                         </li>
                         @{PendingMeetingsRepository possibleMeetings = new PendingMeetingsRepository(User.Identity.Name);}
                         @if (possibleMeetings.yourMeetings.Count() > 0)

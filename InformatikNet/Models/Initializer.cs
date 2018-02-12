@@ -179,8 +179,8 @@ namespace InformatikNet.Models
             var Informatik = new Category { Id = 1, CategoryName = "Informatik", Tags = null };
             context.Category.Add(Informatik);
 
-            var övrigt = new Category { Id = 3, CategoryName = "Others", Tags = null };
-            context.Category.Add(övrigt);
+            var Others = new Category { Id = 3, CategoryName = "Others", Tags = null };
+            context.Category.Add(Others);
 
             var anslagForskning = new Category { Id = 4, CategoryName = "Anslag Forskning", Tags = null };
             context.Category.Add(anslagForskning);
@@ -203,8 +203,8 @@ namespace InformatikNet.Models
                 Title = "Dokument från mötet 2018-02-16",
                 Content = "Dokumenten",
                 PublishDate = Convert.ToDateTime("2018-02-16 13:00"),
-                Categories = Informatik,
-                Tag = tag
+                Categories = Informatik
+                
             };
              
             var tag = new Tag
@@ -250,24 +250,24 @@ namespace InformatikNet.Models
             var tag6 = new Tag
             {
                 Name = "Semester",
-                Category = övrigt,
-                CategoryString = "Övrigt"
+                Category = Others,
+                CategoryString = "Others"
             };
             context.Tag.Add(tag6);
 
             var tag7 = new Tag
             {
                 Name = "Fritidsaktivitet",
-                Category = övrigt,
-                CategoryString = "Övrigt"
+                Category = Others,
+                CategoryString = "Others"
             };
             context.Tag.Add(tag7);
 
             var tag8 = new Tag
             {
                 Name = "After Work",
-                Category = övrigt,
-                CategoryString = "Övrigt"
+                Category = Others,
+                CategoryString = "Others"
             };
             context.Tag.Add(tag8);
 
