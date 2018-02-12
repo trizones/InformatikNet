@@ -195,109 +195,109 @@ namespace InformatikNet.Models
             context.Category.Add(anslagUtbildning);
             
              
-            var tag = new Tag
+            var planering = new Tag
             {
                 Name = "Planering",
                 Category = Informatik,
                 CategoryString = "Informatik"
             };
-            context.Tag.Add(tag);
+            context.Tag.Add(planering);
 
-            var tag2 = new Tag
+            var seminarium = new Tag
             {
                 Name = "Seminarium",
                 Category = Informatik,
                 CategoryString = "Informatik"
             };
-            context.Tag.Add(tag2);
+            context.Tag.Add(seminarium);
 
-            var tag3 = new Tag
+            var frukost = new Tag
             {
                 Name = "Frukostmöte",
                 Category = Informatik,
                 CategoryString = "Informatik"
             };
-            context.Tag.Add(tag3);
+            context.Tag.Add(frukost);
 
-            var tag4 = new Tag
+            var kurs = new Tag
             {
                 Name = "Kurs",
                 Category = Informatik,
                 CategoryString = "Informatik"
             };
-            context.Tag.Add(tag4);
+            context.Tag.Add(kurs);
 
-            var tag5 = new Tag
+            var forelasning = new Tag
             {
                 Name = "Föreläsning",
                 Category = Informatik,
                 CategoryString = "Informatik"
             };
-            context.Tag.Add(tag5);
+            context.Tag.Add(forelasning);
 
-            var tag6 = new Tag
+            var semester = new Tag
             {
                 Name = "Semester",
                 Category = Others,
                 CategoryString = "Others"
             };
-            context.Tag.Add(tag6);
+            context.Tag.Add(semester);
 
-            var tag7 = new Tag
+            var fritidsaktivitet = new Tag
             {
                 Name = "Fritidsaktivitet",
                 Category = Others,
                 CategoryString = "Others"
             };
-            context.Tag.Add(tag7);
+            context.Tag.Add(fritidsaktivitet);
 
-            var tag8 = new Tag
+            var afterWork = new Tag
             {
                 Name = "After Work",
                 Category = Others,
                 CategoryString = "Others"
             };
-            context.Tag.Add(tag8);
+            context.Tag.Add(afterWork);
 
-            var tag9 = new Tag
+            var system = new Tag
             {
                 Name = "System",
                 Category = anslagForskning,
                 CategoryString = "anslag forskning"
             };
-            context.Tag.Add(tag9);
+            context.Tag.Add(system);
 
-            var tag10 = new Tag
+            var itTrend = new Tag
             {
                 Name = "IT trend",
                 Category = anslagForskning,
                 CategoryString = "anslag forskning"
             };
-            context.Tag.Add(tag10);
+            context.Tag.Add(itTrend);
 
-            var tag11 = new Tag
+            var lillsupen = new Tag
             {
                 Name = "Lillsupen",
                 Category = anslagUtbildning,
                 CategoryString = "anslag utbildning"
             };
-            context.Tag.Add(tag11);
+            context.Tag.Add(lillsupen);
 
-            var tag12 = new Tag
+            var sql = new Tag
             {
                 Name = "SQL",
                 Category = anslagUtbildning,
                 CategoryString = "anslag utbildning"
             };
-            context.Tag.Add(tag12);
+            context.Tag.Add(sql);
 
-            var tag13 = new Tag
+            var java = new Tag
             {
                 Name = "Java",
                 Category = anslagUtbildning,
                 CategoryString = "anslag utbildning"
             };
-            context.Tag.Add(tag13);
+            context.Tag.Add(java);
             
             context.SaveChanges();
 
@@ -333,11 +333,6 @@ namespace InformatikNet.Models
                 UserNames = GetUserNames(AllUsers)
             };
             context.ConfirmedMeeting.Add(möte3);
-
-            var post = new Post
-            {
-
-            };
                 
             context.SaveChanges();
             base.Seed(context);
