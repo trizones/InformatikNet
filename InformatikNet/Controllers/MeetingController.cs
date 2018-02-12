@@ -80,11 +80,7 @@ namespace InformatikNet.Controllers
             {
                 var bock = db.Users.Where(u => u.Id == item).Single();
                 list.Add(bock);
-
             }
-
-
-
 
             pendingMeeting.Recievers = list;
             pendingMeeting.SuggestedDate1 = model.SuggestedDate1;
@@ -98,7 +94,7 @@ namespace InformatikNet.Controllers
             {
                 FromEmail = user.Email,
                 FromName = user.Name,
-                Message = "Du har blivit kallad till ett nytt möte! :), logga in på intranätet för att bekräfta!",
+                Message = "Du har blivit kallad till ett nytt möte. Logga in på intranätet för att välja en eller flera tider som passar.",
                 Subject = model.Title,
                 Recievers = list
             };
@@ -195,18 +191,20 @@ namespace InformatikNet.Controllers
             confirmedMeeting.Creator = db.Users.Single(x => x.UserName == User.Identity.Name);
             confirmedMeeting.Title = thePendingMeeting.Title;
 
-            string list2 = "";
+            var list2 = new List<string>();
+            var longFellow = "";
             var list = new List<ApplicationUser>();
 
             foreach (var item in thePendingMeeting.Recievers)
             {
-                var bock = db.Users.Where(u => u.Id == item.Id).Single();
-                list2 = list2 + " " + bock.Name;
-                list.Add(bock);
+                var user = db.Users.Where(u => u.Id == item.Id).Single();
+                //list2 = list2 + ", " + user.Name;
+                list2.Add(user.Name);
+                list.Add(user);
             }
-
+            longFellow = string.Join(", ", list2);
             confirmedMeeting.Recievers = list;
-            confirmedMeeting.UserNames = list2;
+            confirmedMeeting.UserNames = longFellow;
 
                 if (model.Select1 == true)
             {

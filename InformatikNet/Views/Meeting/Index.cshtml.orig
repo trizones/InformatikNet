@@ -86,8 +86,13 @@
                     $.each(data, function (i, v) {
                         events.push({
                             title: v.Title,
+<<<<<<< HEAD
                             start: moment(v.ConfirmedDate),                            
+                            
+=======
+                            start: moment(v.ConfirmedDate),
                             attenders: v.UserNames
+>>>>>>> cf50b299883d5ed10c0630acce54aaacb0af6350
                         });
                     })
 
