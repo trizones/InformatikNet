@@ -12,16 +12,24 @@
 
 </script>
 <body onload="onload()">
-    <h2>@Html.DisplayFor(model => model.Category)</h2>
+    @if (Model.Category == "Others")
+    {
+        <h2>Övrigt</h2>
+    }
+    else
+    {
+        <h2>@Html.DisplayFor(model => model.Category)</h2>
+    }
+
 
     <div style="margin-bottom: 15%;">
         @using (Html.BeginForm("Posts", "Post"))
         {
         <td>
-            @Html.TextBox("tag", null, htmlAttributes: new { id = "tagsearch", style = "border-radius: 4px; height: 28px; margin-right: 8px;" })<input type="submit" value="Search" class="btn btn-primary btn-sm" />
+            @Html.TextBox("tag", null, htmlAttributes: new { id = "tagsearch", style = "border-radius: 4px; height: 28px; margin-right: 8px;" })<input type="submit" value="Sök" class="btn btn-primary btn-sm" />
         </td>
         }
-
+        
         @{
             if (Model.Category == "Anslag Forskning")
             {

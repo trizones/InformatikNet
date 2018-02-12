@@ -15,21 +15,29 @@
         <dd>
             [
             @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Byt Lösenord", "ChangePassword")
-            }
-            else
-            {
-            @Html.ActionLink("Create", "SetPassword")
-            }
+        {
+            @Html.ActionLink("Byt Lösenord", "ChangePassword")
+    }
+    else
+    {
+        @Html.ActionLink("Create", "SetPassword")
+}
             ]
         </dd>
+        @if (User.IsInRole("Administratör"))
+    {
+        <dt>Taggar:</dt>
+        <dd>
+            [ @Html.ActionLink("Redigera Taggar", "ManageTaggs") ]
+        </dd>
+}
+        <div>
+            <br />
             @if (User.IsInRole("Administratör"))
-            {
-            <dt>Taggar:</dt>
-                <dd>
-                    [ @Html.ActionLink("Redigera Taggar", "ManageTaggs") ]
-                </dd>
-            }
+        {
+            @Html.ActionLink("Skicka ut dagligt mailutskick", "DailyMail", "Home", null, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
+
+    }
+        </div>
     </dl>
 </div>
