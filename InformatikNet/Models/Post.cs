@@ -42,7 +42,7 @@ namespace InformatikNet.Models
         [Required]
         public virtual IEnumerable<SelectListItem> Tag { get; set; }
         public Category Category;
-        [Display(Name = "Lägg upp bild")]
+        [Display(Name = "Lägg till bild")]
         public byte[] Photo { get; set; }
         [Required]
         [DataType(DataType.Upload)]
@@ -50,6 +50,7 @@ namespace InformatikNet.Models
         public HttpPostedFileBase files { get; set; }
         [Display(Name = "Uploaded File")]
         public String FileName { get; set; }
+        [Display(Name = "Lägg till en fil")]
         public byte[] FileContent { get; set; }
         public DateTime PublishDate { get; set; }
         public string Coords { get; set; }

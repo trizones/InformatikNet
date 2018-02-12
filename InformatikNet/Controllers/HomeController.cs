@@ -122,7 +122,7 @@ namespace InformatikNet.Controllers
 
             Contact(mail);
 
-            return RedirectToAction("Register", "Account");
+            return RedirectToAction("Index", "Meeting");
         }
     }
 }
