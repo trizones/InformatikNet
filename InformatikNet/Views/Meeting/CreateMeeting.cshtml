@@ -54,14 +54,14 @@
 
 <div class="listboxOFhvn">
     <div>
-        @Html.ListBoxFor(model => model.Users, new MultiSelectList(Model.Users, "Id", "Email"), new { size = "10", width = "1000px", @class = "listboxMeeting", id = "Users" })
+        @Html.ListBoxFor(model => model.Users, new MultiSelectList(Model.Users, "Id", "Name"), new { size = "10", width = "1000px", @class = "listboxMeeting", id = "Users" })
     </div>
     <div>
         <input class="buttonUpDown btn-primary" id="btnAdd" type="button" value=" Lägg till deltagare ↓ " onclick="addItem()" style="width:auto; margin-left:auto" />
         <input class="buttonUpDown btn-primary btn-group-sm" id="btnRemove" type="button" value=" Ta bort deltagare ↑ " onclick="removeItem()" style="width:auto; margin-left:auto"/>
     </div>
     <div>
-        @Html.ListBoxFor(m => m.ReciverIds, new MultiSelectList(Model.Recievers, "Id", "Email", Model.ReciverIds), new { size = "10", @class = "listboxMeeting", id = "Recievers" })
+        @Html.ListBoxFor(m => m.ReciverIds, new MultiSelectList(Model.Recievers, "Id", "Name", Model.ReciverIds), new { size = "10", @class = "listboxMeeting", id = "Recievers" })
     </div>
 </div>
 
