@@ -179,7 +179,7 @@ namespace InformatikNet.Models
             var Informatik = new Category { Id = 1, CategoryName = "Informatik", Tags = null };
             context.Category.Add(Informatik);
 
-            var övrigt = new Category { Id = 3, CategoryName = "Övrigt", Tags = null };
+            var övrigt = new Category { Id = 3, CategoryName = "Others", Tags = null };
             context.Category.Add(övrigt);
 
             var anslagForskning = new Category { Id = 4, CategoryName = "Anslag Forskning", Tags = null };
@@ -198,8 +198,15 @@ namespace InformatikNet.Models
             var nyttMöte3 = new ConfirmedMeeting { Title = "Scrumbeer", Creator = null, ConfirmedDate = Convert.ToDateTime("2018-02-17 19:00"), ConfirmedMeetingId = 1, UserNames = "Martin Sarling, Elliot Högberg" };
             context.ConfirmedMeeting.Add(nyttMöte3);
 
-            
-
+            var Post = new Post
+            {
+                Title = "Dokument från mötet 2018-02-16",
+                Content = "Dokumenten",
+                PublishDate = Convert.ToDateTime("2018-02-16 13:00"),
+                Categories = Informatik,
+                Tag = tag
+            };
+             
             var tag = new Tag
             {
                 Name = "Planering",
