@@ -131,7 +131,7 @@ namespace InformatikNet.Models
             context.Category.Add(övrigt);
 
             DateTime nu = DateTime.Today;
-            var nyttMöte = new ConfirmedMeeting { Title = "Fest", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1 };
+            var nyttMöte = new ConfirmedMeeting { Title = "Fest", Creator = null, ConfirmedDate = nu, ConfirmedMeetingId = 1, UserNames = "Esmeralda Exempelsson" };
             context.ConfirmedMeeting.Add(nyttMöte);
             var anslagForskning = new Category { Id = 4, CategoryName = "Anslag Forskning", Tags = null };
             context.Category.Add(anslagForskning);
