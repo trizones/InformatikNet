@@ -59,11 +59,7 @@
 @Html.DropDownListFor(model => model.SelectedCreatedMeetingId, listItems2, "-- Dina skapade möten --", htmlAttributes: new { id = "YourCreatedMeetings", @style = "margin-left:10px;margin-top:-5px;" })
 <div>
     <br />
-@if (User.IsInRole("Administratör"))
-{
-    @Html.ActionLink("Skicka ut dagligt mailutskick", "DailyMail", "Home", null, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
 
-}
 </div>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" />
