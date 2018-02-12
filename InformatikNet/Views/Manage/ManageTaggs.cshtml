@@ -1,14 +1,10 @@
 ﻿@model InformatikNet.Models.ManageTaggsViewModel
-@{
-    ViewBag.Title = "Change Password";
-}
 
-<h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("ManageTaggs", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Redigera Taggar</h4>
+    <h2>Redigera Taggar</h2>
     <br />
     <p>VARNING! alla poster under taggen kommer också att bli borttagna.</p>
     <br />

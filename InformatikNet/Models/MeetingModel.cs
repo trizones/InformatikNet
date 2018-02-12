@@ -7,11 +7,17 @@ using System.Web.Mvc;
 
 namespace InformatikNet.Models
 {
-    public class CreateMeetingModel
+
+    public class CreateMeetingModel 
     {
+
+
         public virtual ICollection<ApplicationUser> Users { get; set; }
+        [Required(ErrorMessage = "Du måste välja minst en deltagare.")]
         public virtual List<ApplicationUser> Recievers { get; set; }
+        [Required(ErrorMessage = "Du måste välja minst en deltagare.")]
         public List<string> ReciverIds { get; set; }
+        [Required(ErrorMessage = "Du måste ange en titel.")]
         public string Title { get; set; }
         public DateTime SuggestedDate1 { get; set; }
         public DateTime SuggestedDate2 { get; set; }
