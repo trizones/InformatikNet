@@ -48,7 +48,8 @@
         </div>
     </div>
 }
-@Html.ActionLink("Daglig Mail", "DailyMail", "Home", null, new { })
+
+@Html.ActionLink("Dagligt mailutskick", "DailyMail", "Home", null, htmlAttributes: new { @class = "btn btn-primary btn-large" })
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
