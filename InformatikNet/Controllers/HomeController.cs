@@ -98,7 +98,7 @@ namespace InformatikNet.Controllers
                 body += "<br /> Dagens poster: <br />";
                 foreach (var post in Poster)
                 {
-                    body += post.Title + "<br />";
+                    body += post.Title + " | Skriven av "+ post.Author.Name + "<br />";
                 }
             }
 
@@ -107,7 +107,7 @@ namespace InformatikNet.Controllers
                 body += "<br /> Dagens möten: <br />";
                 foreach (var meeting in Meetings)
                 {
-                    body += meeting.Title + "<br />";
+                    body += meeting.Title + " | " + meeting.ConfirmedDate +"<br />";
                 }
             }
 
